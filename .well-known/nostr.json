@@ -1,0 +1,10 @@
+{
+  "names": {
+    "shinohai": "4bc7982c4ee4078b2ada5340ae673f18d3b6a664b1f97e8d6799e6074cb5c39d",
+    "n0tty": "9bd6b262452b042c4c0559f746508403da2e39a66d961dece2d18a3bd64aa915"
+  },
+  "relays": {
+    "4bc7982c4ee4078b2ada5340ae673f18d3b6a664b1f97e8d6799e6074cb5c39d": [ "wss://relay.nostr.band", "wss://relay.primal.net", "wss://nos.lol", "wss://nostr.data.haus"],
+    "9bd6b262452b042c4c0559f746508403da2e39a66d961dece2d18a3bd64aa915": [ "wss://relay.primal.net", "wss://nos.lol", "wss://nostr.data.haus" ] 
+  }
+}
