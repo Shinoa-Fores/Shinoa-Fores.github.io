@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Yet another musl trb build instructional</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="yet-another-musl-trb-build-instructional.html">
+Yet another musl trb build instructional
+</a></h3>
+<!-- blog_timestamp: #202004301930.35# -->
+<div class="subtitle">April 30, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>A recent post by DC University alumni<sup><a href="#fn1" id="ref1">1</a></sup>jfw proposed <a href="http://fixpoint.welshcomputing.com/2020/build-system-overhaul-for-bitcoind/">significant changes to the trb build system</a> amongst them one that does away with the  `makefile.unix` file in trb source directory. This build takes a different tack and changes next to nothing of the original structure, while still getting a statically linked bitcoind.</p>
+
+
+<p>I started by adding a profile for <a href="http://btc.info.gf/blog/wip-a-static-gnat-with-musl-nosuchlabs-edition.html">my toolchain</a> at `/etc/env.d/gcc/` and named it "x86_64-pc-linux-gnu-musl-4.9.4". Now one can switch to it any time you please using gcc-config.</p>
+
+<p><blockquote><pre>
+# gcc-config -l
+ [1] x86_64-pc-linux-gnu-7.3.0
+ [2] x86_64-pc-linux-gnu-9.2.0
+ [3] x86_64-pc-linux-gnu-musl-4.9.4 *
+&lt;~snip~&gt;
+</pre></blockquote></p>
+
+<p>I choose profile 3, ensuring we use the correct toolchain.</p>
+
+<p><blockquote><pre>
+# gcc -v
+gcc version 4.9.4 20160426 (for GNAT GPL 2016 20160515) (GCC)
+</pre></blockquote></p>
+
+<p>Press trb in the same way as described on existing foundation "how-to" page, then proceed to the build directory:</p>
+
+<p><blockquote><pre>
+v press mod6_whogaveblox trb054`
+`cd trb054/bitcoin/build`
+</pre></blockquote></p>
+
+<p>Build the 3 main trb dependencies (listed as #Turds! in rotor ), much as Jacob described in his article, and installed them to the `./ourlibs` directory. I also host my own mirror the dependency artifacts on deebot <a href="http://btc.info.gf/devel/bitcoin/trb/deps/">here</a> so I grabbed the necessary items:</p>
+
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/deps/boost_1_52_0.tar.bz2.asc">boost_1_52_0.tar.bz2</a>
+</p>
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/deps/openssl-1.0.1g.tar.gz.asc">openssl-1.0.1g.tar.gz</a>
+</p>
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/deps/db-4.8.30.tar.gz.asc">db-4.8.30.tar.gz</a>
+</p>
+
+<p>In this directory I also put a modified version of the "rotor_bitcoin_only" script called `build.sh` that absolutely, positively *does not remove* makefile.unix. It contains:</p>
+
+<p><blockquote><pre>
+#!/bin/sh
+
+######################################
+#Turds!
+OPENSSL=openssl-1.0.1g
+BDB=db-4.8.30
+BOOST=boost_1_52_0
+######################################
+TOOLCHAIN="/usr/local/x86_64-linux-musl/"
+DIST=$(readlink -f ./distfiles)
+OURLIBS=$(readlink -f ./ourlibs)
+
+#TOOLCHAIN
+export CC=$(readlink -f $TOOLCHAIN/bin/x86_64-linux-musl-gcc)
+export CXX=$(readlink -f $TOOLCHAIN/bin/x86_64-linux-musl-g++)
+export LD=$(readlink -f $TOOLCHAIN/bin/x86_64-linux-musl-ld)
+
+export CFLAGS=-I$(readlink -f $TOOLCHAIN/usr/include)
+export LDFLAGS=-L$(readlink -f .$TOOLCHAIN/usr/lib)
+export PATH=$PATH:$(readlink -f $TOOLCHAIN/usr/bin)
+
+#LIBS
+export OPENSSL_INCLUDE_PATH=$OURLIBS/include
+export OPENSSL_LIB_PATH=$OURLIBS/lib
+
+export BDB_INCLUDE_PATH=$OURLIBS/include
+export BDB_LIB_PATH=$OURLIBS/lib
+
+export BOOST_INCLUDE_PATH=$OURLIBS/include
+export BOOST_LIB_PATH=$OURLIBS/lib
+
+cd ../src;
+make STATIC=all -f makefile.unix bitcoind
+strip bitcoind
+mv bitcoind ../bin
+</pre></blockquote></p>
+
+<p>Now run `./build.sh The output for me is a 5M statically linked trb. It took about ten minutes for me to build.</p>
+
+<p><blockquote><pre>
+bitcoin/bin # file bitcoind
+bitcoind: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
+
+bitcoin/bin # echo "Size: $(du -h bitcoind)-$(ldd bitcoind)"
+Size: 5.0M	bitcoind-	not a dynamic executable
+</pre></blockquote></p>
+
+<p>I am pleased with the results as they are on this one. Aside from the benefit of losing the tedious buildroot process, I'm choosing not to change much right now here and <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-02-06#1006123">leave trb the fuck alone</a>.<sup><a href="#fn2" id="ref2">2</a></sup></p>
+
+
+<hr></hr>
+
+<p><sup id="fn1">1. Or inmate of the штрафбат, depending on whether you choose to interpret the initials "DC" as "Department of Corrections" or not.<a href="#ref1" title="Jump back to footnote 1 in the text.">↩</a></sup></p>
+
+<p><sup id="fn2">2. Though experiments with jfw's <a href="http://btc.info.gf/blog/experimental-vpatches-for-trb.html">other trb patches</a> have been useful.<a href="#ref2" title="Jump back to footnote 2 in the text.">↩</a></sup></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Gentoo.html'>Gentoo</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

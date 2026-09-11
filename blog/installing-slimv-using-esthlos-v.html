@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Installing slimv using esthlos-v</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="installing-slimv-using-esthlos-v.html">
+Installing slimv using esthlos-v
+</a></h3>
+<!-- blog_timestamp: #202112300723.06# -->
+<div class="subtitle">December 30, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Slimv stands for Superior Lisp Interaction Mode for Vim. It is a Vim plugin of 2009 vintage written by Tamas Kovacs, preserved in the form of a vpatch. This is for folx who already have vim,tmux, and sbcl installed and want a quick and reliable method for enabling a swank server in vim ala emacs.</p>
+
+<p>Populate your slimv tree, mine is available at <a href="http://btc.info.gf/devel/vim/plugins/slimv/">http://btc.info.gf/devel/vim/plugins/slimv/</a></p>
+
+<p><blockquote><pre>
+# tree slimv/
+slimv/
+├── patches
+│   └── slimv.genesis.vpatch
+├── seals
+│   └── slimv.genesis.vpatch.shinohai.sig
+└── wot
+    └── shinohai.asc
+</pre></blockquote></p>
+
+<p>Using <a href="/devel/lisp/esthlos-v/">esthlos-v</a> press slimv directly to the vim plugins directory:</p>
+
+<p><blockquote><pre>
+`v press slimv.genesis.vpatch ~/.vim/pack/plugins/start/`
+</pre></blockquote></p>
+
+<p>My sbcl binary is in a nonstandard location (because Gentoo) and I couldn't get the swank server to start from within vim. I remedied this with a function that starts swank in a tmux window using rlwrap:</p>
+
+<p><blockquote><pre>
+swank() {
+tmux ls | grep '>_' > /dev/null || (
+  tmux new-session -d -s '>_' -n '[swank]' rlwrap /usr/local/bin/sbcl --load \
+   ~/.vim/pack/plugins/start/slimv/slime/start-swank.lisp
+)
+exec tmux attach -t '>_'
+}
+</pre></blockquote></p>
+
+<p>Now when I open a `.lisp` file, vim presents me with a new buffer containing a REPL connected via swank:</p>
+
+<p><center><img src="media/img/swank.png"></img></center></p>
+
+<p><b>BUT WAIT ! THERE'S MOAR !!!</b></p>
+
+<p>Bundled with slimv is a tool called  <a href="">paredit</a> which will, amongst other things,match parenthesis for you as you code. To learn more about it's features read the documentation by entering `:help paredit`</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

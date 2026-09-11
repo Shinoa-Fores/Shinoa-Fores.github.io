@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>trb build instructions</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="trb-build-instructions.html">
+trb build instructions
+</a></h3>
+<!-- blog_timestamp: #201806041423.52# -->
+<div class="subtitle">June 04, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I decided to make this page to preserve a copy of trb build instructions, lest the <a href="http://btcbase.org/log/2018-04-03#1792252">bumblers</a> over at <a href="http://archive.is/fM9MB">#Bizarro</a> cause the whole foundation to burn. I still 
+have my original signed genesis vpatch <a href="http://btc.info.gf/library/bitcoin/trb/patches/genesis.vpatch.sig">(October 2016)</a> hosted here, but my copy of the build instructions is outdated. The page (as it exists of this date) is quoted 
+below.</p>
+
+<p><quote><pre>
+  <h1>PREFACE</h1>
+  What's contained with in this document is a HOWTO guide on building TRB [OFFLINE or ONLINE],
+  The Bitcoin Reference Implementation maintained by <a href="http://thebitcoin.foundation">The Bitcoin Foundation.</a>
+
+  You will need an x86-64 Linux System.  Gentoo, Ubuntu, and Debian have been
+  tested with this HOWTO document.  Keep in mind that you will need to have your
+  system locale / language set to US-English.  You also will need a minimum of 
+  20Gb of disk space in the file system where you are going to do the build.
+
+  To build TRB, you are going to need some basic requirements on your system
+  environment.  
+
+  You also will need the following packages / binaries / tools on your system:
+  <ul>
+    <li>bc</li>
+    <li>gcc [version 4.x]</li>
+    <li>g++ [version 4.x]</li>
+    <li>gpg [GnuPG version 1.4.x, 1.4.10 preferred]</li>
+    <li>wget</li>
+    <li>curl</li>
+    <li>perl</li>
+    <li>diff</li>
+    <li>patch</li>
+    <li>rsync</li>
+    <li>sha512sum</li>
+    <li>unzip</li>
+    <li>bzip2 tools [including bzcat]</li>
+  </ul>
+  </pre>
+  <hr />
+  <br />
+
+  <h1>Bitcoin Reference Implementation: OFFLINE BUILD</h1>
+  <pre>
+0x01) make a new trb directory: `mkdir trb`
+0x02) `cd trb`
+0x03) Get http://thebitcoin.foundation/v/V-20180222.tar.gz 
+0x04) Get http://thebitcoin.foundation/v/V-20180222.tar.gz.mod6.sig
+0x05) `mkdir .wot`
+0x06) Get the following keys from deedbot [freenode.net], and place them in '.wot':
+
+      [ /msg deedbot !!key asciilifeform ]
+      [ /msg deedbot !!key ben_vulpes ]
+      [ /msg deedbot !!key mircea_popescu ]
+      [ /msg deedbot !!key mod6 ]
+      [ /msg deedbot !!key trinque ]
+
+      Save the PGP public keys and name them as follows:
+
+      asciilifeform.asc
+      ben_vulpes.asc
+      mircea_popescu.asc
+      mod6.asc
+      trinque.asc
+
+      `gpg --import mod6.asc`
+
+      `mv asciilifeform.asc ben_vulpes.asc mircea_popescu.asc mod6.asc trinque.asc .wot`
+
+0x07) `gpg --verify V-20180222.tar.gz.mod6.sig V-20180222.tar.gz`
+0x08) `tar -xf V-20180222.tar.gz`
+
+0x09) `mkdir patches`
+
+      Gather trb vpatches from http://thebitcoin.foundation/v/patches
+      in which ever manner suits you best.
+
+      Place all vpatches into the 'patches' directory.
+
+0x0A) `mkdir .seals`
+
+      Gather trb seals from http://thebitcoin.foundation/v/seals
+      in which ever manner suits you best.
+
+      Place seals into the '.seals' directory.
+
+0x0B) `./v.pl p v trb054 makefiles.vpatch`
+0x0C) `cd trb054/bitcoin`
+
+0x0D) Get http://deedbot.org/deed-430460-2.txt  : name it 'rotor.tar.gz.asc'
+0x0E) Get http://deedbot.org/deed-430460-1.txt  : name it 'rotor-db-configure-fix.patch.asc'
+0x0F) Get http://deedbot.org/deed-422651-1.txt  : name it 'boost_1_52_0.tar.bz2.asc'
+0x10) Get http://deedbot.org/deed-422651-2.txt  : name it 'buildroot-2015.05.tar.gz.asc'
+0x11) Get http://deedbot.org/deed-422651-3.txt  : name it 'db-4.8.30.tar.gz.asc'
+0x12) Get http://deedbot.org/deed-422651-4.txt  : name it 'openssl-1.0.1g.tar.gz.asc'
+0x13) Get http://deedbot.org/deed-427443-1.txt  : name it 'binutils-2.24.tar.bz2.asc'
+0x14) Get http://deedbot.org/deed-427443-2.txt  : name it 'busybox-1.23.2.tar.bz2.asc'
+0x15) Get http://deedbot.org/deed-427443-3.txt  : name it 'expat-2.1.0.tar.gz.asc'
+0x16) Get http://deedbot.org/deed-427443-4.txt  : name it 'fakeroot_1.18.4.orig.tar.bz2.asc'
+0x17) Get http://deedbot.org/deed-427443-5.txt  : name it 'gcc-4.9.2.tar.bz2.asc'
+0x18) Get http://deedbot.org/deed-427443-6.txt  : name it 'gdb-7.8.2.tar.xz.asc'
+0x19) Get http://deedbot.org/deed-427443-7.txt  : name it 'gmp-6.0.0a.tar.xz.asc'
+0x1A) Get http://deedbot.org/deed-427443-8.txt  : name it 'linux-3.18.14.tar.xz.asc'
+0x1B) Get http://deedbot.org/deed-427443-9.txt  : name it 'm4-1.4.17.tar.xz.asc'
+0x1C) Get http://deedbot.org/deed-427443-10.txt : name it 'mpc-1.0.3.tar.gz.asc'
+0x1D) Get http://deedbot.org/deed-427443-11.txt : name it 'mpfr-3.1.2.tar.xz.asc'
+0x1E) Get http://deedbot.org/deed-427443-12.txt : name it 'musl-1.1.8.tar.gz.asc'
+0x1F) Get http://deedbot.org/deed-427443-13.txt : name it 'ncurses-5.9.tar.gz.asc'
+0x20) Get http://deedbot.org/deed-427443-14.txt : name it 'pkgconf-0.8.9.tar.bz2.asc'
+
+0x21) Place the signed deed files (0D-20) into the 'deps' directory:
+
+`
+mv \
+rotor.tar.gz.asc \
+rotor-db-configure-fix.patch.asc \
+boost_1_52_0.tar.bz2.asc \
+buildroot-2015.05.tar.gz.asc \
+db-4.8.30.tar.gz.asc \
+openssl-1.0.1g.tar.gz.asc \
+binutils-2.24.tar.bz2.asc \
+busybox-1.23.2.tar.bz2.asc \
+expat-2.1.0.tar.gz.asc \
+fakeroot_1.18.4.orig.tar.bz2.asc \
+gcc-4.9.2.tar.bz2.asc \
+gdb-7.8.2.tar.xz.asc \
+gmp-6.0.0a.tar.xz.asc \
+linux-3.18.14.tar.xz.asc \
+m4-1.4.17.tar.xz.asc \
+mpc-1.0.3.tar.gz.asc \
+mpfr-3.1.2.tar.xz.asc \
+musl-1.1.8.tar.gz.asc \
+ncurses-5.9.tar.gz.asc \
+pkgconf-0.8.9.tar.bz2.asc \
+deps
+`
+
+0x22) `make`
+0x23) Upon successful build, `bitcoind' will be placed in 'trb054/bitcoin/bin'
+
+Be sure to visit the <a href="http://thebitcoin.foundation/trusted-nodes.html">Advertised Republican Nodes</a> page to connect to other TRB nodes.
+
+Start up example:
+LC_ALL=C nohup ./bitcoind -myip=&lt;yourip&gt; -addnode=trusted_node_1 -addnode=trusted_node_2 -verifyall 2&gt;&amp;1 &amp;
+  </pre>
+  <hr />
+  <br />
+  <br />
+  <h1>Bitcoin Reference Implementation: ONLINE BUILD</h1>
+  <pre>
+0x01) make a new trb directory: `mkdir trb`
+0x02) `cd trb`
+0x03) `curl -s http://thebitcoin.foundation/v/V-20180222.tar.gz -o V-20180222.tar.gz`
+0x04) `curl -s http://thebitcoin.foundation/v/V-20180222.tar.gz.mod6.sig -o V-20180222.tar.gz.mod6.sig`
+0x05) `mkdir .wot`
+0x06) Get the following keys from deedbot [freenode.net], and place them in '.wot':
+      [ /msg deedbot !!key asciilifeform ]
+      [ /msg deedbot !!key ben_vulpes ]
+      [ /msg deedbot !!key mircea_popescu ]
+      [ /msg deedbot !!key mod6 ]
+      [ /msg deedbot !!key trinque ]
+
+      Save the PGP public keys and name them as follows:
+
+      asciilifeform.asc
+      ben_vulpes.asc
+      mircea_popescu.asc
+      mod6.asc
+      trinque.asc
+
+      `gpg --import mod6.asc`
+
+      `mv asciilifeform.asc ben_vulpes.asc mircea_popescu.asc mod6.asc trinque.asc .wot`
+
+0x07) `gpg --verify V-20180222.tar.gz.mod6.sig V-20180222.tar.gz`
+0x08) `tar -xf V-20180222.tar.gz`
+0x09) `./v.pl i http://thebitcoin.foundation`
+0x0A) `./v.pl p v trb054 makefiles.vpatch`
+0x0B) `cd trb054/bitcoin`
+0x0C) `make ONLINE=1`
+0x0D) Upon successful build, `bitcoind' will be placed in 'trb054/bitcoin/bin'
+
+Be sure to visit the <a href="http://thebitcoin.foundation/trusted-nodes.html">Advertised Republican Nodes</a> page to connect to other TRB nodes.
+
+Start up example:
+LC_ALL=C nohup ./bitcoind -myip=&lt;yourip&gt; -addnode=trusted_node_1 -addnode=trusted_node_2 -verifyall 2&gt;&amp;1 &amp;
+  </pre>
+</quote>
+</p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Cryptocurrency.html'>Cryptocurrency</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

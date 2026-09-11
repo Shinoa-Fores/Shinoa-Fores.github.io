@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Lab notes: Pest and Alcuin part one</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="lab-notes-pest-and-alcuin-part-one.html">
+Lab notes: Pest and Alcuin part one
+</a></h3>
+<!-- blog_timestamp: #202110192042.27# -->
+<div class="subtitle">October 19, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Pest is, as <a href="http://www.loper-os.org/pub/pest/pest_draft.html">defined in the draft spec:</a></p>
+
+<p><blockquote>
+a peer-to-peer network protocol intended for IRC-style chat. It is designed for decentralization of control, resistance to natural and artificial interference, and fits-in-head mechanical simplicity -- in that order.
+</blockquote></p>
+
+<p>The <a href="http://btc.info.gf/blog/trilema-announces-closure.html">fall of TMSR</a> and the subsequent <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-08-03#1050267">fleanode collapse</a> has evidently provided the catalyst to get the ball rolling on a replacement communications system that doesn't leave the user at the mercy of SJW's or fiat government stooges and other central points of failure. Discussion on the pest spec has been under way in <a href="http://logs.nosuchlabs.com/log/">dulapnet irc</a> ever since <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">asciilifeform</a> first published the draft spec in September of this year, and yours truly has just now had time to carve out a bit of time to review the spec, chatlogs, and <a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">thimbronion</a>'s implementation of the pest spec in Python, known as <a href="http://thimbron.com/2021/10/alcuin-9994/">Alcuin</a>.</p>
+
+<p><a href="">Weechat</a> is my preferred irc client, and a few days ago in the logs thimbronion reported that <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-16#1061456">weechat and some other clients</a> would not send custom commands to the server. After looking into this a bit, I discovered weechat <i>will</i> send nonstandard commands to a connected server when <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-18#1061534">prefixed with the `/quote` command</a>. Even further digging into client behavior revealed that this behavior can be modified by simply changing a setting weechat has <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-19#1061551">turned off by default</a>:</p>
+
+<p><blockquote>
+/set irc.network.send_unknown_commands on
+</blockquote></p>
+
+<p>After setting the above the Alcuin server seemed to process commands exactly as it should, though much work remains to implement the entire spec (as stated in the author's README file). After setting up Python 2.7 on a remote machine and <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-18#1061523">obtaining the script to generate keys from thimbronion</a>, I was able to set up two pest stations and interact between them.</p>
+
+<p>To help make it easier to test and experiment with Alcuin, I have produced a temporary <a href="http://btc.info.gf/devel/irc/alcuin/">genesis vpatch and sig</a> based on thimbronion's <a href="http://share.alethepedia.com/alcuin/alcuin-9994.tar.gz">version 9994 tarball</a> and containing the missing key generation script mentioned previously. I will make every effort to keep this updated as the project progresses.</p>
+
+<p><i>To be continued .....</i></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

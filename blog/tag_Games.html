@@ -1,0 +1,840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "Games"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="building-the-eulora-client-with-gentoo.html">
+Building the Eulora client with Gentoo
+</a></h3>
+<!-- blog_timestamp: #201901110106.27# -->
+<div class="subtitle">January 11, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Having gotten trinque's excellent <a href="http://btc.info.gf/blog/cuntoo-a-linux-that-sucks-less.html">Cuntoo bootstrap</a> working on a few different machines, I decided I'd try building a Eulora client with it. This post 
+is to document the steps I followed to get to a working state, as the <a href="http://www.eulorum.org/Gentoo">instructions on the minigame website</a> are outdated and <a 
+href="http://logs.minigame.biz/2019-01-10.log.html#t12:49:02">contain dead links</a>.</p>
+
+<p>In this guide, I am using gcc 4.9.4 - I'm pretty sure this is a hard requirement. Crystalspace for whatever reason requires you have the nvidia-cg-toolkit installed even if you use an ATI card, so go ahead and get that via 
+portage:</p> 
+<p><blockquote><pre>
+emerge -av nvidia-cg-toolkit
+</pre></blockquote></p>
+
+<p>I have a ~/devel directory already from building trb, so I'll start there and make a eulora directory beside it:</p>
+
+<p><blockquote><pre>
+mkdir -p eulora/ && cd $_
+</pre></blockquote></p>
+
+<p>Grab cal3d, crystalspace, and the Eulora client files from the minigame site:</p>
+<p><blockquote><pre>
+wget http://minigame.biz/eulora/source/cal3d.tar.gz
+wget http://minigame.biz/eulora/source/cs_July24.tar.gz
+curl http://minigame.biz/eulora/source/eulora-v0.1.2b.tar.gz > eulora-v0.1.2b.tar.gz
+</pre></blockquote></p>
+
+<p>Untar that shit.</p>
+<p><blockquote><pre>
+tar -zxvf cal3d.tar.gz
+tar -zxvf cs_July24.tar.gz
+tar -zxvf eulora-v0.1.2b.tar.gz
+</pre></blockquote></p>
+
+<p>Navigate to cal3d/ and run the following commands to build:</p>
+<p><blockquote><pre>
+autoreconf --install --force
+./configure --prefix=$HOME/devel/eulora/cal3d
+make
+make install
+</pre></blockquote></p>
+
+<p>Tell other programs where to find the cal3d things we just built:</p>
+<p><blockquote><pre>
+export LD_LIBRARY_PATH=$HOME/devel/eulora/cal3d/src/cal3d/.libs/:$LD_LIBRARY_PATH
+</pre></pre></blockquote></p>
+
+<p>Go back to ~/devel/eulora/ and enter the cs-forupload folder:</p>
+<p><blockquote><pre>
+cd ../cs-forupload/
+</pre></blockquote></p>
+
+<p>To build crystalspace I had to adjust the configure step to avoid anything bullet related, or the jam build step will barf. Use the following commands:</p>
+<p><blockquote><pre>
+./configure \
+--without-java \
+--without-perl \
+--without-python \
+--without-3ds \
+--without-bullet \
+--with-cal3d=/$HOME/devel/eulora/cal3d
+
+jam -aq libs plugins cs-config walktest
+</pre></blockquote></p>
+
+<p>Export the crystalspace environment variable:</p>
+<p><blockquote><pre>
+export CRYSTAL=$HOME/devel/eulora/cs-forupload
+</pre></blockquote></p>
+
+<p>Finally, go back to ~/devel/eulora/ and enter the EuloraV0.1.2 folder ... <p>
+<p><blockquote><pre>
+cd ../EuloraV0.1.2/
+</pre></blockquote></p>
+
+<p>...and build the client:</p>
+<p><blockquote><pre>
+./autogen.sh
+./configure \
+--with-cal3d=$HOME/devel/eulora/cal3d \
+--with-cs-prefix=$CRYSTAL \
+--without-mysqlclient \
+--without-sqlite3 \
+--without-pq \
+--without-hunspell
+
+jam -aq client
+</pre></blockquote></p>
+
+<p>Eulora servers <a href="http://logs.minigame.biz/2018-04-22.log.html#t10:03:24">got a new home in 2018</a>, so we must edit the server ip in data/servers.xml:</p>
+<p><blockquote><pre>
+sed -i 's/50.115.127.84/161.0.121.201/' data/servers.xml
+</pre></blockquote></p>
+
+<p>Now, to avoid having to manually enter the environment variables each time we want to play, we will create a shell script containing those and make it executable:</p>
+<p><blockquote><pre>
+cat &gt;eu.sh&lt;&lt;EOF
+export LD_LIBRARY_PATH="$HOME/devel/eulora/cal3d/src/cal3d/ \
+.libs:$HOME/devel/eulora/cs-forupload/:"$LD_LIBRARY_PATH
+export CRYSTAL=$HOME/devel/eulora/cs-forupload
+./euclient
+EOF
+
+chmod + eu.sh
+
+./eu.sh
+</pre></blockquote></p>
+
+<p>It was night in Eulora when I finished, so I only took a single screenshot of client startup. More to come as I test further.</p>
+
+<p><center><img src="media/img/euloraclient.jpg"></img></center></p>
+
+<p><i>May your journey be prosperous ....</i></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Games.html'>Games</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="handheld-game-roms.html">
+Handheld game roms
+</a></h3>
+<!-- blog_timestamp: #201812251916.56# -->
+<div class="subtitle">December 25, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>While searching for the <a href="http://btc.info.gf/blog/basic-computer-games.html">Basic games collection</a> the other day, I stumbled upon a forgotten archive containing roms for a bunch of old handheld electronic games from the 70's and 80's. If you had 
+any of the games on the list below, 
+your childhood was likely pretty awesum. I have used MESS to run these, but feel free to try on other platforms (as I did not include any MESS-specific xml files with this archive).</p>
+
+<p><center><img src="img/tomypacman.jpg"></img></center></p>
+
+<p><b>List of games contained in archive:</b></p>
+<center><table bgcolor=CCCCCC cellspacing=0 cellpadding=5 border=1>
+<tr><td width=100><pre>
+ROM NAME:         GAME:
+---------------------------------------------------------------
+advision          "Adventure Vision"
+alnattck          "Alien Attack"
+alnchase          "Alien Chase"
+amaztron          "Amaze-A-Tron"
+astro             "Astro"
+astrocmd          "Astro Command"
+bambball          "Dribble Away Basketball"
+bankshot          "Bank Shot - Electronic Pool"
+bcclimbr          "Crazy Climber (Bandai)"
+bdoramon          "Dokodemo Dorayaki Doraemon"
+bfriskyt          "Frisky Tom (Bandai)"
+bmboxing          "Knock-Em Out Boxing"
+bmsafari          "Safari (Bambino)"
+bmsoccer          "Kick The Goal Soccer"
+cdkong            "Donkey Kong (Coleco)"
+cgalaxn           "Galaxian (Coleco)"
+cmspacmn          "Ms. Pac-Man (Coleco)"
+comp4             "Comp IV"
+cpacman           "Pac-Man (Coleco, Rev. 29)"
+cpacmanr1         "Pac-Man (Coleco, Rev. 28)"
+ebball            "Electronic Baseball (Entex)"
+ebball2           "Electronic Baseball 2 (Entex)"
+ebball3           "Electronic Baseball 3 (Entex)"
+edracula          "Dracula (Epoch)"
+efball            "Electronic Football (Epoch)"
+egalaxn2          "Galaxian 2 (Entex)"
+einvader          "Space Invader (Entex, TMS1100)"
+epacman2          "Pac Man 2 (Entex)"
+galaxy2           "Galaxy II"
+gckong            "Crazy Kong (Gakken)"
+gdigdug           "Dig Dug (Gakken)"
+ghalien           "Heiankyo Alien (Gakken)"
+gjackpot          "Jackpot: Gin Rummy & Black Jack"
+gpoker            "Poker (Gakken, 1979 version)"
+h2hbaseb          "Head to Head Baseball"
+h2hfootb          "Head to Head Football"
+invspace          "Invader From Space"
+kingman           "Kingman"
+machiman          "Machine Man"
+maniac            "Maniac"
+mathmagi          "Mathemagician"
+merlin            "Merlin - The Electronic Wizard"
+microvsn          "MicroVision"
+mmerlin           "Master Merlin"
+msthawk           "Star Hawk (Mattel)"
+mvbfree           "Mini-Vid Break Free"
+mwcbaseb          "World Championship Baseball"
+packmon           "Packri Monster"
+pbqbert           "Q*Bert (Parker Brothers)"
+raisedvl          "Raise The Devil"
+simon             "Simon (Rev. A)"
+splasfgt          "Space Laser Fight"
+splitsec          "Split Second"
+ssfball           "Superstar Football"
+ssimon            "Super Simon"
+starwbc           "Star Wars - Electronic Battle Command"
+starwbcp          "Star Wars - Electronic Battle Command (prototype)"
+tandy12           "Tandy-12: Computerized Arcade"
+tc4               "Total Control 4"
+tcaveman          "Caveman (Tomy)"
+tccombat          "Cosmic Combat"
+tmpacman          "Pac Man (Tomy)"
+tmscramb          "Scramble (Tomy)"
+tmtennis          "Tennis (Tomy)"
+tmtron            "Tron (Tomy)"
+ufombs            "UFO Master-Blaster Station"
+vinvader          "Invaders (VTech)"
+wildfire          "Wildfire (prototype)"
+zackman           "Zackman"</font></pre></td></tr></table></center></body></p>
+
+<p>The archive can be downloaded from the \warez\ section of the library <a href="http://btc.info.gf/library/warez/hwroms.tar.gz">here</a>.</p>
+
+<p>Merry Christmas everyone!</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Games.html'>Games</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="basic-computer-games.html">
+Basic Computer Games
+</a></h3>
+<!-- blog_timestamp: #201812231515.38# -->
+<div class="subtitle">December 23, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Old computer nostalgia often hits some of us hard on Telegram, and hours will be spent in conversation or reliving the glory days of TRS-80 and Commodore64 machines. In one such conversation, I mentioned I had a tarball somewhere of all the 
+programs in the old 1978 book "Basic Computer Games" published by Creative Computing. After a brief search, the package was located and I decided to uploaded it to the /warez/ section of the library for others to enjoy - whether you are painfully 
+typing these in line by line in original hardware or loading them with an emulator, I hope the collection brings back lots of pleasant memories for those of us that still enjoy tinkering with these things. Most of these I can verify still indeed 
+work well on original hardware: I loaded many of these into my old TRS80 using a HxC2001 SD floppy emulator (because I'm lazy and didn't want to hand type them all) and ran with 0 syntax errors.</p>
+
+<p><b>Table of games included in the archive:</b></p>
+<p><center><table bgcolor=CCCCCC cellspacing=0 cellpadding=5 border=1>
+<tr><td width=100><pre> 
+Game Name:         Filename:            Description:
+---------------------------------------------------------------------------------------------------------------
+
+Acey Ducey 	   aceyducey.bas        Play acey-ducey with the computer
+Amazing 	   amazing.bas 	        Computer constructs a maze
+Animal 	           animal.bas 	        Computer guesses animals and learns new ones from you
+Awari 	           awari.bas 	        Ancient game of rotating beans in pits
+Bagels 		   bagels.bas 	        Guess a mystery 3-digit number by logic
+Banner 		   banner.bas 	        Prints any message on a large banner
+Basketball 	   basketball.bas       Basketball game
+Batnum 		   batnum.bas 	        Match wits in a battle of numbers vs. the computer
+Battle 		   battle.bas 	        Decode a matrix to locate enemy battleship
+Blackjack 	   blackjack.bas        Blackjack (very comprehensive), Las Vegas rules
+Bombardment 	   bombardment.bas      Destroy the computer's platoons with missles before it finds yours
+Bombs Away 	   bombsaway.bas        Fly World War II bombing missions
+Bounce 		   bounce.bas 	        Plot a bouncing ball
+Bowling 	   bowling.bas 	        Bowling at the neighborhood lanes
+Boxing 		   boxing.bas 	        3-round Olympic boxing match
+Bug 		   bug.bas 	        Roll dice vs. the computer to draw a bug
+Bullfight 	   bullfight.bas        You're the matador in a championship bullfight
+Bullseye 	   bullseye.bas         Throw darts
+Bunny 		   bunny.bas 	        Computer drawing of the Playboy bunny
+Buzzword 	   buzzword.bas         Compose your speeches with the latest buzzwords
+Calendar 	   calendar.bas         Calendar for any year
+Change 		   change.bas 	        Computer imitates a cashier
+Checkers 	   checkers.bas         Game of checkers
+Chemist 	   chemist.bas 	        Dilute kryptocyanic acid to make it harmless
+Chief 		   chief.bas 	        Silly arithmetic drill
+Chomp 		   chomp.bas 	        Eat a cookie avoiding the poison piece (2 or more players)
+Civil War 	   civilwar.bas         Fight the Civil War
+Combat 		   combat.bas 	        Fight a small-scale war with the computer
+Craps 		   craps.bas 	        Play craps (dice), Las Vegas style
+Cube 		   cube.bas 	        Negotiate a 3-D cube avoiding hidden landmines
+Depth Charge 	   depthcharge.bas      Launch depth charges to destroy a submarine
+Diamond 	   diamond.bas 	        Prints 1-page diamond patterns
+Dice 		   dice.bas 	        Summarizes dice rolls
+Digits 		   digits.bas 	        Computer tries to guess digits you select at random
+Even Wins 	   evenwins.bas         Take objects from a pile?try to end with an even number
+Game of Even Wins  gameofevenwins.bas   Same as Even Wins?computer improves its play
+Flip Flop 	   flipflop.bas         Solitaire logic game?change a row of Xs to Os
+Ftball 		   ftball.bas 	        American football?you vs. the computer
+Football 	   football.bas         American football for two players
+Fur Trader 	   furtrader.bas        Trade furs with the white man
+Golf 		   golf.bas 	        Golf game?choose your clubs and swing
+Gomoko 		   gomoko.bas 	        Ancient board game of logic and strategy
+Guess 		   guess.bas 	        Guess a mystery number?computer gives you clues
+Gunner 		   gunner.bas 	        Fire a cannon at a stationary target
+Hammurabi 	   hammurabi.bas        Govern the ancient city-state of Sumeria
+Hangman 	   hangman.bas 	        Hangman word guessing game
+Hello 		   hello.bas 	        Computer becomes your friendly psychiatrist
+Hexapawn 	   hexapawn.bas         Hexapawn game
+Hi-Lo 		   hi-lo.bas 	        Try to hit the mystery jackpot
+High I-Q 	   highiq.bas 	        Try to remove all the pegs from a board
+Hockey 		   hockey.bas 	        Ice hockey, two players
+Horserace 	   horserace.bas        Off-track betting on a horse race
+Hurkle 		   hurkle.bas 	        Find the Hurkle hiding on a 10x10 grid
+Kinema 		   kinema.bas 	        Drill in simple kinematics
+King 		   king.bas 	        Govern a modern island kingdom wisely
+Letter 		   letter.bas 	        Guess a mystery letter?computer gives you clues
+Life 		   life.bas 	        John Conway's Game of Life
+Life For Two 	   lifefortwo.bas       Competitive game of Life (two or more players)
+Lite Quiz 	   litquiz.bas 	        Children's literature quiz
+Love 		   love.bas 	        Robert Indiana's artwork, your message
+Lunar 		   lunar.bas 	        Land an Apollo capsule on the moon
+LEM 		   lem.bas 	        Very comprehensive lunar landing
+Rocket 		   rocket.bas 	        Lunar landing from 500 feet (with plot)
+Master Mind 	   mastermind.bas       Guess the colors of pegs?then the computer guesses yours
+Math Dice 	   mathdice.bas         Children's arithmetic drill using pictures of dice
+Mugwump 	   mugwump.bas 	        Locate 4 mugwumps hiding on a 10x10 grid
+Name 		   name.bas 	        An ice-breaker with the computer
+Nicomachus 	   nicomachus.bas       Computer guesses number you think of
+Nim 		   nim.bas 	        Chinese game of Nim
+Number 		   number.bas 	        Silly number matching game
+One Check 	   onecheck.bas         Challenging game to remove checkers from a board
+Orbit 		   orbit.bas 	        Destroy an orbiting germ-laden enemy spaceship
+Pizza 		   pizza.bas 	        Deliver pizzas successfully
+Poetry 		   poetry.bas 	        Computer composes random poetry
+Poker 		   poker.bas 	        Poker game
+Queen 		   queen.bas 	        Move a single chess queen vs. the computer
+Reverse 	   reverse.bas 	        Order a series of numbers by reversing
+R,P,S	      	   rockscissors.bas     Game of rock, scissors, paper
+Roulette 	   roulette.bas         European roulette table
+Russian Roulette   russianroulette.bas  Russian roulette
+Salvo 		   salvo.bas 	        Destroy an enemy fleet of ships
+Sine Wave 	   sinewave.bas         Draw a sine wave on screen
+Slalom 	    	   slalom.bas 	        Simulates a slalom run
+Slots 		   slots.bas 	        Slot machine (one-armed bandit)
+Splat 		   splat.bas 	        Open a parachute at the last possible moment
+Stars 		   stars.bas 	        Guess a mystery number?stars give you clues
+Stock Market 	   stockmarket.bas      Stock market simulation
+Super Star Trek    superstartrek.bas    Comprehensive game of Star Trek
+STK: Instructions  superstartrekins.bas Instructions for Super Star Trek
+Synonym 	   synonym.bas 	        Word synonym drill
+Target 		   target.bas 	        Destroy a target in 3-D space?very tricky
+3-D Plot 	   3dplot.bas 	        Plot families of curves?looks 3-dimensional
+3-D Tic-Tac-Toe    qubit.bas 	        Game of tic-tac-toe in a 4x4x4 cube
+Tic-Tac-Toe 1 	   tictactoe1.bas 	Simple version
+Tic-Tac-Toe 2 	   tictactoe2.bas 	This version prints out the board
+Tower 		   tower.bas 	        Towers of Hanoi puzzle
+Train 	  	   train.bas 	        Time-speed-distance quiz
+Trap 		   trap.bas 	        Trap a mystery number?computer gives you clues
+23 Matches 	   23matches.bas 	Game of 23 matches?try not to take the last one
+War 		   war.bas 	        Card game of war
+Weekday 	   weekday.bas 	        Facts about your birthday
+Word 		   word.bas 	        Word guessing game
+</font></pre></td></tr></table></center></p>
+</br>
+<p>The entire archive is available for download here: <a href="http://btc.info.gf/library/warez/bcg.tar.gz">Basic Computer Games (bcg.tar.gz)</a></p>
+
+<p>Tags: <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Vintage_Computing.html'>Vintage_Computing</a>, <a href='tag_Games.html'>Games</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

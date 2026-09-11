@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Enumerating geth nodes for fun and profit</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="enumerating-geth-nodes-for-fun-and-profit.html">
+Enumerating geth nodes for fun and profit
+</a></h3>
+<!-- blog_timestamp: #201806131121.04# -->
+<div class="subtitle">June 13, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+
+<p><b>Step 1:</b>&nbsp;Download <a href="https://github.com/ethereum/go-ethereum/wiki/geth">GETH</a> and build it inside a chroot.</p>
+
+<p><b>Step 2:</b>&nbsp;Fire up geth and wait for the ethereum database to load.</p>
+
+<p><b>Step 3:</b>&nbsp;Enumerate peers running misconfigured clients and rpc consoles by running an insecure instance yourself:</p>
+<code>dibbuk# ./geth --rpc --rpcaddr 0.0.0.0 --rpcapi, db,eth,net,web3 --dev console</code>
+
+<p><b>Step 4:</b>&nbsp;Profit. I quickly found 22 nodes listening for the entire world on port 8545, ~60% of these were located on Chinese and other South Asian mining farms. For bonus lulz you can leverage the power of <a 
+href="http://btc.info.gf/blog/virtual-shrimp-mining-cause-eth-to-ddos-itself.html">virtual shrimp mining</a> to disrupt the network whilst you pilfer the funds from vulnerable wallets.</p>
+
+
+
+<p>At the time of this post, the addresses below are confirmed to have received around $22 million USD in ETH liberated by enterprising crypto pirates, and the figures still climb despite warnings not to do this shit since March:</p>
+
+<p><pre>
+0x09d6fd506b7eb4102182d8e4d9a3d8f3dbfa499b 
+0x1234567461d3f8db7496581774bd869c83d51c93 
+Ox15e4cf195Offa338ce5bc59456b3e579ed1bead3 
+0x397aa69c17a7cc405a3aeeeb223158109b037d5b
+0x3d985fd71a21256c7d2b618ab8a1896f10f64fcd 
+0x4e0603e2a27a30480e5e3a4fe548e29ef12f64be 
+0x519475b31653e46d20cd09f9fdcf3b12bdacb4f5 
+0x6ef57be1168628a2bd6c5788322a41265084408a 
+0x7097f41f1c1847d52407c629d0e0ae0fdd24fd58 
+0x72adadb447784dd7ab1f472467750fc485e4cb2d 
+0x7b09ff6548f03512dfe63a09a2673b9c25476482 
+0x85545528f1d72912558f9ef72296c404afd4b18d 
+0x8e4fbe2673e154fe9399166e03e18f87a5754420 
+0x8f760bc9bd9748fc61c7b60ea8033037f37d44d5 
+0x957cd4ff9b3894fc78b5134a8dc72b032ffbc464 
+0x9b11efcaaa1890f6ee52c6bb7cf8153ac5d74139 
+0x9fe173573b3f3cf4aebce5fd5bef957b9a6686e8 
+0xafecd96855ec6324d7cde57babb775676e560441 
+0xc1e42aa688977d386a6ce15de741e3c34ff0c500 
+Oxd26114cd6ee289accf82350c8d8487fedb8a0c07 
+0xe386e3372e3d316ae063af50c38704ec6fba5149
+</pre></p>
+
+<p><b>Lesson:</b> Trust your finances to garbage written in golang with a javascript console <a href="http://trilema.com/2016/to-the-dao-and-the-ethereum-community-fuck-you/">at your peril</a>.</p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Cryptocurrency.html'>Cryptocurrency</a>, <a href='tag_Insecurity.html'>Insecurity</a>, <a href='tag_Lulz.html'>Lulz</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>A simple bip39 diceware script in common lisp</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="a-simple-bip39-diceware-script-in-common-lisp.html">
+A simple bip39 diceware script in common lisp
+</a></h3>
+<!-- blog_timestamp: #202107071725.00# -->
+<div class="subtitle">July 07, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I'm currently bench testing a <a href="https://foundationdevices.com/">"Foundation devices" passport</a> hardware Bitcoin wallet, because why not? While the device will happily generate bip39 seeds for you I wanted to test load a bunch of seed phrases generated offline without throwing dice all afternoon and figured a simple lisp script would suffice.</p>
+
+<p>I started with <a href="https://archive.is/8es4V">this implementation</a> of diceware. The original author provided no asdf system file or anything, but we don't need that where <i>we're</i> going, so a couple of quick modifications get us where we want to be here. We only need an index of 2048 for our *words* array, so we change that in the script to make it compatible with the standard bip39 wordlist.</p>
+
+<p><pre><blockquote>
+(require 'ironclad)
+(defparameter *words* nil)
+(defparameter *prng* (ironclad:make-prng :fortuna))
+
+(defun load-words (&optional (wd-list #P "bip39-english.txt"))
+  "Load *words* from bip39-english.txt"
+  (with-open-file (s wd-list)
+    (do ((wd (read-line s nil) (read-line s nil))
+         ( i 0 (1+ i)))
+        ((not wd))
+      (setf (aref *words* i) wd))))
+
+(defun choose-one ()
+  "Randomly choose a single word from *words*."
+  (aref *words* (ironclad:strong-random (length *words*) *prng*)))
+
+(defun choose-password (n)
+  "Generate n random words for a pass phrase. Initialize *words* if needed"
+  (unless *words*
+    (setf *words* (make-array 2048))
+    (load-words))
+  (let (words)
+    (dotimes (i n)
+      (push (choose-one) words))
+    (reverse words)))
+</blockquote></pre></p>
+
+<p>Grab the standard bip39 English wordlist from the <a href="https://raw.githubusercontent.com/bitcoin/bips/master/bip-0039/english.txt">"Bitcoin Core" Shithub repo</a>, and save it in the same directory as the script naming it "bip39-english.txt".</p>
+
+<p>Load up the script in your lisp REPL (I used <a href="http://www.sbcl.org/">SBCL</a> here) and run `choose password` + the number of words you are using for your seed. I'm using 23 words in this example since most hardware wallets will calculate the final word for you.</p>
+<p><pre><blockquote>
+/usr/local/bin/sbcli --load diceware.lisp 
+REPL for SBCL version 0.1.0
+Press CTRL-D or type :q to exit
+
+[sbcl]> * (choose-password 23)
+("there" "image" "federal" "steak" "renew" "helmet" "attack" "medal" "seat"
+ "game" "return" "way" "shock" "hero" "wolf" "amount" "token" "pluck" "gentle"
+ "evoke" "burst" "siege" "ripple")
+
+</blockquote></pre></p>
+
+<p>The device happily accepted the phrases generated via manual entry, calculated the 24th "checksum" word perfectly, and freed up time for me to continue trying builds of the device firmware. More to come.</p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

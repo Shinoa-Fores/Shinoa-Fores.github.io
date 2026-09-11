@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>trb mirror updates and build notes</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="trb-mirror-updates-and-build-notes.html">
+trb mirror updates and build notes
+</a></h3>
+<!-- blog_timestamp: #202002260958.27# -->
+<div class="subtitle">February 26, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://thebitcoin.foundation/">The Bitcoin Foundation</a> chairman <a href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a> recently published some new vpatches and added them to the foundation's website for testing. I haven't updated my personal mirror here on btcinfo in some time, at least since <a href="http://btc.info.gf/blog/trb-keccak-regrind-test-results-and-notes.html">the Keccak regrind</a> so this post will serve to do precisely that, and provide updated build instructions and notes.</p>
+
+<p>Though <a href="https://archive.is/WXohA">mod6's post</a> only mentions 3 vpatches, there are a total of 5 new vpatches that we will be adding to <a href="http://btc.info.gf/devel/bitcoin/trb/">the trb mirror</a>, as the last updated patch here was "asciilifeform_aggressive_pushgetblocks.vpatch". These vpatches are (listed in press order):</p>
+
+<p><ul>
+  <li>mod6_privkey_tools.vpatch</li>
+  <li>mod6_manifest.vpatch</li>
+  <li>mod6_phexdigit_fix.vpatch</li>
+  <li>mod6_excise_hash_truncation.vpatch</li>
+  <li>mod6_whogaveblox.vpatch</li>
+</ul></p>
+
+<p>In order to press and build trb you will need a Keccak <a href="https://archive.is/loqGu">vtron</a>, for these tests I used <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a>. The Bitcoin Foundation also has an alternative "how to" using another vtron version <a href="http://thebitcoin.foundation/trb-howto.html">here</a>. I am using the "OFFLINE" build instructions because I host my own dependency mirror and am using that.</p>
+
+<p>My normal development and testing laptop is down at the time of writing, so I used my "daily driver" Gentoo computer when testing, which is unfortunately cursed with glibc-2.28. Though the initial press went fine, I quickly hit a wall during the buildroot step and got the following error:</p>
+
+<p><blockquote><pre>
+freadahead.c: In function 'freadahead':
+freadahead.c:91:3: error: #error "Please port gnulib freadahead.c to your platform! Look at the definition of 
+fflush, fread, ungetc on your system, then report this to bug-gnulib."
+  #error "Please port gnulib freadahead.c to your platform! Look at the definition of 
+fflush, fread, ungetc on your system, then report this to bug-gnulib."
+   ^
+make[6]: *** [Makefile:1842: freadahead.o] Error 1
+make[6]: *** Waiting for unfinished jobs....
+In file included from fseeko.c:17:0:
+./config.h:78:0: warning: "_FORTIFY_SOURCE" redefined
+    # define _FORTIFY_SOURCE 2
+ ^
+<built-in>: note: this is the location of the previous definition
+fseeko.c: In function 'rpl_fseeko':
+fseeko.c:109:4: error: #error "Please port gnulib fseeko.c to your platform! Look at the code in fseeko.c, 
+then report this to bug-gnulib."
+   #error "Please port gnulib fseeko.c to your platform! Look at the code in fseeko.c, 
+then report this to bug-gnulib."
+</pre></blockquote></p>
+
+<p>My solution was to simply add a patch to `buildroot-2015.05/package/m4` and restart the build. While I can't recommend doing this under normal circumstances (rather, one should instead use a Linux that isn't cursed) I have uploaded the patch I used <a href="http://btc.info.gf/devel/bitcoin/patches/buildroot-2015-05-glibc-228.patch">here</a> for the sake of documentation and thoroughness.</p>
+
+<p>After applying the above duct-tape, the build proceeded smoothly and spat out the usual static bitcoind. To recap, here are the steps:</p>
+
+<p><p><ul>
+  <li>Download the patches, seals, wot, and dependencies from <a href="">my mirror</a>.</li>
+  <li>Press using esthlos-v: `v press mod6_whogaveblox trb054`</li>
+  <li>Move the dependencies to the proper location: `mv deps/*.asc trb054/bitcoin/deps`</li>
+  <li>Change directories and build: `cd trb054/bitcoin && make`</li>
+</ul></p>
+
+<p>With all the uncertainty surrounding the fate of the foundation in <a href="http://btc.info.gf/blog/tag_TMSR.html">certain circles</a>, it feels good to <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-02-06#1006127">have a page where my particular build is made public and commented</a>. For the most part <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-02-06#1006123">trb is in a "leave it the fuck alone" state</a>, though at some point I'd like to see some Common Lisp or scheme wallet functions added to the mix.</p>
+
+<p>As always, the journey continues!</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

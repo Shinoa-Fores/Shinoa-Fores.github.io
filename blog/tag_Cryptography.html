@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "Cryptography"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="source-deed-for-gnupg-1410.html">
+Source deed for gnupg-1.4.10
+</a></h3>
+<!-- blog_timestamp: #202112251742.59# -->
+<div class="subtitle">December 25, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is a mirror of <a href="http://wot.deedbot.org/6160E1CAC8A3C52966FD76998A736F0E2FB7B452.html">Mircea Popescu's</a> deedbot deed of gnupg-1.4.10. I had someone ask me where this was located recently, and also saw it referenced in the <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-12-18#1069356">irc logs</a> so figured it might be useful to post it up along with my method of extracting it:</p>
+
+<p><blockquote><pre>
+curl -Os4SL http://btc.info.gf/gpg/deeds/deed-378272-1.txt && \
+cat deed-378272-1.txt | awk '/future./{flag=1;next}/BEGIN PGP SIGNATURE/{flag=0}flag'|base64 -d >gpg-1.4.10.tar.gz && \
+tar zxvf gpg-1.4.10.tar.gz
+</pre></blockquote></p>
+
+<p>The sources from this method are what yours truly uses for his static gpg build with musl, but these sources should build in the traditional way for less experienced users.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Cryptography.html'>Cryptography</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="mirror-updates-for-ffa.html">
+Mirror updates for FFA
+</a></h3>
+<!-- blog_timestamp: #202101201921.22# -->
+<div class="subtitle">January 20, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I have updated the mirror of <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">asciilifeform's</a> ffa to include the latest updates from <a href="http://www.loper-os.org/">loperos</a>. Hopefully I will be able to resume more in-depth study of ffa in the coming weeks and can continue adding my own seals to the mix.</p>
+
+<p>As handy reference, the following is the current Table of Contents for ffa as it stands currently, with corresponding links to loperos. I intend to mirror these articles here on site this spring as time permits.</p> 
+
+<p>
+<ul class="lcp_catlist" id="lcp_instance_0"><li class="current"><a href="http://www.loper-os.org/?p=1913" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 1: Genesis.">"Finite Field Arithmetic." Chapter 1: Genesis.</a></li><li ><a href="http://www.loper-os.org/?p=2026" title="“Finite Field Arithmetic.” Chapter 2: Logical and Bitwise Operations.">“Finite Field Arithmetic.” Chapter 2: Logical and Bitwise Operations.</a></li><li ><a href="http://www.loper-os.org/?p=2032" title="“Finite Field Arithmetic.” Chapter 3: Shifts.">“Finite Field Arithmetic.” Chapter 3: Shifts.</a></li><li ><a href="http://www.loper-os.org/?p=2051" title="“Finite Field Arithmetic.” Chapter 4: Interlude: FFACalc.">“Finite Field Arithmetic.” Chapter 4: Interlude: FFACalc.</a></li><li ><a href="http://www.loper-os.org/?p=2071" title="“Finite Field Arithmetic.” Chapter 5: &#8220;Egyptological&#8221; Multiplication and Division.">“Finite Field Arithmetic.” Chapter 5: "Egyptological" Multiplication and Division.</a></li><li ><a href="http://www.loper-os.org/?p=2105" title="“Finite Field Arithmetic.” Chapter 6: “Geological” RSA.">“Finite Field Arithmetic.” Chapter 6: “Geological” RSA.</a></li><li ><a href="http://www.loper-os.org/?p=2118" title="“Finite Field Arithmetic.” Chapter 7: “Turbo Egyptians.”">“Finite Field Arithmetic.” Chapter 7: “Turbo Egyptians.”</a></li><li ><a href="http://www.loper-os.org/?p=2175" title="“Finite Field Arithmetic.” Chapter 8: Interlude: Randomism.">“Finite Field Arithmetic.” Chapter 8: Interlude: Randomism.</a></li><li ><a href="http://www.loper-os.org/?p=2186" title="“Finite Field Arithmetic.” Chapter 9: &#8220;Exodus from Egypt&#8221; with Comba&#8217;s Algorithm.">“Finite Field Arithmetic.” Chapter 9: "Exodus from Egypt" with Comba's Algorithm.</a></li><li ><a href="http://www.loper-os.org/?p=2238" title="“Finite Field Arithmetic.” Chapter 10: Introducing Karatsuba&#8217;s Multiplication.">“Finite Field Arithmetic.” Chapter 10: Introducing Karatsuba's Multiplication.</a></li><li ><a href="http://www.loper-os.org/?p=2547" title="“Finite Field Arithmetic.” Chapter 11: Tuning and Unified API.">“Finite Field Arithmetic.” Chapter 11: Tuning and Unified API.</a></li><li ><a href="http://www.loper-os.org/?p=2702" title="Hypertext Concordance for &#8220;Finite Field Arithmetic.&#8221;">Hypertext Concordance for "Finite Field Arithmetic."</a></li><li ><a href="http://www.loper-os.org/?p=2743" title="“Finite Field Arithmetic” Regrind into Keccak-V Format.">“Finite Field Arithmetic” Regrind into Keccak-V Format.</a></li><li ><a href="http://www.loper-os.org/?p=2753" title="“Finite Field Arithmetic.” Chapter 12A: Karatsuba Redux. (Part 1 of 2)">“Finite Field Arithmetic.” Chapter 12A: Karatsuba Redux. (Part 1 of 2)</a></li><li ><a href="http://www.loper-os.org/?p=2798" title="“Finite Field Arithmetic.” Chapter 12B: Karatsuba Redux. (Part 2 of 2)">“Finite Field Arithmetic.” Chapter 12B: Karatsuba Redux. (Part 2 of 2)</a></li><li ><a href="http://www.loper-os.org/?p=2822" title="“Finite Field Arithmetic.” Chapter 13: &#8220;Width-Measure&#8221; and &#8220;Quiet Shifts.&#8221;">“Finite Field Arithmetic.” Chapter 13: "Width-Measure" and "Quiet Shifts."</a></li><li ><a href="http://www.loper-os.org/?p=2842" title="“Finite Field Arithmetic.” Chapter 14A: Barrett&#8217;s Modular Reduction. (Part 1 of 2)">“Finite Field Arithmetic.” Chapter 14A: Barrett's Modular Reduction. (Part 1 of 2)</a></li><li ><a href="http://www.loper-os.org/?p=2875" title="“Finite Field Arithmetic.” Chapter 14A-Bis: Barrett&#8217;s Modular Reduction. (Physical Bounds Proof.)">“Finite Field Arithmetic.” Chapter 14A-Bis: Barrett's Modular Reduction. (Physical Bounds Proof.)</a></li><li ><a href="http://www.loper-os.org/?p=2892" title="“Finite Field Arithmetic.” Chapter 14B: Barrett&#8217;s Modular Reduction. (Part 2 of 2.)">“Finite Field Arithmetic.” Chapter 14B: Barrett's Modular Reduction. (Part 2 of 2.)</a></li><li ><a href="http://www.loper-os.org/?p=2906" title="“Finite Field Arithmetic” vs MPI.">“Finite Field Arithmetic” vs MPI.</a></li><li ><a href="http://www.loper-os.org/?p=2963" title="“Finite Field Arithmetic.” Chapter 15: Greatest Common Divisor.">“Finite Field Arithmetic.” Chapter 15: Greatest Common Divisor.</a></li><li ><a href="http://www.loper-os.org/?p=2978" title="“Finite Field Arithmetic.” Chapter 16A: The Miller-Rabin Test.">“Finite Field Arithmetic.” Chapter 16A: The Miller-Rabin Test.</a></li><li ><a href="http://www.loper-os.org/?p=3134" title="“Finite Field Arithmetic.” Chapter 17: Introduction to Peh.">“Finite Field Arithmetic.” Chapter 17: Introduction to Peh.</a></li><li ><a href="http://www.loper-os.org/?p=3141" title="“Finite Field Arithmetic.” Chapter 18A: Subroutines in Peh.">“Finite Field Arithmetic.” Chapter 18A: Subroutines in Peh.</a></li><li ><a href="http://www.loper-os.org/?p=3156" title="“Finite Field Arithmetic.” Chapter 18B: &#8220;Cutouts&#8221; in Peh.">“Finite Field Arithmetic.” Chapter 18B: "Cutouts" in Peh.</a></li><li ><a href="http://www.loper-os.org/?p=3386" title="“Finite Field Arithmetic.” Chapter 18C: Peh School: Generation of Cryptographic Primes.">“Finite Field Arithmetic.” Chapter 18C: Peh School: Generation of Cryptographic Primes.</a></li><li ><a href="http://www.loper-os.org/?p=3413" title="“Finite Field Arithmetic.” Chapter 19: Peh Tuning and Demo Tapes.">“Finite Field Arithmetic.” Chapter 19: Peh Tuning and Demo Tapes.</a></li><li ><a href="http://www.loper-os.org/?p=3625" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 20: &#8220;Litmus&#8221;, a Peh-Powered Verifier for GPG Signatures.">"Finite Field Arithmetic." Chapter 20: "Litmus", a Peh-Powered Verifier for GPG Signatures.</a></li><li ><a href="http://www.loper-os.org/?p=3636" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 20B: Support for Selected Ancient Hash Algos in &#8220;Litmus.&#8221;">"Finite Field Arithmetic." Chapter 20B: Support for Selected Ancient Hash Algos in "Litmus."</a></li><li ><a href="http://www.loper-os.org/?p=3646" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 20C: Support for &#8216;Clearsigned&#8217; GPG texts in &#8220;Litmus.&#8221;">"Finite Field Arithmetic." Chapter 20C: Support for 'Clearsigned' GPG texts in "Litmus."</a></li><li ><a href="http://www.loper-os.org/?p=3657" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 20D: &#8220;Litmus&#8221; Errata: Support for Nested Clearsigned Texts.">"Finite Field Arithmetic." Chapter 20D: "Litmus" Errata: Support for Nested Clearsigned Texts.</a></li><li ><a href="http://www.loper-os.org/?p=3706" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 21A: Extended GCD and Modular Multiplicative Inverse. (Part 1 of 3)">"Finite Field Arithmetic." Chapter 21A: Extended GCD and Modular Multiplicative Inverse. (Part 1 of 3)</a></li><li ><a href="http://www.loper-os.org/?p=3742" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 21A-Bis: Fix for Lethal Flaw in Ch.15&#8217;s Greatest Common Divisor.">"Finite Field Arithmetic." Chapter 21A-Bis: Fix for Lethal Flaw in Ch.15's Greatest Common Divisor.</a></li><li ><a href="http://www.loper-os.org/?p=3838" title="&#8220;Finite Field Arithmetic.&#8221; Chapter 21A-Ter: Fix for a False Alarm in Ch.14; &#8220;Litmus&#8221; Errata.">"Finite Field Arithmetic." Chapter 21A-Ter: Fix for a False Alarm in Ch.14; "Litmus" Errata.</a></li></ul>
+</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Cryptography.html'>Cryptography</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="lam-parsh-genesis.html">
+lam-par.sh genesis
+</a></h3>
+<!-- blog_timestamp: #202003101222.13# -->
+<div class="subtitle">March 10, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is a genesis vpatch for a bash script that takes all the functions of <a href="http://btcbase.org/patches?patchset=lam-par">asciilifeform's lamport parachute</a> and combines them into a single script for personal use.</p>
+
+
+<p><blockquote>
+<a href="http://btc.info.gf/devel/bash/lam-par/patches/lam-par.genesis.kv.vpatch">(lam-par.genesis.kv.vpatch)</a>
+</br>
+<a href="http://btc.info.gf/devel/bash/lam-par/seals/lam-par.genesis.kv.vpatch.shinohai.sig">(lam-par.genesis.kv.vpatch.shinohai.sig)</a>
+</blockquote></p>
+
+<p>Press using a keccak vtron of choice. Here I am using <a href="../devel/lisp/esthlos-v/">esthlos-v</a>:</p>
+
+<p><blockquote><pre>
+`v press lam-par.genesis.kv.vpatch lam-par/`
+</pre></blockquote></p>
+
+<p>Change to the output directory, make the script executable, and run it:<p>
+
+<p><blockquote><pre>
+lam-par # ./lam-par.sh --help
+Options:
+
+    --mkpriv     Generate a private key
+    --priv2pub   Generate a public key from a private key
+-s, --sign       Sign a message using your public key
+-v, --verify     Verify a signed message using a public key
+
+See http://www.loper-os.org/?p=1762 for more details
+</pre></blockquote></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Cryptography.html'>Cryptography</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="lets-encrypt-announces-pwn-of-1-billion-certs.html">
+Let's encrypt announces pwn of 1 billion certs
+</a></h3>
+<!-- blog_timestamp: #202002281152.01# -->
+<div class="subtitle">February 28, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Snake-oil salesman Let's Encrypt announced in a <a href="https://archive.is/XkA2f">blog post</a> earlier this week that they had issued 1 billion certificates since the company's creation in late 2014. The dubious milestone seems to indicate that potentially millions of websites are OK with having their "encrypted traffic" revealed by an entity that <a href="http://logs.nosuchlabs.com/log/trilema/2016-05-11#1465981">controls the system's master keys</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Cryptography.html'>Cryptography</a>, <a href='tag_Lulz.html'>Lulz</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

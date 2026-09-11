@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Building the Eulora client with Gentoo</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="building-the-eulora-client-with-gentoo.html">
+Building the Eulora client with Gentoo
+</a></h3>
+<!-- blog_timestamp: #201901110106.27# -->
+<div class="subtitle">January 11, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Having gotten trinque's excellent <a href="http://btc.info.gf/blog/cuntoo-a-linux-that-sucks-less.html">Cuntoo bootstrap</a> working on a few different machines, I decided I'd try building a Eulora client with it. This post 
+is to document the steps I followed to get to a working state, as the <a href="http://www.eulorum.org/Gentoo">instructions on the minigame website</a> are outdated and <a 
+href="http://logs.minigame.biz/2019-01-10.log.html#t12:49:02">contain dead links</a>.</p>
+
+<p>In this guide, I am using gcc 4.9.4 - I'm pretty sure this is a hard requirement. Crystalspace for whatever reason requires you have the nvidia-cg-toolkit installed even if you use an ATI card, so go ahead and get that via 
+portage:</p> 
+<p><blockquote><pre>
+emerge -av nvidia-cg-toolkit
+</pre></blockquote></p>
+
+<p>I have a ~/devel directory already from building trb, so I'll start there and make a eulora directory beside it:</p>
+
+<p><blockquote><pre>
+mkdir -p eulora/ && cd $_
+</pre></blockquote></p>
+
+<p>Grab cal3d, crystalspace, and the Eulora client files from the minigame site:</p>
+<p><blockquote><pre>
+wget http://minigame.biz/eulora/source/cal3d.tar.gz
+wget http://minigame.biz/eulora/source/cs_July24.tar.gz
+curl http://minigame.biz/eulora/source/eulora-v0.1.2b.tar.gz > eulora-v0.1.2b.tar.gz
+</pre></blockquote></p>
+
+<p>Untar that shit.</p>
+<p><blockquote><pre>
+tar -zxvf cal3d.tar.gz
+tar -zxvf cs_July24.tar.gz
+tar -zxvf eulora-v0.1.2b.tar.gz
+</pre></blockquote></p>
+
+<p>Navigate to cal3d/ and run the following commands to build:</p>
+<p><blockquote><pre>
+autoreconf --install --force
+./configure --prefix=$HOME/devel/eulora/cal3d
+make
+make install
+</pre></blockquote></p>
+
+<p>Tell other programs where to find the cal3d things we just built:</p>
+<p><blockquote><pre>
+export LD_LIBRARY_PATH=$HOME/devel/eulora/cal3d/src/cal3d/.libs/:$LD_LIBRARY_PATH
+</pre></pre></blockquote></p>
+
+<p>Go back to ~/devel/eulora/ and enter the cs-forupload folder:</p>
+<p><blockquote><pre>
+cd ../cs-forupload/
+</pre></blockquote></p>
+
+<p>To build crystalspace I had to adjust the configure step to avoid anything bullet related, or the jam build step will barf. Use the following commands:</p>
+<p><blockquote><pre>
+./configure \
+--without-java \
+--without-perl \
+--without-python \
+--without-3ds \
+--without-bullet \
+--with-cal3d=/$HOME/devel/eulora/cal3d
+
+jam -aq libs plugins cs-config walktest
+</pre></blockquote></p>
+
+<p>Export the crystalspace environment variable:</p>
+<p><blockquote><pre>
+export CRYSTAL=$HOME/devel/eulora/cs-forupload
+</pre></blockquote></p>
+
+<p>Finally, go back to ~/devel/eulora/ and enter the EuloraV0.1.2 folder ... <p>
+<p><blockquote><pre>
+cd ../EuloraV0.1.2/
+</pre></blockquote></p>
+
+<p>...and build the client:</p>
+<p><blockquote><pre>
+./autogen.sh
+./configure \
+--with-cal3d=$HOME/devel/eulora/cal3d \
+--with-cs-prefix=$CRYSTAL \
+--without-mysqlclient \
+--without-sqlite3 \
+--without-pq \
+--without-hunspell
+
+jam -aq client
+</pre></blockquote></p>
+
+<p>Eulora servers <a href="http://logs.minigame.biz/2018-04-22.log.html#t10:03:24">got a new home in 2018</a>, so we must edit the server ip in data/servers.xml:</p>
+<p><blockquote><pre>
+sed -i 's/50.115.127.84/161.0.121.201/' data/servers.xml
+</pre></blockquote></p>
+
+<p>Now, to avoid having to manually enter the environment variables each time we want to play, we will create a shell script containing those and make it executable:</p>
+<p><blockquote><pre>
+cat &gt;eu.sh&lt;&lt;EOF
+export LD_LIBRARY_PATH="$HOME/devel/eulora/cal3d/src/cal3d/ \
+.libs:$HOME/devel/eulora/cs-forupload/:"$LD_LIBRARY_PATH
+export CRYSTAL=$HOME/devel/eulora/cs-forupload
+./euclient
+EOF
+
+chmod + eu.sh
+
+./eu.sh
+</pre></blockquote></p>
+
+<p>It was night in Eulora when I finished, so I only took a single screenshot of client startup. More to come as I test further.</p>
+
+<p><center><img src="media/img/euloraclient.jpg"></img></center></p>
+
+<p><i>May your journey be prosperous ....</i></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Games.html'>Games</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

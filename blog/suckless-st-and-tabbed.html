@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Suckless st and tabbed</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="suckless-st-and-tabbed.html">
+Suckless st and tabbed
+</a></h3>
+<!-- blog_timestamp: #202107152246.24# -->
+<div class="subtitle">July 15, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>In my quest to vpatch more things that I use regularly, I finally made a section on this site for my collection of <a href="http://suckless.org">suckless tools</a>. While urxvt served me well for some time, it grows more and more into a bloated mess every update for so simple an item as a virtual terminal. st + tabbed combined have far fewer lines of code, is all in C, and with a few tweaks mimics all the good functionalities I need.</p>
+
+
+<p>The st vpatch is vanilla st with the <a href="http://st.suckless.org/patches/scrollback">scrollback patches</a> and <a href="http://st.suckless.org/patches/externalpipe">externalpipe patch</a> applied so I get a clean genesis starting point, and tabbed is <a href="https://tools.suckless.org/tabbed/">the one found at suckless.org</a> but modified slightly to allow allow renaming of open tabs (more on that below).</p>
+
+<p>Both items are pressed in the usual way using your preferred implementation of <a href="https://archive.is/pRfAz">V</a>. The `config.h.def` file can be adjusted further to operator preferences before building with `make`.</p>
+
+<p>After the items are installed to your path, a couple of bash functions can be added to one's aliases to ease tabbed terminal startup and renaming of tabs:</p>
+<p><blockquote><pre>
+function term() {
+xid="$(tabbed -c -d -s -r 2 st -w x)"
+st -w "$xid" bash &
+}
+function set-title() {
+  if [[ -z "$ORIG" ]]; then
+    ORIG=$PS1
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1=${ORIG}${TITLE}
+}
+
+</pre></blockquote></p>
+
+<p>Now I have an easy way to open a tabbed terminal and quickly rename tabs to organize work. For me, it looks something like this:</p>
+<p><center><img src="media/img/suckless1.png"></img></center></p>
+
+<p>These items can now be found here:</p>
+<p><a href="http://btc.info.gf/devel/suckless/st/">st vpatch and seals</a></p>
+<p><a href="http://btc.info.gf/devel/suckless/tabbed/">tabbed vpatch and seals</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Building awt's akris pestnet client on Gentoo</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="building-awts-akris-pestnet-client-on-gentoo.html">
+Building awt's akris pestnet client on Gentoo
+</a></h3>
+<!-- blog_timestamp: #202307282205.43# -->
+<div class="subtitle">July 28, 2023 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">awt</a> recently released a new station and client library dubbed "<a href="http://v.alethepedia.com/">akris</a>" for use with the <a href="http://pestnet.io/">pestnet protocol</a>. Detailed instructions for installing it using various methods are detailed on alethepedia, but here I am documenting how I built on Gentoo in a virtual environment using Python 3.11 and <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a>.</p>
+
+<p>I started by creating the python virtual environment in my /devel/ directory, making sure I specified my py interpreter since akris-desktop requires Python >= 3.11. Then we switch to the newly created directory and activate the venv.</p>
+
+<p><code><pre>
+python3.11 -m venv pest 
+cd pest/ && source bin/activate
+</pre></code></p>
+
+<p>Now we make a directory for akris and grab the vpatches and seals:</p>
+
+<p><code><pre>
+mkdir -p akris && cd $_
+mkdir -p patches/ seals/ wot/
+wget http://v.alethepedia.com/akris/akris-genesis-99999.vpatch -P patches/
+wget http://v.alethepedia.com/akris/akris-genesis-99999.vpatch.thimbronion.sig -P seals/
+wget http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.asc -O wot/thimbrion.asc
+</pre></code></p>
+
+<p>After obtaining the needed ingredients, we can now press using <a href="https://archive.ph/pRfAz">V</a>:</p>
+
+<p><code><pre>
+v press akris-genesis-99999.vpatch .
+</pre></code></p>
+
+<p>When the press completes successfully, we can install the akris station library to our venv using pip:</p>
+
+<p><code><pre>
+pip install -e .
+</pre></code></p>
+
+<p>Now we can move back to the root 'pest' directory and make a new directory to install the desktop components in:</p>
+
+<p><code><pre>
+cd ~/devel/pest
+mkdir -p gui && cd $_
+mkdir -p patches/ seals/ wot/
+</pre></code></p>
+
+<p>Grab the patches and seals much like we did above for the station library:</p>
+
+<p><code><pre>
+wget http://v.alethepedia.com/akris_desktop/akris-desktop-genesis-99999.vpatch -P patches/
+wget http://v.alethepedia.com/akris_desktop/akris-desktop-genesis-99999.vpatch.thimbronion.sig -P seals/
+wget http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.asc -O wot/thimbrion.asc
+</pre></code></p>
+
+<p>Press it, again using `V`:</p>
+
+<p><code><pre>
+v press akris-desktop-genesis-99999 .
+</pre></code></p>
+
+<p>akris-desktop requires tk, so you might need to install it from portage:</p>
+
+<p><code><pre>
+emerge -av dev-python/tk
+</pre></code></p>
+
+<p>Once that completes, you will have to manually install icons and imagery for the gui client, since `vdiff` <a href="http://logs.bitdash.io/pest/2023-07-27#1029017">does not handle binary files</a>:</p>
+
+<p><code><pre>
+cd akris-desktop/
+wget http://v.alethepedia.com/akris_desktop/images.tar.gz
+wget http://v.alethepedia.com/akris_desktop/images.tar.gz.thimbronion.sig
+</pre></code></p>
+
+<p>Verify the signatures before untarring, because you aren't a heathen:</p>
+
+<p><code><pre>
+gpg-1.4.10 --verify images.tar.gz.thimbronion.sig images.tar.gz
+
+gpg: Signature made Tue Jul 25 10:54:59 2023 EDT
+gpg:                using RSA key 0xB16136257FB8FBDD
+gpg: Good signature from "Thimbronion <thimbron@yandex.ru>" [unknown]
+Primary key fingerprint: 5751 2CE7 8CF0 8BB2 5FE2  77A4 B161 3625 7FB8 FBDD
+</pre></code></p>
+
+<p>Now we have verified sigs, decompress and clean up:</p>
+
+<p><code><pre>
+tar zxf images.tar.gz
+rm -f images.tar.gz images.tar.gz.thimbronion.sig
+</pre></code></p>
+
+<p>Then install akris-desktop using pip:</p>
+
+<p><code><pre>
+cd ..
+pip install -e .
+</pre></code></p>
+
+<p>Now we're almost done. Go back to the root pest directory:</p>
+
+<p><code><pre>
+cd ~/devel/pest
+</pre></code></p>
+
+<p>Create a little start script called "start-gui" for ease of use containing the following:</p>
+
+<p><code><pre>
+#!/usr/bin/env bash
+python gui/bin/main.py
+</pre></code></p>
+
+<p>Now you can easily start your pest station and client from the virtual environment by running `./start-gui`. If all goes well, you'll be greeted with a screen like this:</p>
+
+<p><center><img src="media/img/akrisdesktop.png"><img></center></p>
+
+<p>For more information, visit alethepedia: <a href="http://v.alethepedia.com/akris/">akris</a> and <a href="http://v.alethepedia.com/akris-desktop/">akris-desktop</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

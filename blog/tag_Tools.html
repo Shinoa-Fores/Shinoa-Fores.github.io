@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "Tools"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="smalpest-95k-quickstart-guide.html">
+smalpest-95K quickstart guide
+</a></h3>
+<!-- blog_timestamp: #202403041923.03# -->
+<div class="subtitle">March 04, 2024 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I am <a href="http://logs.bitdash.io/pest/2024-03-04#1032607">doing some experiments</a> with jonsykkel's smalpest on some Android devices, and whipped up this post in case my memory fails me as I attempt to run this on yet another smol device. I will update with the termux build instructions for android below.</p>
+
+<p>Start your smalpest instance inside a GNU screen instance:</p>
+<p><code><pre>
+screen -S smalpest -dm /usr/sbin/smalpest -u $USER -p $PASS -i 6697 -q 7778
+</pre></code></p>
+
+<p>Now connect to localhost:6697 from your irc client, and you can populate a pestnet wot:</p>
+
+<p>Add a handle for PEER:</p>
+<p><code><pre>
+%PEER $PEER
+</pre></code></p>
+
+<p>Then add a KEY for PEER:</p>
+<p><code><pre>
+%KEY $PEER $KEY
+</pre></code></p>
+
+<p>Update the AT (Address Table) for PEER:</p>
+<p><code><pre>
+%AT $PEER $IP:$PORT
+</pre></code></p>
+
+<p>Start chatting and see if you appear in the bitdash logs. </p>
+
+<p>Termux build instructions:</p>
+<p>PLACEHOLDER</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="building-awts-akris-pestnet-client-on-gentoo.html">
+Building awt's akris pestnet client on Gentoo
+</a></h3>
+<!-- blog_timestamp: #202307282205.43# -->
+<div class="subtitle">July 28, 2023 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">awt</a> recently released a new station and client library dubbed "<a href="http://v.alethepedia.com/">akris</a>" for use with the <a href="http://pestnet.io/">pestnet protocol</a>. Detailed instructions for installing it using various methods are detailed on alethepedia, but here I am documenting how I built on Gentoo in a virtual environment using Python 3.11 and <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a>.</p>
+
+<p>I started by creating the python virtual environment in my /devel/ directory, making sure I specified my py interpreter since akris-desktop requires Python >= 3.11. Then we switch to the newly created directory and activate the venv.</p>
+
+<p><code><pre>
+python3.11 -m venv pest 
+cd pest/ && source bin/activate
+</pre></code></p>
+
+<p>Now we make a directory for akris and grab the vpatches and seals:</p>
+
+<p><code><pre>
+mkdir -p akris && cd $_
+mkdir -p patches/ seals/ wot/
+wget http://v.alethepedia.com/akris/akris-genesis-99999.vpatch -P patches/
+wget http://v.alethepedia.com/akris/akris-genesis-99999.vpatch.thimbronion.sig -P seals/
+wget http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.asc -O wot/thimbrion.asc
+</pre></code></p>
+
+<p>After obtaining the needed ingredients, we can now press using <a href="https://archive.ph/pRfAz">V</a>:</p>
+
+<p><code><pre>
+v press akris-genesis-99999.vpatch .
+</pre></code></p>
+
+<p>When the press completes successfully, we can install the akris station library to our venv using pip:</p>
+
+<p><code><pre>
+pip install -e .
+</pre></code></p>
+
+<p>Now we can move back to the root 'pest' directory and make a new directory to install the desktop components in:</p>
+
+<p><code><pre>
+cd ~/devel/pest
+mkdir -p gui && cd $_
+mkdir -p patches/ seals/ wot/
+</pre></code></p>
+
+<p>Grab the patches and seals much like we did above for the station library:</p>
+
+<p><code><pre>
+wget http://v.alethepedia.com/akris_desktop/akris-desktop-genesis-99999.vpatch -P patches/
+wget http://v.alethepedia.com/akris_desktop/akris-desktop-genesis-99999.vpatch.thimbronion.sig -P seals/
+wget http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.asc -O wot/thimbrion.asc
+</pre></code></p>
+
+<p>Press it, again using `V`:</p>
+
+<p><code><pre>
+v press akris-desktop-genesis-99999 .
+</pre></code></p>
+
+<p>akris-desktop requires tk, so you might need to install it from portage:</p>
+
+<p><code><pre>
+emerge -av dev-python/tk
+</pre></code></p>
+
+<p>Once that completes, you will have to manually install icons and imagery for the gui client, since `vdiff` <a href="http://logs.bitdash.io/pest/2023-07-27#1029017">does not handle binary files</a>:</p>
+
+<p><code><pre>
+cd akris-desktop/
+wget http://v.alethepedia.com/akris_desktop/images.tar.gz
+wget http://v.alethepedia.com/akris_desktop/images.tar.gz.thimbronion.sig
+</pre></code></p>
+
+<p>Verify the signatures before untarring, because you aren't a heathen:</p>
+
+<p><code><pre>
+gpg-1.4.10 --verify images.tar.gz.thimbronion.sig images.tar.gz
+
+gpg: Signature made Tue Jul 25 10:54:59 2023 EDT
+gpg:                using RSA key 0xB16136257FB8FBDD
+gpg: Good signature from "Thimbronion <thimbron@yandex.ru>" [unknown]
+Primary key fingerprint: 5751 2CE7 8CF0 8BB2 5FE2  77A4 B161 3625 7FB8 FBDD
+</pre></code></p>
+
+<p>Now we have verified sigs, decompress and clean up:</p>
+
+<p><code><pre>
+tar zxf images.tar.gz
+rm -f images.tar.gz images.tar.gz.thimbronion.sig
+</pre></code></p>
+
+<p>Then install akris-desktop using pip:</p>
+
+<p><code><pre>
+cd ..
+pip install -e .
+</pre></code></p>
+
+<p>Now we're almost done. Go back to the root pest directory:</p>
+
+<p><code><pre>
+cd ~/devel/pest
+</pre></code></p>
+
+<p>Create a little start script called "start-gui" for ease of use containing the following:</p>
+
+<p><code><pre>
+#!/usr/bin/env bash
+python gui/bin/main.py
+</pre></code></p>
+
+<p>Now you can easily start your pest station and client from the virtual environment by running `./start-gui`. If all goes well, you'll be greeted with a screen like this:</p>
+
+<p><center><img src="media/img/akrisdesktop.png"><img></center></p>
+
+<p>For more information, visit alethepedia: <a href="http://v.alethepedia.com/akris/">akris</a> and <a href="http://v.alethepedia.com/akris-desktop/">akris-desktop</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="suckless-st-regrind.html">
+Suckless st regrind
+</a></h3>
+<!-- blog_timestamp: #202304191508.23# -->
+<div class="subtitle">April 19, 2023 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is just a redo of the <a href="http://btc.info.gf/blog/suckless-st-and-tabbed.html">original st vpatch</a> with a tweak that allows drawing of images directly to the terminal. Much like the patch listed in the <a href="https://git.suckless.org/st/file/FAQ.html#l177">st FAQ</a> this version does not cancel double-buffering, thereby doing away with the flickering that I observed when I first tried this. While not perfect, it does render images well with w3m for me, and by abusing the w3m image display doubles as a simple image viewer with a little bash-foo. Here's how you do that:</p>
+
+<p><blockquote><pre>
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo
+    echo "USAGE: timg <path-to-img-file>"
+    echo
+    exit 0;
+fi
+
+W3MIMGDISPLAY="/usr/local/bin/w3mimgdisplay"
+FILENAME=$1
+FONTH=14
+FONTW=8
+COLUMNS=`tput cols`
+LINES=`tput lines`
+
+read width height <<< `echo -e "5;$FILENAME" | $W3MIMGDISPLAY`
+
+max_width=$(($FONTW * $COLUMNS))
+max_height=$(($FONTH * $(($LINES - 2))))
+
+if test $width -gt $max_width; then
+height=$(($height * $max_width / $width))
+width=$max_width
+fi
+if test $height -gt $max_height; then
+width=$(($width * $max_height / $height))
+height=$max_height
+fi
+
+w3m_command="0;1;0;0;$width;$height;;;;;$FILENAME\n4;\n3;"
+
+tput cup $(($height/$FONTH)) 0
+echo -e $w3m_command|$W3MIMGDISPLAY
+</pre></blockquote></p>
+
+<p><a href="http://btc.info.gf/devel/suckless/st/">st vpatch and seals</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="lab-notes-pest-and-alcuin-part-two.html">
+Lab notes: Pest and Alcuin part two
+</a></h3>
+<!-- blog_timestamp: #202111071452.49# -->
+<div class="subtitle">November 07, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Since the <a href="lab-notes-pest-and-alcuin-part-one.html">last installment</a> there has been updates made to Alcuin, including a <a href="http://thimbron.com/2021/11/new-alcuin-release-and-rename-to-blatta/">rename to Blatta</a> along with a genesis.vpatch for the same, and more recently <a href="http://thimbron.com/2021/11/blatta-9992-better-feedback-and-user-input-edge-case-handling/">some bugfixes</a> which I successfully applied and will be testing in the coming week.</p>
+
+<p>So far in testing I have been able to:</p>
+
+<p><ul>
+  <li>Set up a testnet on localhost.</li>
+  <li>Peer with Blatta's creator remotely and pass messages.</li>
+  <li>Connect an ircbot using it's own station.<sup><a href="#fn1" id="ref1">1</a></sup></li>
+</ul></p>
+
+<p>Interest seems to be brewing in the project, so I hope to grow my WoT for this item and look forward to posting more about this item as work progresses.</p>
+
+
+
+<p class="readmore"><a href="./lab-notes-pest-and-alcuin-part-two.html">Read more...</a></p>
+<h3><a class="ablack" href="lab-notes-pest-and-alcuin-part-one.html">
+Lab notes: Pest and Alcuin part one
+</a></h3>
+<!-- blog_timestamp: #202110192042.27# -->
+<div class="subtitle">October 19, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Pest is, as <a href="http://www.loper-os.org/pub/pest/pest_draft.html">defined in the draft spec:</a></p>
+
+<p><blockquote>
+a peer-to-peer network protocol intended for IRC-style chat. It is designed for decentralization of control, resistance to natural and artificial interference, and fits-in-head mechanical simplicity -- in that order.
+</blockquote></p>
+
+<p>The <a href="http://btc.info.gf/blog/trilema-announces-closure.html">fall of TMSR</a> and the subsequent <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-08-03#1050267">fleanode collapse</a> has evidently provided the catalyst to get the ball rolling on a replacement communications system that doesn't leave the user at the mercy of SJW's or fiat government stooges and other central points of failure. Discussion on the pest spec has been under way in <a href="http://logs.nosuchlabs.com/log/">dulapnet irc</a> ever since <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">asciilifeform</a> first published the draft spec in September of this year, and yours truly has just now had time to carve out a bit of time to review the spec, chatlogs, and <a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">thimbronion</a>'s implementation of the pest spec in Python, known as <a href="http://thimbron.com/2021/10/alcuin-9994/">Alcuin</a>.</p>
+
+<p><a href="">Weechat</a> is my preferred irc client, and a few days ago in the logs thimbronion reported that <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-16#1061456">weechat and some other clients</a> would not send custom commands to the server. After looking into this a bit, I discovered weechat <i>will</i> send nonstandard commands to a connected server when <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-18#1061534">prefixed with the `/quote` command</a>. Even further digging into client behavior revealed that this behavior can be modified by simply changing a setting weechat has <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-19#1061551">turned off by default</a>:</p>
+
+<p><blockquote>
+/set irc.network.send_unknown_commands on
+</blockquote></p>
+
+<p>After setting the above the Alcuin server seemed to process commands exactly as it should, though much work remains to implement the entire spec (as stated in the author's README file). After setting up Python 2.7 on a remote machine and <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-18#1061523">obtaining the script to generate keys from thimbronion</a>, I was able to set up two pest stations and interact between them.</p>
+
+<p>To help make it easier to test and experiment with Alcuin, I have produced a temporary <a href="http://btc.info.gf/devel/irc/alcuin/">genesis vpatch and sig</a> based on thimbronion's <a href="http://share.alethepedia.com/alcuin/alcuin-9994.tar.gz">version 9994 tarball</a> and containing the missing key generation script mentioned previously. I will make every effort to keep this updated as the project progresses.</p>
+
+<p><i>To be continued .....</i></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="suckless-st-and-tabbed.html">
+Suckless st and tabbed
+</a></h3>
+<!-- blog_timestamp: #202107152246.24# -->
+<div class="subtitle">July 15, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>In my quest to vpatch more things that I use regularly, I finally made a section on this site for my collection of <a href="http://suckless.org">suckless tools</a>. While urxvt served me well for some time, it grows more and more into a bloated mess every update for so simple an item as a virtual terminal. st + tabbed combined have far fewer lines of code, is all in C, and with a few tweaks mimics all the good functionalities I need.</p>
+
+
+<p>The st vpatch is vanilla st with the <a href="http://st.suckless.org/patches/scrollback">scrollback patches</a> and <a href="http://st.suckless.org/patches/externalpipe">externalpipe patch</a> applied so I get a clean genesis starting point, and tabbed is <a href="https://tools.suckless.org/tabbed/">the one found at suckless.org</a> but modified slightly to allow allow renaming of open tabs (more on that below).</p>
+
+<p>Both items are pressed in the usual way using your preferred implementation of <a href="https://archive.is/pRfAz">V</a>. The `config.h.def` file can be adjusted further to operator preferences before building with `make`.</p>
+
+<p>After the items are installed to your path, a couple of bash functions can be added to one's aliases to ease tabbed terminal startup and renaming of tabs:</p>
+<p><blockquote><pre>
+function term() {
+xid="$(tabbed -c -d -s -r 2 st -w x)"
+st -w "$xid" bash &
+}
+function set-title() {
+  if [[ -z "$ORIG" ]]; then
+    ORIG=$PS1
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1=${ORIG}${TITLE}
+}
+
+</pre></blockquote></p>
+
+<p>Now I have an easy way to open a tabbed terminal and quickly rename tabs to organize work. For me, it looks something like this:</p>
+<p><center><img src="media/img/suckless1.png"></img></center></p>
+
+<p>These items can now be found here:</p>
+<p><a href="http://btc.info.gf/devel/suckless/st/">st vpatch and seals</a></p>
+<p><a href="http://btc.info.gf/devel/suckless/tabbed/">tabbed vpatch and seals</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

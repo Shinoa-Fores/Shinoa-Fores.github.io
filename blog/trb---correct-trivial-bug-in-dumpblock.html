@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>trb - correct trivial bug in `dumpblock`</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="trb---correct-trivial-bug-in-dumpblock.html">
+trb - correct trivial bug in `dumpblock`
+</a></h3>
+<!-- blog_timestamp: #202106212243.51# -->
+<div class="subtitle">June 21, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>As discussed in the #asciilifeform irc chan, a bug was discovered by user whaack <a href="http://wot.deedbot.org/6326273b61a700af4cd95a7b8c6cab1924a64dec.html">(WoT:whaack)</a> in the trb `dumpblock` mechanism where it would return an orphaned block from disk instead of the expected mainchain block. asciilifeform <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">(WoT:asciilifeform)</a> <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-06-10#1038702">quickly produced a vpatch</a> which corrects this behavior, which I have tested and signed.</p>
+
+<p>The vpatch and it's corresponding signature can be found in the trb section below:</p>
+
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/patches/asciilifeform_dumpblocks_force_mainchain.kv.vpatch">asciilifeform_dumpblocks_force_mainchain.kv.vpatch</a> 
+<a href="http://btc.info.gf/devel/bitcoin/trb/seals/asciilifeform_dumpblocks_force_mainchain.kv.vpatch.shinohai.sig">asciilifeform_dumpblocks_force_mainchain.kv.vpatch.shinohai.sig</a> 
+</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

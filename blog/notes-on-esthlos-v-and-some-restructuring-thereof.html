@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Notes on esthlos-v and some restructuring thereof</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="notes-on-esthlos-v-and-some-restructuring-thereof.html">
+Notes on esthlos-v and some restructuring thereof
+</a></h3>
+<!-- blog_timestamp: #202001301035.13# -->
+<div class="subtitle">January 30, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This particular post will serve as a place to put my notes on esthlos-v, which I have been reading over in an attempt to polish it up for personal use. Now there are many fine implementations of "V" out there already, and I admit <a href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a>'s "v.pl" has served me well over time, but this particular "V" is delightfully readable and the code is well commented.</p>
+
+<p>Way back in ancient Greece, the word "esthlos" meant that "something exists" or at least <i>is true</i>. Even though the author of esthlos-v vanished into internet space some time ago, and apparently abandoned work on the project, we'll retain the original name since it seems rather fitting for a tool used to magic software into existence. 
+</p>
+
+<p>I will expound upon the contents of esthlos-v in a later piece, though for now I am adding a single new vpatch: "esthlos-v_makefile-and-vdiff.vpatch" - this patch contains simple modifications to the original Makefile so it will build both "v.lisp" and "cl-keccak" as standalone binaries at the same time, and install them if the operator so desires. A modified version of <a href="http://wot.deedbot.org/BDDE12104FE81BE7F83B698F5356DE4752432A9E.html">phf's</a> original vdiff.sh that uses cl-keccak instead of sha512sum is included. This <a href="http://btc.info.gf/devel/lisp/esthlos-v/patches/esthlos-v_makefile-and-vdiff.vpatch">vpatch</a> and it's corresponding <a href="http://btc.info.gf/devel/lisp/esthlos-v/seals/esthlos-v_makefile-and-vdiff.vpatch.shinohai.sig">seal</a> can be found in the <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v mirror here</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

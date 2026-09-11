@@ -1,0 +1,4293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "UNIX"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="samsung-gt-i5510m.html">
+Samsung GT-I5510M
+</a></h3>
+<!-- blog_timestamp: #202510191110.59# -->
+<div class="subtitle">October 19, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+
+<p><img src="media/img/SAMSUNG2.jpg"></img></p>
+
+<p>Just look at this beauty! This was the dawn of smartphone technology, a touchscreen phone that <i>also</i> had a slide out keyboard!</p>
+
+<p>I recall one evening well nigh on a decade and a half ago when I used one of these running Windows mobile to finish a presentation I had due the next morning - my laptop suddenly died whilst composing some final touches, but the little phone saved the day! This particular example came to me via a <a href="https://btc.info.gf/wot/pgp/EC4C5CE6F0EEEF87.asc">reader and supporter in Canada</a> who sent the phone AND a spare battery, so I felt compelled to give this forgotten little device a purpose.</p>
+
+<p>Some specs I like: A Qualcomm MSM7227 Snapdragon S1 CPU with a whopping <i>600 MHz!</i> An astounding 240 x 400 pixel screen but it's TFT so yer good. Ancient camera tech exists on these, and even webcam ip works to a degree. Besides WiFi and Bluetooth capabilities, the device also has a Stereo FM radio (RDS), which uses the <i>honest-to-god-wired-headphone-jack</i> as an aerial.</p>
+
+<p>The device arrived to me in very good condition, the former owner having performed a factory reset before shipping which was helpful. I immediately set out to root the device and dumped the rom and entire .apk library. Most are non-working as google services long ago stopped supporting android 2.x devices. No worries, since I plan to just cross compile needed linux applications and run them directly. After dumping the above to a safe place, I proceeded to just yeet ZergRush at it and after a reboot I plugged the device to my lappy. The adb shell then happily let me `su`.</p>
+
+<p><pre><code>
+# adb devices -l
+* daemon not running; starting now at tcp:5037
+* daemon started successfully
+
+List of devices attached
+I55102053da97          device usb:1-1 transport_id:1
+
+# adb shell
+$ su
+# whoami
+# 
+</code></pre></p>
+
+<p>Now one can set up their base of operations. Make a little bootstrap file that contains the following to `/data/local/tmp/bin/bootstrap` :</p>
+
+<p><pre><code>
+export HOME=/data/local/tmp
+hostname -F etc/hostname
+bin/bash
+</code></pre></p>
+
+<p>Now running `bin/bootstrap` from your $HOME will give one a bash shell, so little things like terminal escapes work better.</p>
+
+<p>But what's better than that? Running Gentoo on it by shoving a root fs on an sd card and mounting via chroot. This enables me to also mount the same rootfs locally, use `qemu-arm-static` to chroot to it, and build packages far more quickly than at the paltry 600 MHz the phone has to offer. I can then run a temporary binhost and `emerge` the binary package directly to phone. Instructions on how to do this for the samsung and pogoplug to follow (since the same recipe works well for both machines).</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Mobile.html'>Mobile</a></p>
+
+
+<!-- text end -->
+<h3><a class="ablack" href="smalpest-95k-quickstart-guide.html">
+smalpest-95K quickstart guide
+</a></h3>
+<!-- blog_timestamp: #202403041923.03# -->
+<div class="subtitle">March 04, 2024 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I am <a href="http://logs.bitdash.io/pest/2024-03-04#1032607">doing some experiments</a> with jonsykkel's smalpest on some Android devices, and whipped up this post in case my memory fails me as I attempt to run this on yet another smol device. I will update with the termux build instructions for android below.</p>
+
+<p>Start your smalpest instance inside a GNU screen instance:</p>
+<p><code><pre>
+screen -S smalpest -dm /usr/sbin/smalpest -u $USER -p $PASS -i 6697 -q 7778
+</pre></code></p>
+
+<p>Now connect to localhost:6697 from your irc client, and you can populate a pestnet wot:</p>
+
+<p>Add a handle for PEER:</p>
+<p><code><pre>
+%PEER $PEER
+</pre></code></p>
+
+<p>Then add a KEY for PEER:</p>
+<p><code><pre>
+%KEY $PEER $KEY
+</pre></code></p>
+
+<p>Update the AT (Address Table) for PEER:</p>
+<p><code><pre>
+%AT $PEER $IP:$PORT
+</pre></code></p>
+
+<p>Start chatting and see if you appear in the bitdash logs. </p>
+
+<p>Termux build instructions:</p>
+<p>PLACEHOLDER</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="a-rainy-saturday-in-the-lab.html">
+A rainy Saturday in the lab
+</a></h3>
+<!-- blog_timestamp: #202212170903.54# -->
+<div class="subtitle">December 17, 2022 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I recently <a href="http://logs.bitdash.io/pest/2022-11-24#1016861">obtained an esp32 based smartwatch</a> and have succeeded in building a stable firmware that runs freebasic. While I did get <a href="http://logs.bitdash.io/pest/2022-11-02#1015215">jurov's recipe for ulisp</a> working, I wanted to still be able to use the gui when lisp is running, so enter fb-lisp.</p>
+
+<p>tl;dr - I mirrored the freebasic code <a href="http://btc.info.gf/devel/lisp/fb-lisp/">here</a>. </p>
+
+<p><b>Working:</b></p>
+<p>Wifi no longer crashes webserver, so triggering screenshots via wget is possible again. Time and BTC to local fiat price sync operational.</p>
+
+<p><center><img src="media/img/twatch-1.png"></img></center></p>
+<p><center><img src="media/img/twatch-2.png"></img></center></p>
+
+<p>Also this past week I finally shut down the server running busybot to pestnet. I can't justify the server for it and want to focus on making something more stable in the bot arena so it can read me logs back, etc.</p>
+
+<p>Meanwhile on Pestnet, <a href="http://logs.bitdash.io/pest/2022-12-14#1018540">Lord cringe makes an appearance</a>, so hurr-durr read-only for now!</p>
+
+<p><center><img src="media/img/lordcringe.png"></img></center></p>
+
+<p>Blatta performance on the pogoplug is sub-optimal, but runs much more <a href="http://btc.info.gf/blog/adventures-in-pest-testnet---connecting-an-android-device.html">efficiently under termux</a> (as does smalpest) so I will switch back over when I have time to chroot the armv7 device again.</p>
+
+<p>Besides, it's a rainy Saturday morning and I'd rather play blackjack on the mc10 anyway.</p>
+<p><center><img src="media/img/BASICBJ.png"></img></center></p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="botworks---ircbot-and-logbot-genesis.html">
+Botworks - ircbot and logbot genesis
+</a></h3>
+<!-- blog_timestamp: #202006211520.51# -->
+<div class="subtitle">June 21, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Alf has <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-05-22#1012802">reminded me several times</a> that it might be helpful to publish the sauce for my ircbot setup so this post is an attempt to do just that, and generally make it easier to install the bot components using V. My <a href="http://btc.info.gf/devel/lisp/botworks/">botworks tree</a> uses <a href="http://trinque.org/2016/08/10/ircbot-genesis/">trinque's lisp ircbot</a> and <a href="http://trinque.org/2016/08/11/logbot-genesis/">logbot</a> combo as the starting point.</p>
+
+<p>A lot of good patches are scattered about on former republican blogs, though it seems I could get none of them to play nice with <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a> so a regrind was in order. For ircbot these are:</p>
+
+<p>trinque's <a href="http://btc.info.gf/devel/lisp/botworks/ircbot/patches/ircbot-genesis-kv.vpatch">ircbot-genesis-kv.vpatch</a>.</p>
+
+<p>ben_vulpes' <a href="http://btc.info.gf/devel/lisp/botworks/ircbot/patches/ircbot-multiple-channels-kv.vpatch">ircbot-multiple-channels-kv.vpatch</a>.</p>
+
+<p>whaack's <a href="http://btc.info.gf/devel/lisp/botworks/ircbot/patches/ircbot-no-suicide-on-reconnect-kv.vpatch">ircbot-no-suicide-on-reconnect-kv.vpatch</a>.</p>
+
+<p>Assuming you already have SBCL and quicklisp, you can then use `V` to press ircbot and move the output to your local-projects directory:</p>
+
+<p><blockquote><pre>
+v press ircbot-no-suicide-on-reconnect-kv out
+
+mv out/ircbot ~/quicklisp/local-projects
+</pre></blockquote></p>
+
+<p>The process is repeated to add the logbot system. While testing the regrinds I came upon a curious problem where adding ben_vulpes "logbot-multiple-channels" patch caused an error when trying to start logbot. Simply pressing the <a href="http://btc.info.gf/devel/lisp/botworks/logbot/patches/logbot-genesis-kv.vpatch">logbot genesis</a> and running the bot is working, so I will continue to debug the issue and post results in a future botworks piece. The logbot requires that postgres be installed on your system, <a href="http://wot.deedbot.org/6326273b61a700af4cd95a7b8c6cab1924a64dec.html">whaack</a> has <a href="http://ztkfg.com/2019/12/setting-up-trinques-logbot-on-centos-6-with-sbcl-quicklisp-swank-and-postgres/">a good piece on how to do this on his blog</a>, if you aren't familiar with setting that part up.</p>
+
+
+<p><blockquote><pre>
+v press logbot-genesis-kv.vpatch
+
+mv out/logbot ~/quicklisp/local-projects
+</pre></blockquote></p>
+
+<p>With both of these components installed where ASDF can find them running the bot is as simple as firing up a REPL, adding your parameters and connecting to it according to the instructions in the "logbot/USAGE" file.</p>
+
+
+<p><b>TODO:</b></p>
+<p>Put together a better prefixed command system, the system I am currently using works but needs quite a bit of polish before being worthy of turning into a vpatch.</p>
+<p>Cobble together a www log reader for use with the logbot system.</p>
+
+<p><b>Links to useful lisp botworks resources:</b></p>
+
+<p>trinque's sources: <a href="http://trinque.org/src/">http://trinque.org/src/</a></p>
+
+<p>ben_vulpes' post on multiple channels: <a href="http://cascadianhacker.com/correction-multiple-channel-patches-for-irclogbot">http://cascadianhacker.com/correction-multiple-channel-patches-for-irclogbot</a></p>
+
+<p>spyked's botworks vpatches: <a href="http://lucian.mogosanu.ro/src/botworks/v/patches/">http://lucian.mogosanu.ro/src/botworks/v/patches/</a></p>
+
+<p>whaack's post on setting up trinque's logbot: <a href="http://ztkfg.com/2019/12/setting-up-trinques-logbot-on-centos-6-with-sbcl-quicklisp-swank-and-postgres/">http://ztkfg.com/2019/12/setting-up-trinques-logbot-on-centos-6-with-sbcl-quicklisp-swank-and-postgres/</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="yet-another-musl-trb-build-instructional.html">
+Yet another musl trb build instructional
+</a></h3>
+<!-- blog_timestamp: #202004301930.35# -->
+<div class="subtitle">April 30, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>A recent post by DC University alumni<sup><a href="#fn1" id="ref1">1</a></sup>jfw proposed <a href="http://fixpoint.welshcomputing.com/2020/build-system-overhaul-for-bitcoind/">significant changes to the trb build system</a> amongst them one that does away with the  `makefile.unix` file in trb source directory. This build takes a different tack and changes next to nothing of the original structure, while still getting a statically linked bitcoind.</p>
+
+
+<p>I started by adding a profile for <a href="http://btc.info.gf/blog/wip-a-static-gnat-with-musl-nosuchlabs-edition.html">my toolchain</a> at `/etc/env.d/gcc/` and named it "x86_64-pc-linux-gnu-musl-4.9.4". Now one can switch to it any time you please using gcc-config.</p>
+
+<p><blockquote><pre>
+# gcc-config -l
+ [1] x86_64-pc-linux-gnu-7.3.0
+ [2] x86_64-pc-linux-gnu-9.2.0
+ [3] x86_64-pc-linux-gnu-musl-4.9.4 *
+&lt;~snip~&gt;
+</pre></blockquote></p>
+
+<p>I choose profile 3, ensuring we use the correct toolchain.</p>
+
+<p><blockquote><pre>
+# gcc -v
+gcc version 4.9.4 20160426 (for GNAT GPL 2016 20160515) (GCC)
+</pre></blockquote></p>
+
+<p>Press trb in the same way as described on existing foundation "how-to" page, then proceed to the build directory:</p>
+
+<p><blockquote><pre>
+v press mod6_whogaveblox trb054`
+`cd trb054/bitcoin/build`
+</pre></blockquote></p>
+
+<p>Build the 3 main trb dependencies (listed as #Turds! in rotor ), much as Jacob described in his article, and installed them to the `./ourlibs` directory. I also host my own mirror the dependency artifacts on deebot <a href="http://btc.info.gf/devel/bitcoin/trb/deps/">here</a> so I grabbed the necessary items:</p>
+
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/deps/boost_1_52_0.tar.bz2.asc">boost_1_52_0.tar.bz2</a>
+</p>
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/deps/openssl-1.0.1g.tar.gz.asc">openssl-1.0.1g.tar.gz</a>
+</p>
+<p>
+<a href="http://btc.info.gf/devel/bitcoin/trb/deps/db-4.8.30.tar.gz.asc">db-4.8.30.tar.gz</a>
+</p>
+
+<p>In this directory I also put a modified version of the "rotor_bitcoin_only" script called `build.sh` that absolutely, positively *does not remove* makefile.unix. It contains:</p>
+
+<p><blockquote><pre>
+#!/bin/sh
+
+######################################
+#Turds!
+OPENSSL=openssl-1.0.1g
+BDB=db-4.8.30
+BOOST=boost_1_52_0
+######################################
+TOOLCHAIN="/usr/local/x86_64-linux-musl/"
+DIST=$(readlink -f ./distfiles)
+OURLIBS=$(readlink -f ./ourlibs)
+
+#TOOLCHAIN
+export CC=$(readlink -f $TOOLCHAIN/bin/x86_64-linux-musl-gcc)
+export CXX=$(readlink -f $TOOLCHAIN/bin/x86_64-linux-musl-g++)
+export LD=$(readlink -f $TOOLCHAIN/bin/x86_64-linux-musl-ld)
+
+export CFLAGS=-I$(readlink -f $TOOLCHAIN/usr/include)
+export LDFLAGS=-L$(readlink -f .$TOOLCHAIN/usr/lib)
+export PATH=$PATH:$(readlink -f $TOOLCHAIN/usr/bin)
+
+#LIBS
+export OPENSSL_INCLUDE_PATH=$OURLIBS/include
+export OPENSSL_LIB_PATH=$OURLIBS/lib
+
+export BDB_INCLUDE_PATH=$OURLIBS/include
+export BDB_LIB_PATH=$OURLIBS/lib
+
+export BOOST_INCLUDE_PATH=$OURLIBS/include
+export BOOST_LIB_PATH=$OURLIBS/lib
+
+cd ../src;
+make STATIC=all -f makefile.unix bitcoind
+strip bitcoind
+mv bitcoind ../bin
+</pre></blockquote></p>
+
+<p>Now run `./build.sh The output for me is a 5M statically linked trb. It took about ten minutes for me to build.</p>
+
+<p><blockquote><pre>
+bitcoin/bin # file bitcoind
+bitcoind: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
+
+bitcoin/bin # echo "Size: $(du -h bitcoind)-$(ldd bitcoind)"
+Size: 5.0M	bitcoind-	not a dynamic executable
+</pre></blockquote></p>
+
+<p>I am pleased with the results as they are on this one. Aside from the benefit of losing the tedious buildroot process, I'm choosing not to change much right now here and <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-02-06#1006123">leave trb the fuck alone</a>.<sup><a href="#fn2" id="ref2">2</a></sup></p>
+
+
+<p class="readmore"><a href="./yet-another-musl-trb-build-instructional.html">Read more...</a></p>
+<h3><a class="ablack" href="wip-a-static-gnat-with-musl-nosuchlabs-edition.html">
+WIP: A static GNAT with musl, NoSuchLabs Edition.
+</a></h3>
+<!-- blog_timestamp: #202004261234.31# -->
+<div class="subtitle">April 26, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>A discussion <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-04-10#1010072">in the #asciilifeform irc chan</a> earlier this month revealed that many of the original Adacore mirrors for building GNAT no longer resolve. A fellow named <a href="http://wot.deedbot.org/0CBC05941D03FD95C3A47654AE0DF306025594B3.html">jfw</a> undertook the task of mirroring the necessary items, and wrote about the process <a href="http://fixpoint.welshcomputing.com/2020/the-missing-adacore-public-download-index-vintage-2018-while-it-lasts/">on his blog</a>, which is well worth a read. To further help preserve these items, <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">asciilifeform</a> was kind enough to upload them to <a href="http://www.loper-os.org/?p=3682">his website</a> (along with a handy archive of Gentoo distfiles - but that is fodder for another post).</p>
+
+<p>The above bitrot problem means that building <a href="http://wot.deedbot.org/57EE94EA6F2049A47DAFA8568F4CE8F777BC59F9.html">ave1</a>'s <a href="http://ave1.org/2018/building-gnat-on-musl-no-more-usrincludex86_64-linux-gnu/">musl GNAT suite</a> as it exists no longer works, so I decided to attempt replacing the broken links in the build scripts with <a href="http://nosuchlabs.com/pub/gnatdeps/index.html">the working set from NoSuchLabs</a>. For interested parties I have mirrored ave1's tarball <a href="http://btc.info.gf/devel/ada/ada-musl-cross/ada-musl-cross-2018-09-24.tgz">HERE</a> and a patch with the current bare-minimum link changes to get it working <a href="http://btc.info.gf/devel/ada/ada-musl-cross/patches/ada-musl-cross-2018-09-24-nsl1.patch">HERE</a>. This item is a WIP, so I haven't yet replaced 100% of the original links, but readers are invited to join #asciilifeform on freenode irc to complain and/or suggest ways to improve it.</p>
+
+<p>After applying the patch, following the build instructions in ave1's <a href="http://ave1.org/tarpit/readme-2018-09-24.txt">README</a> file should produce a static GNAT and GCC-4.9.4 toolchain, perfect for use with <a href="http://www.loper-os.org/?p=2743">FFA</a> and other goodies. I will update this post as changes are made to the build scripts.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Ada.html'>Ada</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="experimental-vpatches-for-trb.html">
+Experimental vpatches for trb
+</a></h3>
+<!-- blog_timestamp: #202004191245.30# -->
+<div class="subtitle">April 19, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I have decided that my trb mirror could use an experimental patch section as a place to aggregate vpatches I have found useful over time, but aren't part of the "official" trb tree. I have serious reservations as to how much longer <a href="http://btcbase.org/patches">btcbase</a> will exist - If <a href="trilema-announces-closure.html">the end of TMSR</a> and the <a href="https://archive.is/atRqA">Qntra exit scam</a> is any indication, it might be best to grab these items while the getting is good.</p>
+
+<p>The first item in this section doesn't herald from btcbase however, but from <a href="http://fixpoint.welshcomputing.com/2019/basic-getrawtransaction-patch-proposal-for-bitcoind/">Jacob Welsh's Fixpoint blog</a>. This experimental patch adds a "getrawtransaction" rpc call. The only issue I had in applying this patch was due to differences in naming styles of the manifest file, so the item I include here is reground with a note in the manifest that <a href="http://wot.deedbot.org/0CBC05941D03FD95C3A47654AE0DF306025594B3.html">jfw</a> is the original author along with an update of the block time. It should be noted that the patch <b>does not have a corresponding seal</b> at this time, making it a "use at own discretion" item. The bitcoin_getrawtransaction.vpatch can be found <a href="http://btc.info.gf/devel/bitcoin/trb/exp/patches/bitcoin_getrawtransaction.vpatch">HERE</a>.</p>
+
+<p>That'd be it for now. Future updates to the experimental section will likely include a regrind of <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">asciilifeform</a>'s "Shiva" and polarbeard's "sendrawtransaction" vpatches, as those are the items I am most familiar with.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="tgbot---a-telegram-bot-in-bash.html">
+tgbot - a Telegram bot in Bash
+</a></h3>
+<!-- blog_timestamp: #202003142040.36# -->
+<div class="subtitle">March 14, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>tgbot is, as the title says, a extensible Telegram bot written in Bash. It is what <a href="https://github.com/topkecleon/telegram-bot-bash">telegram-bot-bash</a> was originally supposed to be before it became a bloated clusterfuck.<p>
+
+<p><i>But why Bash?</i> Because it's everywhere. This bot is mainly useful for folks that want to quickly set up a bot to automate tasks or announce rss feeds in a Telegram group. This functionality isn't included in this vpatch, but instead the user is invited to write their own commands and functions. Examples are included in the "commands" script.</p>
+
+<p><b>To use:</b></p>
+<p>Grab the vpatch and seal from <a href="http://btc.info.gf/devel/bash/tgbot/">here</a> and press using a keccak-based vtron.</p>
+<p>Make the following files executable:
+<ul>
+  <li>commands</li>
+  <li>global</li>
+  <li>sendNotify</li>
+  <li>JSON.sh</li>
+  <li>tgbot</li>
+</ul></p>
+<p>Create a new bot by sending a message to @BotFather. After completing the creation steps, copy your token to the "token" file, and save with user-readable permissions.<p>
+<p>Then start the bot in a tmux or screen session by simply running `./tgbot`. The bot writes it's logfile to "logfile.txt" in the directory it is running in.</p>
+
+<p><b>Don't:</b></p>
+<p>Run this bot with root permissions, even if "just testing"! Telegram is a cesspool and you will quickly come to grief.</p>
+
+<p>Otherwise, enjoy.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="lam-parsh-genesis.html">
+lam-par.sh genesis
+</a></h3>
+<!-- blog_timestamp: #202003101222.13# -->
+<div class="subtitle">March 10, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is a genesis vpatch for a bash script that takes all the functions of <a href="http://btcbase.org/patches?patchset=lam-par">asciilifeform's lamport parachute</a> and combines them into a single script for personal use.</p>
+
+
+<p><blockquote>
+<a href="http://btc.info.gf/devel/bash/lam-par/patches/lam-par.genesis.kv.vpatch">(lam-par.genesis.kv.vpatch)</a>
+</br>
+<a href="http://btc.info.gf/devel/bash/lam-par/seals/lam-par.genesis.kv.vpatch.shinohai.sig">(lam-par.genesis.kv.vpatch.shinohai.sig)</a>
+</blockquote></p>
+
+<p>Press using a keccak vtron of choice. Here I am using <a href="../devel/lisp/esthlos-v/">esthlos-v</a>:</p>
+
+<p><blockquote><pre>
+`v press lam-par.genesis.kv.vpatch lam-par/`
+</pre></blockquote></p>
+
+<p>Change to the output directory, make the script executable, and run it:<p>
+
+<p><blockquote><pre>
+lam-par # ./lam-par.sh --help
+Options:
+
+    --mkpriv     Generate a private key
+    --priv2pub   Generate a public key from a private key
+-s, --sign       Sign a message using your public key
+-v, --verify     Verify a signed message using a public key
+
+See http://www.loper-os.org/?p=1762 for more details
+</pre></blockquote></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Cryptography.html'>Cryptography</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="trb-mirror-updates-and-build-notes.html">
+trb mirror updates and build notes
+</a></h3>
+<!-- blog_timestamp: #202002260958.27# -->
+<div class="subtitle">February 26, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://thebitcoin.foundation/">The Bitcoin Foundation</a> chairman <a href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a> recently published some new vpatches and added them to the foundation's website for testing. I haven't updated my personal mirror here on btcinfo in some time, at least since <a href="http://btc.info.gf/blog/trb-keccak-regrind-test-results-and-notes.html">the Keccak regrind</a> so this post will serve to do precisely that, and provide updated build instructions and notes.</p>
+
+<p>Though <a href="https://archive.is/WXohA">mod6's post</a> only mentions 3 vpatches, there are a total of 5 new vpatches that we will be adding to <a href="http://btc.info.gf/devel/bitcoin/trb/">the trb mirror</a>, as the last updated patch here was "asciilifeform_aggressive_pushgetblocks.vpatch". These vpatches are (listed in press order):</p>
+
+<p><ul>
+  <li>mod6_privkey_tools.vpatch</li>
+  <li>mod6_manifest.vpatch</li>
+  <li>mod6_phexdigit_fix.vpatch</li>
+  <li>mod6_excise_hash_truncation.vpatch</li>
+  <li>mod6_whogaveblox.vpatch</li>
+</ul></p>
+
+<p>In order to press and build trb you will need a Keccak <a href="https://archive.is/loqGu">vtron</a>, for these tests I used <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a>. The Bitcoin Foundation also has an alternative "how to" using another vtron version <a href="http://thebitcoin.foundation/trb-howto.html">here</a>. I am using the "OFFLINE" build instructions because I host my own dependency mirror and am using that.</p>
+
+<p>My normal development and testing laptop is down at the time of writing, so I used my "daily driver" Gentoo computer when testing, which is unfortunately cursed with glibc-2.28. Though the initial press went fine, I quickly hit a wall during the buildroot step and got the following error:</p>
+
+<p><blockquote><pre>
+freadahead.c: In function 'freadahead':
+freadahead.c:91:3: error: #error "Please port gnulib freadahead.c to your platform! Look at the definition of 
+fflush, fread, ungetc on your system, then report this to bug-gnulib."
+  #error "Please port gnulib freadahead.c to your platform! Look at the definition of 
+fflush, fread, ungetc on your system, then report this to bug-gnulib."
+   ^
+make[6]: *** [Makefile:1842: freadahead.o] Error 1
+make[6]: *** Waiting for unfinished jobs....
+In file included from fseeko.c:17:0:
+./config.h:78:0: warning: "_FORTIFY_SOURCE" redefined
+    # define _FORTIFY_SOURCE 2
+ ^
+<built-in>: note: this is the location of the previous definition
+fseeko.c: In function 'rpl_fseeko':
+fseeko.c:109:4: error: #error "Please port gnulib fseeko.c to your platform! Look at the code in fseeko.c, 
+then report this to bug-gnulib."
+   #error "Please port gnulib fseeko.c to your platform! Look at the code in fseeko.c, 
+then report this to bug-gnulib."
+</pre></blockquote></p>
+
+<p>My solution was to simply add a patch to `buildroot-2015.05/package/m4` and restart the build. While I can't recommend doing this under normal circumstances (rather, one should instead use a Linux that isn't cursed) I have uploaded the patch I used <a href="http://btc.info.gf/devel/bitcoin/patches/buildroot-2015-05-glibc-228.patch">here</a> for the sake of documentation and thoroughness.</p>
+
+<p>After applying the above duct-tape, the build proceeded smoothly and spat out the usual static bitcoind. To recap, here are the steps:</p>
+
+<p><p><ul>
+  <li>Download the patches, seals, wot, and dependencies from <a href="">my mirror</a>.</li>
+  <li>Press using esthlos-v: `v press mod6_whogaveblox trb054`</li>
+  <li>Move the dependencies to the proper location: `mv deps/*.asc trb054/bitcoin/deps`</li>
+  <li>Change directories and build: `cd trb054/bitcoin && make`</li>
+</ul></p>
+
+<p>With all the uncertainty surrounding the fate of the foundation in <a href="http://btc.info.gf/blog/tag_TMSR.html">certain circles</a>, it feels good to <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-02-06#1006127">have a page where my particular build is made public and commented</a>. For the most part <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-02-06#1006123">trb is in a "leave it the fuck alone" state</a>, though at some point I'd like to see some Common Lisp or scheme wallet functions added to the mix.</p>
+
+<p>As always, the journey continues!</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="notes-on-esthlos-v-and-some-restructuring-thereof.html">
+Notes on esthlos-v and some restructuring thereof
+</a></h3>
+<!-- blog_timestamp: #202001301035.13# -->
+<div class="subtitle">January 30, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This particular post will serve as a place to put my notes on esthlos-v, which I have been reading over in an attempt to polish it up for personal use. Now there are many fine implementations of "V" out there already, and I admit <a href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a>'s "v.pl" has served me well over time, but this particular "V" is delightfully readable and the code is well commented.</p>
+
+<p>Way back in ancient Greece, the word "esthlos" meant that "something exists" or at least <i>is true</i>. Even though the author of esthlos-v vanished into internet space some time ago, and apparently abandoned work on the project, we'll retain the original name since it seems rather fitting for a tool used to magic software into existence. 
+</p>
+
+<p>I will expound upon the contents of esthlos-v in a later piece, though for now I am adding a single new vpatch: "esthlos-v_makefile-and-vdiff.vpatch" - this patch contains simple modifications to the original Makefile so it will build both "v.lisp" and "cl-keccak" as standalone binaries at the same time, and install them if the operator so desires. A modified version of <a href="http://wot.deedbot.org/BDDE12104FE81BE7F83B698F5356DE4752432A9E.html">phf's</a> original vdiff.sh that uses cl-keccak instead of sha512sum is included. This <a href="http://btc.info.gf/devel/lisp/esthlos-v/patches/esthlos-v_makefile-and-vdiff.vpatch">vpatch</a> and it's corresponding <a href="http://btc.info.gf/devel/lisp/esthlos-v/seals/esthlos-v_makefile-and-vdiff.vpatch.shinohai.sig">seal</a> can be found in the <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v mirror here</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="a-patch-for-db48-on-gcc8.html">
+A patch for db4.8 on gcc8+
+</a></h3>
+<!-- blog_timestamp: #201908100007.47# -->
+<div class="subtitle">August 10, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>The march of "progress" sometimes brings about a lot of headaches, especially when I am forced to work on heathen systems such as Debian and Ubuntu. This became readily apparent while installing bitcoind (core) to a server 
+equipped with gcc-9.1.0 this past week. While building the dependencies, db-4.8.30.NC promptly shat out this error:</p>
+
+<p><pre><blockquote>
+definition of 'int __atomic_compare_exchange(db_atomic_t*, atomic_value_t, atomic_value_t)'
+ ambiguates built-in declaration
+ 'bool __atomic_compare_exchange(long unsigned int, volatile void*, void*, void*, int, int)'
+ static inline int __atomic_compare_exchange
+</blockquote></pre></p>
+
+<p>A relatively simple patch allowed me continue building error-free. I have included in the /library/ <a href="http://btc.info.gf/library/bitcoin/dependencies/patches/dbatomic.patch">here</a> for future reference. Place it in 
+the root of the db-4.8.30.NC folder and apply manually as you would any other patch.</p>
+
+<p>While impossible to completely rid the world of such fuckery, I consider this just another tool in the box to make things slightly less painful</p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Webshit.html'>Webshit</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="docker-gentoo-env-recipe.html">
+Docker gentoo env recipe
+</a></h3>
+<!-- blog_timestamp: #201905101659.12# -->
+<div class="subtitle">May 10, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This page is just a note on reliable ways to get a working gentoo environment using Dockerfiles. Useful mainly for making decent working shell that you don't care about for testing things. :)</p>
+<p>The recipe can also easily be modified to use own stage3 and not be reliant on dockerhub, though abuse of the autobuild scripts sometimes spawns a shellbot over irc.</p>
+
+<p><pre><blockquote>docker pull btcinfo/stage3-gentoo-amd64
+docker run -it btcinfo/stage3-gentoo-amd64</blockquote></pre></p>
+
+<p>This gives you a root shell</p>
+<p><pre><blockquote><b>37b0f185b13d ~ #</b></blockquote></pre></p>
+
+<p>Populate the portage tree with the <a href="http://distfiles.gentoo.org/snapshots/portage-latest.tar.xz">latest official portage snapshot</a>, or use your own archived snapshot.</p>
+<p><pre><blockquote>cd usr/
+wget -c http://distfiles.gentoo.org/snapshots/portage-latest.tar.xz
+tar xvf portage-latest.tar.xz</blockquote></pre></p>
+
+<p>You can now emerge the packages you need and build from sources. Do what thou will.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="official-alpine-linux-docker-image-found-to-allow-null-password-for-root-users.html">
+Official Alpine Linux Docker image found to allow NULL password for root users
+</a></h3>
+<!-- blog_timestamp: #201905082306.34# -->
+<div class="subtitle">May 08, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Docker woes continue as security researchers discover that all "Official images" of Alpine linux (since v3.3) <a href="http://archive.is/IAWdA">allow NULL passwords for the root user.</a> This event, along with <a 
+href="http://archive.is/JvHtl">Docker Hub being hacked serve as a wonderful reminder of only running code from trusted sources and <a href="http://btc.info.gf/library/">personal libraries</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Insecurity.html'>Insecurity</a>, <a href='tag_Lulz.html'>Lulz</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="converting-magnet-links-to-torrent-files-in-bash.html">
+Converting magnet links to .torrent files in bash
+</a></h3>
+<!-- blog_timestamp: #201905022126.17# -->
+<div class="subtitle">May 02, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I like simple things that do their job well, and I adore bash. A tool was sorely needed in my arsenal that could convert magnet links from torrent sites to a useable .torrent file. The site <a 
+href="http://magnet2torrent.me/">magnet2torrent.me</a> is often down, and few options exist on the web to do convert files locally that aren't pythonshit. My search led me to a Shithub repository owned by <a 
+href="http://btcbase.org/log/2017-06-30#1677323">Isis Buttcruft</a>, and while the tool <a href="https://github.com/isislovecruft/scripts/blob/master/magnetlink">appears to work as advertised</a> it has been neglected and is heavily 
+commented and contains a few unnecessary parts. Let's trim it up a bit and make it a function.</p>
+
+<p><pre><blockquote>
+magnet() { 
+[[ "$1" =~ xt=urn:btih:([^&/]+) ]] || exit
+hashh=${BASH_REMATCH[1]}
+if [[ "$1" =~ dn=([^&/]+) ]];then
+  filename=${BASH_REMATCH[1]}
+else
+  filename=$hashh
+fi
+fn="meta-"$filename".torrent"
+touch $fn
+echo "d10:magnet-uri${#1}:${1}e" | cat > $fn
+}
+</blockquote></pre></p>
+
+<p>Adding this to my .bash_aliases file now allows me to simply do `magnet "&lt;URL&gt;"` and get a torrent file instantly that can be loaded up into rtorrent or streamed using peerflix.</p>
+
+<p>Tags: <a href='tag_Entertainment.html'>Entertainment</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Bash.html'>Bash</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="building-unobtanium-on-docker.html">
+Building Unobtanium on Docker
+</a></h3>
+<!-- blog_timestamp: #201904172250.47# -->
+<div class="subtitle">April 17, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This docker recipe has so far proved a stable way to get repeatable results when building Unobtanium binaries for 64-bit Linux and Windows. I am mainly making this post to reference the steps I took, as the method is applicable 
+to most coins.</p>
+
+<p>Download my <a href="http://btc.info.gf/library/bitcoin/alts/uno/unobtanium-devenv.tar.gz">unobtanium-devenv</a> and untar it.</p>
+
+<p><blockquote>
+curl http://btc.info.gf/library/bitcoin/alts/uno/unobtanium-devenv.tar.gz | tar zxvf -</p>
+</blockquote>
+
+<p>Enter devenv and build the docker image</p>
+
+<p><blockquote>
+cd unobtanium-devenv/</p>
+
+docker-compose -f docker-compose.yml -f unobtanium/docker-compose.windows.yml build</p>
+</blockquote></p>
+
+<p>Go have a coffee and smoke while the container builds.</p>
+
+<p>When that build finishes, start the container.</p>
+
+<blockquote>
+<p>docker-compose -f docker-compose.yml -f unobtanium/docker-compose.windows.yml up -d</p>
+</blockquote>
+
+<p>Find your container id and connect (as root)</p>
+
+<blockquote>
+<p>docker container ls --all</p>
+<p>docker exec -u root -t -i &lt;container-id&gt; /bin/bash</p>
+</blockquote>
+
+<p>From the docker shell, go clone my Unobtanium repo.</p>
+
+<blockquote>
+<p>git clone https://github.com/Shinoa-Fores/Unobtanium.git && cd Unobtanium/depends/</p>
+</blockquote>
+
+<p>Let's do a Windows build, just for fun.</p>
+
+<blockquote>
+<p>make HOST=x86_64-w64-mingw32</p>
+</blockquote>
+
+<p>The process of compiling the dependncies takes about 2 hours. I usually also invoke `import colombian websluts` at this point. When I return to the terminal we are ready to build the UNO qt and cli .exe's</p>
+
+<blockquote>
+<p>cd ..</p>
+<p>./autogen.sh</p>
+<p>./configure --prefix="$PWD/depends/x86_64-w64-mingw32/"</p>
+<p>make</p>
+</blockquote>
+
+<p>Kill another hour drinking coffee, smoking, and looking at cats on internet.</p>
+
+<blockquote>
+<p>mkdir -p bin</p>
+<p>cp src/*.exe bin/</p>
+<p>cp src/qt/unobtanium-qt.exe bin/</p>
+</blockquote>
+
+<p>Enjoy your shiny new Windows wallet. Repeat the depends step and rebuild to produce binary for any arch you have a config for.</p>
+
+<p>The x86_64 Linux version lets you do nice things, like run custom .qss so I darkened the wallet. I will post this config to the blog shortly.</p>
+
+
+<center><iframe width="600" height="380" src="media/video/unobtanium.mp4" frameborder="0" allow="encrypted-media"></iframe></center>
+
+<p>Have fun, and feel free to complain about this build method on irc or telegram.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Cryptocurrency.html'>Cryptocurrency</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="weechat-logs-to-html.html">
+Weechat logs to html
+</a></h3>
+<!-- blog_timestamp: #201903062242.10# -->
+<div class="subtitle">March 06, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://btc.info.gf/library/irc/weechat-log-to-html.hs">weechat-log-to-html</a> is a Haskell script that converts weechat logs to no-nonsense html. This addition to the <a 
+href="http://btc.info.gf/library/">/library/</a> is part of this years goal to excise as much pythonshit as possible from everything I use on a regular basis. Individuals that have Bitlbee hooked up to their weechat will be 
+pleased to know that this script also beautifully parses things such as telegram or discord logs, for which no suitable logger (at least not one written in the aforementioned pythonshit or nodejs) can be found.</p>
+
+<p><b>To use:</b></p>
+
+<p>Compile the script using `ghc` - I used version 8.0.2 with good results. Then simply run something like the following:</p>
+
+<p><blockquote><pre>
+./weechat-log-to-html &lt; (weechatlog) &gt; output.html
+</pre></blockquote></p>
+
+<p><b>Example output:</b></p>
+
+<p><img src="media/img/LOGS.png"></img></p>
+
+<p>Once verified that it works for you, you can simply add the script to a cronjob to monitor the irc channels and other chats you wish to log.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_IRC.html'>IRC</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="trb-keccak-regrind-test-results-and-notes.html">
+TRB Keccak regrind - test results and notes
+</a></h3>
+<!-- blog_timestamp: #201901202305.03# -->
+<div class="subtitle">January 20, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I had originally intended this to be a better version of the build instructions I <a href="http://btc.info.gf/blog/trb-build-instructions.html">mirrored from the foundation website</a>, but decided to <a 
+href="http://btcbase.org/log/2019-01-15#1887019">wait for the regrind</a> before making a post, since the foundation planned on updating everything anyway. A few days later <a 
+href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a> published a <a href="http://blog.mod6.net/?p=26">blog post</a> detailing the steps he took to update the trb vtree from SHA512 to Keccak vpatches, 
+so that is what will be covered in this post. What I did was, I went through all the similar steps just as in mod6's post, and I created my own keccak trb vtree, just as mod6 did.  I then was able to confirm that my keccak trb vtree 
+and <i>his</i> keccak trb tree are a mechanical match.  I also did a diff of my keccak trb vtree against the original SHA512 vpatches, and we can see that only difference is the removal of the UTF8 character from genesis.vpatch.
+</p>
+
+<p>You will need all of the dependencies listed on <a href="http://thebitcoin.foundation/trb-howto.html">the bitcoin foundation website</a> in the "how-to" section. A modified version of mod6's `v.pl` (that produces Keccak hashes) 
+and a few other tools are also needed: these can be obtained from <a href="http://wot.deedbot.org/E72DCCB73A5E06694C5CD781D5196EE6390F999E.html">diana_coman</a>'s <a href="http://ossasepia.com/vpatches/">website</a>.  I no longer 
+use nor support any other flavor of Linux besides Gentoo for any projects discussed on this site , so users of other distros will be required to do their own research to make all this work. I am using a <a 
+href="http://btc.info.gf/blog/cuntoo-a-linux-that-sucks-less.html">Cuntoo</a> chroot here, and for the sake of thoroughness, here is a list of the exact versions of the dependencies I used:</p>
+
+<p><pre><blockquote>
+*  sys-devel/bc 1.06.95-r2
+*  sys-devel/gcc 4.9.4
+*  app-crypt/gnupg 1.4.10
+*  net-misc/wget 1.19.5
+*  net-misc/curl 7.61.1
+*  dev-lang/perl 5.24.3-r1
+*  sys-devel/patch 2.7.6-r2
+*  net-misc/rsync 3.1.3
+*  sys-apps/coreutils 8.29-r1
+*  app-arch/unzip 6.0_p21-r2
+*  app-arch/bzip2 1.0.6-r10
+*  app-arch/cpio 2.12-r1
+</blockquote></pre></p>
+ 
+<p>A working Ada setup is required to build vk.pl and the tools from diana-coman's starter pack. mod6 also wrote a handy and very detailed guide to doing this <a 
+href="http://mod6.net/2018/December/29/diana_coman_v_genesis.txt">here</a>. Since I am using a clean chroot to perform all these steps, I needed to install a new copy of Adacore, so I proceeded to grab a copy of the 
+gnat-gpl-2016-x86_64 version from the AdaCore website <a href="http://mirrors.cdn.adacore.com/art/5739cefdc7a447658e0b016b">here</a>, though for some reason the page 404'd at the time I was doing these tests. Fortunately diana_coman 
+also has this preserved on her website <a href="http://dianacoman.com/available_resources/gnat-gpl-2016-x86_64-linux-bin.tar.gz">here</a> for those that might need it in the future.</p>
+
+<p>Once that was installed, I checked to ensure it was, in fact, the proper version:</p>
+
+<p><img src="media/img/gnat.png"></img></p>
+
+<p>Perfect! Building the starter pack is very painless and took less than a minute for me.</p>
+
+<p>Now I moved on to the actual regrind by setting up the suggested sandbox and moving down the list of steps in mod6's blog post. This also went quite painlessly, my only snafu being I forgot to add back a hyphen "-" for the utf-8 
+char removed from line 118 of util.h, which caused a byte mismatch later in the process. Once that was done, I had no other problems with the process and was ready to test using mod6's experimental patchset and seals which he 
+handily provides <a href="http://mod6.net/trb/regrinds/keccak_trb_20190112.tar.gz">here</a>, along with the <a href="http://mod6.net/trb/regrinds/keccak_trb_20190112.tar.gz.mod6.sig">signature</a> for same. This part requires one 
+follow the `OFFLINE` build steps from the foundation website, so it will be necessary to download the dependencies from <a href="http://deedbot.org">deedbot</a> if you don't have a copy stored somewhere already. I put all the links 
+inside a bash script, intentionally leaving off the -sSL flags so I could observe their download progress.</p>
+
+<p><pre><blockquote>
+cd deps/
+
+cat &gt;eu.sh&lt;&lt;EOF
+curl http://deedbot.org/deed-430460-2.txt > rotor.tar.gz.asc
+curl http://deedbot.org/deed-430460-1.txt > rotor-db-configure-fix.patch.asc
+curl http://deedbot.org/deed-422651-1.txt > boost_1_52_0.tar.bz2.asc
+curl http://deedbot.org/deed-422651-2.txt > buildroot-2015.05.tar.gz.asc
+curl http://deedbot.org/deed-422651-3.txt > db-4.8.30.tar.gz.asc
+curl http://deedbot.org/deed-422651-4.txt > openssl-1.0.1g.tar.gz.asc
+curl http://deedbot.org/deed-427443-1.txt > binutils-2.24.tar.bz2.asc
+curl http://deedbot.org/deed-427443-2.txt > busybox-1.23.2.tar.bz2.asc
+curl http://deedbot.org/deed-427443-3.txt > expat-2.1.0.tar.gz.asc
+curl http://deedbot.org/deed-427443-4.txt > fakeroot_1.18.4.orig.tar.bz2.asc
+curl http://deedbot.org/deed-427443-5.txt > gcc-4.9.2.tar.bz2.asc
+curl http://deedbot.org/deed-427443-6.txt > gdb-7.8.2.tar.xz.asc
+curl http://deedbot.org/deed-427443-7.txt > gmp-6.0.0a.tar.xz.asc
+curl http://deedbot.org/deed-427443-8.txt > linux-3.18.14.tar.xz.asc
+curl http://deedbot.org/deed-427443-9.txt > m4-1.4.17.tar.xz.asc
+curl http://deedbot.org/deed-427443-10.txt> mpc-1.0.3.tar.gz.asc
+curl http://deedbot.org/deed-427443-11.txt> mpfr-3.1.2.tar.xz.asc
+curl http://deedbot.org/deed-427443-12.txt> musl-1.1.8.tar.gz.asc
+curl http://deedbot.org/deed-427443-13.txt> ncurses-5.9.tar.gz.asc
+curl http://deedbot.org/deed-427443-14.txt> pkgconf-0.8.9.tar.bz2.asc
+EOF
+
+chmod +x deps.sh
+./deps.sh
+</blockquote></pre></p>
+
+<p>After enjoying <i>un cafecito</i>, the dependencies were finished downloading, so I deleted the script and changed back to the bitcoin directory. A simple `make` completes the process. I encountered no hiccups, and roughly a half 
+hour or so later had a nice shiny bitcoind produced using vk.pl and the keccak patchset only.</p>
+
+<p><img src="media/img/bitcoind.png"></img></p>
+
+<p>In the interests of science, and to ensure repeatable results I went a step further and redid all the regrind steps in a fresh sandbox, and signed a copy of all the patches with my gpg key. Before performing a press I put mod6's 
+copy of the patches in a directory `a` and mine in a directory `b` and ran `diff -uNr a b` against them to ensure they matched, which they did. This build also went fine with no errors, and output a 4.7M to bin/. Now let's test 
+it:</p>
+
+
+<p><figure><img src="media/img/getinfo.png"></img><figcaption><b>Success! Node is happily pulling blocks.</b></figcaption></p>
+
+<p>In conclusion, this work represents an outstanding effort on the part of mod6 to ensure trb remains unmolested in the future. I have uploaded my copies of the resulting patches and the corresponding seals <a 
+href="http://btc.info.gf/library/bitcoin/trb/">here</a> for those that wish to compare them with their own during testing.</a></p>
+
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="building-the-eulora-client-with-gentoo.html">
+Building the Eulora client with Gentoo
+</a></h3>
+<!-- blog_timestamp: #201901110106.27# -->
+<div class="subtitle">January 11, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Having gotten trinque's excellent <a href="http://btc.info.gf/blog/cuntoo-a-linux-that-sucks-less.html">Cuntoo bootstrap</a> working on a few different machines, I decided I'd try building a Eulora client with it. This post 
+is to document the steps I followed to get to a working state, as the <a href="http://www.eulorum.org/Gentoo">instructions on the minigame website</a> are outdated and <a 
+href="http://logs.minigame.biz/2019-01-10.log.html#t12:49:02">contain dead links</a>.</p>
+
+<p>In this guide, I am using gcc 4.9.4 - I'm pretty sure this is a hard requirement. Crystalspace for whatever reason requires you have the nvidia-cg-toolkit installed even if you use an ATI card, so go ahead and get that via 
+portage:</p> 
+<p><blockquote><pre>
+emerge -av nvidia-cg-toolkit
+</pre></blockquote></p>
+
+<p>I have a ~/devel directory already from building trb, so I'll start there and make a eulora directory beside it:</p>
+
+<p><blockquote><pre>
+mkdir -p eulora/ && cd $_
+</pre></blockquote></p>
+
+<p>Grab cal3d, crystalspace, and the Eulora client files from the minigame site:</p>
+<p><blockquote><pre>
+wget http://minigame.biz/eulora/source/cal3d.tar.gz
+wget http://minigame.biz/eulora/source/cs_July24.tar.gz
+curl http://minigame.biz/eulora/source/eulora-v0.1.2b.tar.gz > eulora-v0.1.2b.tar.gz
+</pre></blockquote></p>
+
+<p>Untar that shit.</p>
+<p><blockquote><pre>
+tar -zxvf cal3d.tar.gz
+tar -zxvf cs_July24.tar.gz
+tar -zxvf eulora-v0.1.2b.tar.gz
+</pre></blockquote></p>
+
+<p>Navigate to cal3d/ and run the following commands to build:</p>
+<p><blockquote><pre>
+autoreconf --install --force
+./configure --prefix=$HOME/devel/eulora/cal3d
+make
+make install
+</pre></blockquote></p>
+
+<p>Tell other programs where to find the cal3d things we just built:</p>
+<p><blockquote><pre>
+export LD_LIBRARY_PATH=$HOME/devel/eulora/cal3d/src/cal3d/.libs/:$LD_LIBRARY_PATH
+</pre></pre></blockquote></p>
+
+<p>Go back to ~/devel/eulora/ and enter the cs-forupload folder:</p>
+<p><blockquote><pre>
+cd ../cs-forupload/
+</pre></blockquote></p>
+
+<p>To build crystalspace I had to adjust the configure step to avoid anything bullet related, or the jam build step will barf. Use the following commands:</p>
+<p><blockquote><pre>
+./configure \
+--without-java \
+--without-perl \
+--without-python \
+--without-3ds \
+--without-bullet \
+--with-cal3d=/$HOME/devel/eulora/cal3d
+
+jam -aq libs plugins cs-config walktest
+</pre></blockquote></p>
+
+<p>Export the crystalspace environment variable:</p>
+<p><blockquote><pre>
+export CRYSTAL=$HOME/devel/eulora/cs-forupload
+</pre></blockquote></p>
+
+<p>Finally, go back to ~/devel/eulora/ and enter the EuloraV0.1.2 folder ... <p>
+<p><blockquote><pre>
+cd ../EuloraV0.1.2/
+</pre></blockquote></p>
+
+<p>...and build the client:</p>
+<p><blockquote><pre>
+./autogen.sh
+./configure \
+--with-cal3d=$HOME/devel/eulora/cal3d \
+--with-cs-prefix=$CRYSTAL \
+--without-mysqlclient \
+--without-sqlite3 \
+--without-pq \
+--without-hunspell
+
+jam -aq client
+</pre></blockquote></p>
+
+<p>Eulora servers <a href="http://logs.minigame.biz/2018-04-22.log.html#t10:03:24">got a new home in 2018</a>, so we must edit the server ip in data/servers.xml:</p>
+<p><blockquote><pre>
+sed -i 's/50.115.127.84/161.0.121.201/' data/servers.xml
+</pre></blockquote></p>
+
+<p>Now, to avoid having to manually enter the environment variables each time we want to play, we will create a shell script containing those and make it executable:</p>
+<p><blockquote><pre>
+cat &gt;eu.sh&lt;&lt;EOF
+export LD_LIBRARY_PATH="$HOME/devel/eulora/cal3d/src/cal3d/ \
+.libs:$HOME/devel/eulora/cs-forupload/:"$LD_LIBRARY_PATH
+export CRYSTAL=$HOME/devel/eulora/cs-forupload
+./euclient
+EOF
+
+chmod + eu.sh
+
+./eu.sh
+</pre></blockquote></p>
+
+<p>It was night in Eulora when I finished, so I only took a single screenshot of client startup. More to come as I test further.</p>
+
+<p><center><img src="media/img/euloraclient.jpg"></img></center></p>
+
+<p><i>May your journey be prosperous ....</i></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Games.html'>Games</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="handheld-game-roms.html">
+Handheld game roms
+</a></h3>
+<!-- blog_timestamp: #201812251916.56# -->
+<div class="subtitle">December 25, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>While searching for the <a href="http://btc.info.gf/blog/basic-computer-games.html">Basic games collection</a> the other day, I stumbled upon a forgotten archive containing roms for a bunch of old handheld electronic games from the 70's and 80's. If you had 
+any of the games on the list below, 
+your childhood was likely pretty awesum. I have used MESS to run these, but feel free to try on other platforms (as I did not include any MESS-specific xml files with this archive).</p>
+
+<p><center><img src="img/tomypacman.jpg"></img></center></p>
+
+<p><b>List of games contained in archive:</b></p>
+<center><table bgcolor=CCCCCC cellspacing=0 cellpadding=5 border=1>
+<tr><td width=100><pre>
+ROM NAME:         GAME:
+---------------------------------------------------------------
+advision          "Adventure Vision"
+alnattck          "Alien Attack"
+alnchase          "Alien Chase"
+amaztron          "Amaze-A-Tron"
+astro             "Astro"
+astrocmd          "Astro Command"
+bambball          "Dribble Away Basketball"
+bankshot          "Bank Shot - Electronic Pool"
+bcclimbr          "Crazy Climber (Bandai)"
+bdoramon          "Dokodemo Dorayaki Doraemon"
+bfriskyt          "Frisky Tom (Bandai)"
+bmboxing          "Knock-Em Out Boxing"
+bmsafari          "Safari (Bambino)"
+bmsoccer          "Kick The Goal Soccer"
+cdkong            "Donkey Kong (Coleco)"
+cgalaxn           "Galaxian (Coleco)"
+cmspacmn          "Ms. Pac-Man (Coleco)"
+comp4             "Comp IV"
+cpacman           "Pac-Man (Coleco, Rev. 29)"
+cpacmanr1         "Pac-Man (Coleco, Rev. 28)"
+ebball            "Electronic Baseball (Entex)"
+ebball2           "Electronic Baseball 2 (Entex)"
+ebball3           "Electronic Baseball 3 (Entex)"
+edracula          "Dracula (Epoch)"
+efball            "Electronic Football (Epoch)"
+egalaxn2          "Galaxian 2 (Entex)"
+einvader          "Space Invader (Entex, TMS1100)"
+epacman2          "Pac Man 2 (Entex)"
+galaxy2           "Galaxy II"
+gckong            "Crazy Kong (Gakken)"
+gdigdug           "Dig Dug (Gakken)"
+ghalien           "Heiankyo Alien (Gakken)"
+gjackpot          "Jackpot: Gin Rummy & Black Jack"
+gpoker            "Poker (Gakken, 1979 version)"
+h2hbaseb          "Head to Head Baseball"
+h2hfootb          "Head to Head Football"
+invspace          "Invader From Space"
+kingman           "Kingman"
+machiman          "Machine Man"
+maniac            "Maniac"
+mathmagi          "Mathemagician"
+merlin            "Merlin - The Electronic Wizard"
+microvsn          "MicroVision"
+mmerlin           "Master Merlin"
+msthawk           "Star Hawk (Mattel)"
+mvbfree           "Mini-Vid Break Free"
+mwcbaseb          "World Championship Baseball"
+packmon           "Packri Monster"
+pbqbert           "Q*Bert (Parker Brothers)"
+raisedvl          "Raise The Devil"
+simon             "Simon (Rev. A)"
+splasfgt          "Space Laser Fight"
+splitsec          "Split Second"
+ssfball           "Superstar Football"
+ssimon            "Super Simon"
+starwbc           "Star Wars - Electronic Battle Command"
+starwbcp          "Star Wars - Electronic Battle Command (prototype)"
+tandy12           "Tandy-12: Computerized Arcade"
+tc4               "Total Control 4"
+tcaveman          "Caveman (Tomy)"
+tccombat          "Cosmic Combat"
+tmpacman          "Pac Man (Tomy)"
+tmscramb          "Scramble (Tomy)"
+tmtennis          "Tennis (Tomy)"
+tmtron            "Tron (Tomy)"
+ufombs            "UFO Master-Blaster Station"
+vinvader          "Invaders (VTech)"
+wildfire          "Wildfire (prototype)"
+zackman           "Zackman"</font></pre></td></tr></table></center></body></p>
+
+<p>The archive can be downloaded from the \warez\ section of the library <a href="http://btc.info.gf/library/warez/hwroms.tar.gz">here</a>.</p>
+
+<p>Merry Christmas everyone!</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Games.html'>Games</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="basic-computer-games.html">
+Basic Computer Games
+</a></h3>
+<!-- blog_timestamp: #201812231515.38# -->
+<div class="subtitle">December 23, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Old computer nostalgia often hits some of us hard on Telegram, and hours will be spent in conversation or reliving the glory days of TRS-80 and Commodore64 machines. In one such conversation, I mentioned I had a tarball somewhere of all the 
+programs in the old 1978 book "Basic Computer Games" published by Creative Computing. After a brief search, the package was located and I decided to uploaded it to the /warez/ section of the library for others to enjoy - whether you are painfully 
+typing these in line by line in original hardware or loading them with an emulator, I hope the collection brings back lots of pleasant memories for those of us that still enjoy tinkering with these things. Most of these I can verify still indeed 
+work well on original hardware: I loaded many of these into my old TRS80 using a HxC2001 SD floppy emulator (because I'm lazy and didn't want to hand type them all) and ran with 0 syntax errors.</p>
+
+<p><b>Table of games included in the archive:</b></p>
+<p><center><table bgcolor=CCCCCC cellspacing=0 cellpadding=5 border=1>
+<tr><td width=100><pre> 
+Game Name:         Filename:            Description:
+---------------------------------------------------------------------------------------------------------------
+
+Acey Ducey 	   aceyducey.bas        Play acey-ducey with the computer
+Amazing 	   amazing.bas 	        Computer constructs a maze
+Animal 	           animal.bas 	        Computer guesses animals and learns new ones from you
+Awari 	           awari.bas 	        Ancient game of rotating beans in pits
+Bagels 		   bagels.bas 	        Guess a mystery 3-digit number by logic
+Banner 		   banner.bas 	        Prints any message on a large banner
+Basketball 	   basketball.bas       Basketball game
+Batnum 		   batnum.bas 	        Match wits in a battle of numbers vs. the computer
+Battle 		   battle.bas 	        Decode a matrix to locate enemy battleship
+Blackjack 	   blackjack.bas        Blackjack (very comprehensive), Las Vegas rules
+Bombardment 	   bombardment.bas      Destroy the computer's platoons with missles before it finds yours
+Bombs Away 	   bombsaway.bas        Fly World War II bombing missions
+Bounce 		   bounce.bas 	        Plot a bouncing ball
+Bowling 	   bowling.bas 	        Bowling at the neighborhood lanes
+Boxing 		   boxing.bas 	        3-round Olympic boxing match
+Bug 		   bug.bas 	        Roll dice vs. the computer to draw a bug
+Bullfight 	   bullfight.bas        You're the matador in a championship bullfight
+Bullseye 	   bullseye.bas         Throw darts
+Bunny 		   bunny.bas 	        Computer drawing of the Playboy bunny
+Buzzword 	   buzzword.bas         Compose your speeches with the latest buzzwords
+Calendar 	   calendar.bas         Calendar for any year
+Change 		   change.bas 	        Computer imitates a cashier
+Checkers 	   checkers.bas         Game of checkers
+Chemist 	   chemist.bas 	        Dilute kryptocyanic acid to make it harmless
+Chief 		   chief.bas 	        Silly arithmetic drill
+Chomp 		   chomp.bas 	        Eat a cookie avoiding the poison piece (2 or more players)
+Civil War 	   civilwar.bas         Fight the Civil War
+Combat 		   combat.bas 	        Fight a small-scale war with the computer
+Craps 		   craps.bas 	        Play craps (dice), Las Vegas style
+Cube 		   cube.bas 	        Negotiate a 3-D cube avoiding hidden landmines
+Depth Charge 	   depthcharge.bas      Launch depth charges to destroy a submarine
+Diamond 	   diamond.bas 	        Prints 1-page diamond patterns
+Dice 		   dice.bas 	        Summarizes dice rolls
+Digits 		   digits.bas 	        Computer tries to guess digits you select at random
+Even Wins 	   evenwins.bas         Take objects from a pile?try to end with an even number
+Game of Even Wins  gameofevenwins.bas   Same as Even Wins?computer improves its play
+Flip Flop 	   flipflop.bas         Solitaire logic game?change a row of Xs to Os
+Ftball 		   ftball.bas 	        American football?you vs. the computer
+Football 	   football.bas         American football for two players
+Fur Trader 	   furtrader.bas        Trade furs with the white man
+Golf 		   golf.bas 	        Golf game?choose your clubs and swing
+Gomoko 		   gomoko.bas 	        Ancient board game of logic and strategy
+Guess 		   guess.bas 	        Guess a mystery number?computer gives you clues
+Gunner 		   gunner.bas 	        Fire a cannon at a stationary target
+Hammurabi 	   hammurabi.bas        Govern the ancient city-state of Sumeria
+Hangman 	   hangman.bas 	        Hangman word guessing game
+Hello 		   hello.bas 	        Computer becomes your friendly psychiatrist
+Hexapawn 	   hexapawn.bas         Hexapawn game
+Hi-Lo 		   hi-lo.bas 	        Try to hit the mystery jackpot
+High I-Q 	   highiq.bas 	        Try to remove all the pegs from a board
+Hockey 		   hockey.bas 	        Ice hockey, two players
+Horserace 	   horserace.bas        Off-track betting on a horse race
+Hurkle 		   hurkle.bas 	        Find the Hurkle hiding on a 10x10 grid
+Kinema 		   kinema.bas 	        Drill in simple kinematics
+King 		   king.bas 	        Govern a modern island kingdom wisely
+Letter 		   letter.bas 	        Guess a mystery letter?computer gives you clues
+Life 		   life.bas 	        John Conway's Game of Life
+Life For Two 	   lifefortwo.bas       Competitive game of Life (two or more players)
+Lite Quiz 	   litquiz.bas 	        Children's literature quiz
+Love 		   love.bas 	        Robert Indiana's artwork, your message
+Lunar 		   lunar.bas 	        Land an Apollo capsule on the moon
+LEM 		   lem.bas 	        Very comprehensive lunar landing
+Rocket 		   rocket.bas 	        Lunar landing from 500 feet (with plot)
+Master Mind 	   mastermind.bas       Guess the colors of pegs?then the computer guesses yours
+Math Dice 	   mathdice.bas         Children's arithmetic drill using pictures of dice
+Mugwump 	   mugwump.bas 	        Locate 4 mugwumps hiding on a 10x10 grid
+Name 		   name.bas 	        An ice-breaker with the computer
+Nicomachus 	   nicomachus.bas       Computer guesses number you think of
+Nim 		   nim.bas 	        Chinese game of Nim
+Number 		   number.bas 	        Silly number matching game
+One Check 	   onecheck.bas         Challenging game to remove checkers from a board
+Orbit 		   orbit.bas 	        Destroy an orbiting germ-laden enemy spaceship
+Pizza 		   pizza.bas 	        Deliver pizzas successfully
+Poetry 		   poetry.bas 	        Computer composes random poetry
+Poker 		   poker.bas 	        Poker game
+Queen 		   queen.bas 	        Move a single chess queen vs. the computer
+Reverse 	   reverse.bas 	        Order a series of numbers by reversing
+R,P,S	      	   rockscissors.bas     Game of rock, scissors, paper
+Roulette 	   roulette.bas         European roulette table
+Russian Roulette   russianroulette.bas  Russian roulette
+Salvo 		   salvo.bas 	        Destroy an enemy fleet of ships
+Sine Wave 	   sinewave.bas         Draw a sine wave on screen
+Slalom 	    	   slalom.bas 	        Simulates a slalom run
+Slots 		   slots.bas 	        Slot machine (one-armed bandit)
+Splat 		   splat.bas 	        Open a parachute at the last possible moment
+Stars 		   stars.bas 	        Guess a mystery number?stars give you clues
+Stock Market 	   stockmarket.bas      Stock market simulation
+Super Star Trek    superstartrek.bas    Comprehensive game of Star Trek
+STK: Instructions  superstartrekins.bas Instructions for Super Star Trek
+Synonym 	   synonym.bas 	        Word synonym drill
+Target 		   target.bas 	        Destroy a target in 3-D space?very tricky
+3-D Plot 	   3dplot.bas 	        Plot families of curves?looks 3-dimensional
+3-D Tic-Tac-Toe    qubit.bas 	        Game of tic-tac-toe in a 4x4x4 cube
+Tic-Tac-Toe 1 	   tictactoe1.bas 	Simple version
+Tic-Tac-Toe 2 	   tictactoe2.bas 	This version prints out the board
+Tower 		   tower.bas 	        Towers of Hanoi puzzle
+Train 	  	   train.bas 	        Time-speed-distance quiz
+Trap 		   trap.bas 	        Trap a mystery number?computer gives you clues
+23 Matches 	   23matches.bas 	Game of 23 matches?try not to take the last one
+War 		   war.bas 	        Card game of war
+Weekday 	   weekday.bas 	        Facts about your birthday
+Word 		   word.bas 	        Word guessing game
+</font></pre></td></tr></table></center></p>
+</br>
+<p>The entire archive is available for download here: <a href="http://btc.info.gf/library/warez/bcg.tar.gz">Basic Computer Games (bcg.tar.gz)</a></p>
+
+<p>Tags: <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Vintage_Computing.html'>Vintage_Computing</a>, <a href='tag_Games.html'>Games</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="bcinfobot.html">
+bcinfobot
+</a></h3>
+<!-- blog_timestamp: #201812060223.21# -->
+<div class="subtitle">December 06, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>bcinfobot is a common lisp bot that bridges irc and telegram, and performs a variety of mostly useless crypto stats. It currently resides in the #btcinfo channels on freenode irc and telegram.</p>
+<p>IRC command prefix is `$` - You must have a registered gpg key to use this bot.</p>
+<p><pre>
+<center><img src="img/bcinfobot.jpg"></img></center>
+</pre></p>
+
+<p>This post will be updated as soon as comprehensive list of all commands can be added. Discussion is currently more vibrant on telegram, and discord support has been requested.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Info.html'>Info</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="cuntoo-a-linux-that-sucks-less.html">
+Cuntoo, a Linux that sucks less
+</a></h3>
+<!-- blog_timestamp: #201812021756.28# -->
+<div class="subtitle">December 02, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This weekend I had a bit of extra time on my hands, so I decided to dust off an old AMD E-300 APU laptop I had sitting about and try building trinque's Cuntoo on it. The entire operation was pretty straightforward, and the bootstrapping script 
+makes all this a painless operation as far as Gentoo goes.</p>
+
+<p>First step is to download the bootstrap in a tar archive and the corresponding signature from here: http://trinque.org/2018/11/27/cuntoo-bootstrapper/ . It appears the site is hosted on pizarro now, and downloading the archive took a little over 
+2 hours. Since I am quite aware that <a href="http://archive.is/LSolM">Pizarro resources can be overwhelmed with a single box making requests</a>, I just left this to download overnight and checked on it in the morning. trinque has his head screwed 
+on pretty straight, so the archive and sig were waiting in my Downloads folder after morning coffee.</p>
+
+<p>After examining the bootstrap script, I put a copy of my amd64 configuration file into the config/ folder, since I don't have an apu2 board. One then needs to locate the block device they will be installing to, in my case `lsblk` revealed this to 
+be located at /dev/sdc, so I ran:
+
+`./bootstrap.sh -k config/config.amd64 -d /dev/sdc`
+
+.... and the magic began! The author recommended enjoying tea whilst the bootstrap process completed. The entire process took roughly six hours to complete, which will give one time to enjoy their favourite beverage and a fuck or two. When I came 
+back to my desk I was greeted with the message "Create a user account, which shall be granted sudo access." After that, the script will ask you to paste a ssh public key in, to allow password free logins upon reboot. Painless, I say!</p>
+
+<p>Those steps being complete, I got one final message: "You should now have a fully bootable Cuntoo system on "/dev/sdc". Enjoy!" The moment of truth. I then restarted the machine which booted very quickly into a new, no-nonsense Gentoo 
+Linux environment.</p>
+
+<p>Since the first run was successful, I decided to see how this recipe would work if I stuffed it onto a spare 32G flash drive I had lying about. This also worked fine, and now I have a portable version I can access via chroot on my workstation, 
+since I have a less austere Gentoo recipe I use for day-to-day things.</p>
+
+<p>I now intend to try running the ebuilds I have made for the projects I use most against this, and will report my findings here. Happy compiling!<p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Software.html'>Software</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="bitcoin-knots-restored-as-the-default-upstream-ebuild.html">
+Bitcoin Knots restored as the default upstream ebuild
+</a></h3>
+<!-- blog_timestamp: #201807221418.16# -->
+<div class="subtitle">July 22, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="https://bitcoinknots.org/">Bitcoin Knots</a> is once again the <a href="https://bugs.gentoo.org/604520">default ebuild</a> of Bitcoin for Gentoo users. In order to revert to the "Core" flavor of Bitcoin, users will need to set the 
+<code><b>USE=-knots</b></code> flag going forward.</p>
+
+<p>According to developer luke-jr in a recent announcement:</p>
+<blockquote>
+Bitcoin Knots provides the best end user experience out of the box (for example, only 5 GB disk space is required instead of over 100 GB). It is completely compatible with the Bitcoin network and other Bitcoin implementations, including the popular 
+Bitcoin Core implementation.
+</blockquote>
+
+<p>Bitcoin knots is currently undergoing testing on the <a href="">btcinfo</a> server, and will serve as a replacement for "therealbitcoin" in irc/telegram bot functions that require bitcoind. Source code and relevant patches will be added to the <a 
+href="http://btc.info.gf/library/bitcoin/">/bitcoin/</a> section of this website in the near future.</p>
+
+<p><b>UPDATE 7/24/2018:</b> luke-jr informed me that the these changes have not been merged yet. I apologize for the misquote.</p>
+<p>Reading the <a href="">#trilema logs</a> this morning, it seems this post created fair amount of confusion:</p>
+
+<blockquote>
+<a href="http://btcbase.org/log/2018-07-23#1837447">asciilifeform: in other lulz, http://btc.info.gf/blog/bitcoin-knots-restored-as-the-default-upstream-ebuild.html << shinohai endorses prb...</a>
+</blockquote>
+
+<p>Please note the words <i>undergoing testing</i>, which should not imply any sort of endorsement or glowing review. To clarify, Knots simply offers some interesting features I want to poke with a stick more to satiate my curiosity - this segshit stuff is in wide 
+use on alt irc platforms (Telegram, Discord, et all) and I simply want to see if any brokenness can be readily exposed. Sometimes that requires milling about in enemy territory and becoming familiar with enemy tools. Remember your Sun Tzu:</p>
+
+<blockquote>
+"If you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every 
+battle."
+</blockquote>
+
+<p>asciilifeform is welcome to go ahead and negrate - this has nothing to do with spite, etc. <a href="http://btcbase.org/log/2018-02-17#1784361">as you already know all about.</a> Ratings in a place where one's presence is <a 
+href="http://btcbase.org/log/2018-02-17#1784361">not</a> <a href="http://btcbase.org/log/2018-07-20#1836906">wanted</a> mean little to me at this point. Experiments fail sometimes, but work should always continue nonetheless.</p>
+
+<p>After all, I can't simply <a href="http://btc.info.gf/blog/calmando-las-olas.html">idle about on the beach</a> every day. There's a goddamned war going on.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="aur-latest-victim-of-repository-rape.html">
+AUR latest victim of repository rape
+</a></h3>
+<!-- blog_timestamp: #201807101044.53# -->
+<div class="subtitle">July 10, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://archive.is/irSGz">More poisoned repositories</a> are found, this time on the Arch User Repository. This, combined with the <a href="http://archive.is/pyu1B">recent lulz on the gentoo shithub</a> further confirm that only the <a 
+href="http://trinque.org/2018/07/06/cuntoo-bootstrapper-preview/">trinque model</a> can prevent repository rape.</p>
+
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Webshit.html'>Webshit</a>, <a href='tag_Lulz.html'>Lulz</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="site-updates-rss-support-new-package-mirrors.html">
+Site updates: RSS support, new package mirrors.
+</a></h3>
+<!-- blog_timestamp: #201807031253.41# -->
+<div class="subtitle">July 03, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>RSS support has been fixed, is now available at <a href="http://btc.info.gf/blog/feed.rss">http://btc.info.gf/blog/feed.rss</a>.</p>
+
+<p><b>The following tools and packages have been added to the /packages/ section of the <a href="">library</a>:</b></p>
+
+<p><a href="http://btc.info.gf/library/packages/gpg/">gpg-1.4.10<a></p>
+
+<p><a href="http://btc.info.gf/library/packages/gcc/">gcc-4.9.4</a></p>
+
+<p><a href="http://btc.info.gf/library/packages/V/">V99993K</a>&nbsp;<a href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.asc">(mod6)</a>&nbsp;I altered mine to display ascii graphs, nothing worth publishing. <b>Update 07/05:</b> Added 
+the fix suggested by ave1 to turn off robots.txt in wget <a href="http://btcbase.org/log/2018-07-04#1831639">here</a></p>
+
+<p><a href="http://btc.info.gf/library/packages/vtools/">vtools</a>&nbsp;<a href="http://wot.deedbot.org/BDDE12104FE81BE7F83B698F5356DE4752432A9E.asc">(phf)</a></p>
+
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Uncategorized.html'>Uncategorized</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Essential kit items: Building SBCL on Gentoo with musl</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="essential-kit-items-building-sbcl-on-gentoo-with-musl.html">
+Essential kit items: Building SBCL on Gentoo with musl
+</a></h3>
+<!-- blog_timestamp: #201911081007.48# -->
+<div class="subtitle">November 08, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Steel Bank Common Lisp is another must-have tool in my kit, since I use it to run my hybrid irc/Telegram bot and many other daily use items. In my <a href="building-gcc-494-with-musl-on-gentoo.html">previous post</a> I documented how I managed to get gcc-4.9.4 massaged into shape, so this post will serve as a reference on how to do the same for SBCL so in the future I don't have to spend the day researching fixes and locating obscure patchsets.</p>
+
+<p>When building many things using musl, one will often run into "undefined reference to `memcpy@GLIBC_*'" type errors, since glibc uses versioned symbols and musl does not. SBCL is no different, but fortunately a little digging turned up a <a href="https://sourceforge.net/p/sbcl/mailman/message/36598627/">working patchset on the SBCL mailing list</a> which works beautifully, so I didn't have to spend the better part of a day cobbling one together as I did for gcc. I have preserved a copy of the patchset <a href="http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/">here</a> and will definitely do my best to maintain these into the future should any major changes occur.</p>
+
+<p>Much like Ada, SBCL requires itself or another ANSI common lisp to build. I decided to use CLISP (version 2.49.92) to perform this task, as it can be quickly built from sources using gcc only (and I didn't want to use a pre-built sbcl binary of unknown provenance). After getting clisp in place, building SBCL is mostly painless using the following steps:</p>
+
+<p>I downloaded the 1.5.7 sources from my site and verified the checksums:</p>
+
+<p><blockquote><pre>curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/sbcl-1.5.7-source.tar.bz2
+curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/Manifest.sha512</pre></blockquote></p>
+
+<p>Unpack the sources and enter the directory:</p>
+
+<p><blockquote><pre>tar xjf sbcl-1.5.7-source.tar.bz2 && cd sbcl-1.5.7</pre></blockquote></p>
+
+<p>Get the musl patchset and apply them:</p>
+
+<p><blockquote><pre>wget -q -r -nd -N --no-parent -R "index.html*" http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/
+for i in *.patch; do patch -p1 < $i; done</pre></blockquote></p>
+
+<p>Build using CLISP and install:</p>
+
+<p><blockquote><pre>./make.sh "clisp" --fancy
+./install.sh</pre></blockquote></p>
+
+<p>The above recipe has so far worked quite nicely, having been tested by running the above mentioned irc bot and a few other essential lisp programs. I will update this post if/when any bugs are found or if any changes are made.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Lisp.html'>Lisp</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

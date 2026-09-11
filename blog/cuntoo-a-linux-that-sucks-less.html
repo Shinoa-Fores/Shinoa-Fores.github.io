@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Cuntoo, a Linux that sucks less</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="cuntoo-a-linux-that-sucks-less.html">
+Cuntoo, a Linux that sucks less
+</a></h3>
+<!-- blog_timestamp: #201812021756.28# -->
+<div class="subtitle">December 02, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This weekend I had a bit of extra time on my hands, so I decided to dust off an old AMD E-300 APU laptop I had sitting about and try building trinque's Cuntoo on it. The entire operation was pretty straightforward, and the bootstrapping script 
+makes all this a painless operation as far as Gentoo goes.</p>
+
+<p>First step is to download the bootstrap in a tar archive and the corresponding signature from here: http://trinque.org/2018/11/27/cuntoo-bootstrapper/ . It appears the site is hosted on pizarro now, and downloading the archive took a little over 
+2 hours. Since I am quite aware that <a href="http://archive.is/LSolM">Pizarro resources can be overwhelmed with a single box making requests</a>, I just left this to download overnight and checked on it in the morning. trinque has his head screwed 
+on pretty straight, so the archive and sig were waiting in my Downloads folder after morning coffee.</p>
+
+<p>After examining the bootstrap script, I put a copy of my amd64 configuration file into the config/ folder, since I don't have an apu2 board. One then needs to locate the block device they will be installing to, in my case `lsblk` revealed this to 
+be located at /dev/sdc, so I ran:
+
+`./bootstrap.sh -k config/config.amd64 -d /dev/sdc`
+
+.... and the magic began! The author recommended enjoying tea whilst the bootstrap process completed. The entire process took roughly six hours to complete, which will give one time to enjoy their favourite beverage and a fuck or two. When I came 
+back to my desk I was greeted with the message "Create a user account, which shall be granted sudo access." After that, the script will ask you to paste a ssh public key in, to allow password free logins upon reboot. Painless, I say!</p>
+
+<p>Those steps being complete, I got one final message: "You should now have a fully bootable Cuntoo system on "/dev/sdc". Enjoy!" The moment of truth. I then restarted the machine which booted very quickly into a new, no-nonsense Gentoo 
+Linux environment.</p>
+
+<p>Since the first run was successful, I decided to see how this recipe would work if I stuffed it onto a spare 32G flash drive I had lying about. This also worked fine, and now I have a portable version I can access via chroot on my workstation, 
+since I have a less austere Gentoo recipe I use for day-to-day things.</p>
+
+<p>I now intend to try running the ebuilds I have made for the projects I use most against this, and will report my findings here. Happy compiling!<p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Software.html'>Software</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

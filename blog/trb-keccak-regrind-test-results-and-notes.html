@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>TRB Keccak regrind - test results and notes</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="trb-keccak-regrind-test-results-and-notes.html">
+TRB Keccak regrind - test results and notes
+</a></h3>
+<!-- blog_timestamp: #201901202305.03# -->
+<div class="subtitle">January 20, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I had originally intended this to be a better version of the build instructions I <a href="http://btc.info.gf/blog/trb-build-instructions.html">mirrored from the foundation website</a>, but decided to <a 
+href="http://btcbase.org/log/2019-01-15#1887019">wait for the regrind</a> before making a post, since the foundation planned on updating everything anyway. A few days later <a 
+href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a> published a <a href="http://blog.mod6.net/?p=26">blog post</a> detailing the steps he took to update the trb vtree from SHA512 to Keccak vpatches, 
+so that is what will be covered in this post. What I did was, I went through all the similar steps just as in mod6's post, and I created my own keccak trb vtree, just as mod6 did.  I then was able to confirm that my keccak trb vtree 
+and <i>his</i> keccak trb tree are a mechanical match.  I also did a diff of my keccak trb vtree against the original SHA512 vpatches, and we can see that only difference is the removal of the UTF8 character from genesis.vpatch.
+</p>
+
+<p>You will need all of the dependencies listed on <a href="http://thebitcoin.foundation/trb-howto.html">the bitcoin foundation website</a> in the "how-to" section. A modified version of mod6's `v.pl` (that produces Keccak hashes) 
+and a few other tools are also needed: these can be obtained from <a href="http://wot.deedbot.org/E72DCCB73A5E06694C5CD781D5196EE6390F999E.html">diana_coman</a>'s <a href="http://ossasepia.com/vpatches/">website</a>.  I no longer 
+use nor support any other flavor of Linux besides Gentoo for any projects discussed on this site , so users of other distros will be required to do their own research to make all this work. I am using a <a 
+href="http://btc.info.gf/blog/cuntoo-a-linux-that-sucks-less.html">Cuntoo</a> chroot here, and for the sake of thoroughness, here is a list of the exact versions of the dependencies I used:</p>
+
+<p><pre><blockquote>
+*  sys-devel/bc 1.06.95-r2
+*  sys-devel/gcc 4.9.4
+*  app-crypt/gnupg 1.4.10
+*  net-misc/wget 1.19.5
+*  net-misc/curl 7.61.1
+*  dev-lang/perl 5.24.3-r1
+*  sys-devel/patch 2.7.6-r2
+*  net-misc/rsync 3.1.3
+*  sys-apps/coreutils 8.29-r1
+*  app-arch/unzip 6.0_p21-r2
+*  app-arch/bzip2 1.0.6-r10
+*  app-arch/cpio 2.12-r1
+</blockquote></pre></p>
+ 
+<p>A working Ada setup is required to build vk.pl and the tools from diana-coman's starter pack. mod6 also wrote a handy and very detailed guide to doing this <a 
+href="http://mod6.net/2018/December/29/diana_coman_v_genesis.txt">here</a>. Since I am using a clean chroot to perform all these steps, I needed to install a new copy of Adacore, so I proceeded to grab a copy of the 
+gnat-gpl-2016-x86_64 version from the AdaCore website <a href="http://mirrors.cdn.adacore.com/art/5739cefdc7a447658e0b016b">here</a>, though for some reason the page 404'd at the time I was doing these tests. Fortunately diana_coman 
+also has this preserved on her website <a href="http://dianacoman.com/available_resources/gnat-gpl-2016-x86_64-linux-bin.tar.gz">here</a> for those that might need it in the future.</p>
+
+<p>Once that was installed, I checked to ensure it was, in fact, the proper version:</p>
+
+<p><img src="media/img/gnat.png"></img></p>
+
+<p>Perfect! Building the starter pack is very painless and took less than a minute for me.</p>
+
+<p>Now I moved on to the actual regrind by setting up the suggested sandbox and moving down the list of steps in mod6's blog post. This also went quite painlessly, my only snafu being I forgot to add back a hyphen "-" for the utf-8 
+char removed from line 118 of util.h, which caused a byte mismatch later in the process. Once that was done, I had no other problems with the process and was ready to test using mod6's experimental patchset and seals which he 
+handily provides <a href="http://mod6.net/trb/regrinds/keccak_trb_20190112.tar.gz">here</a>, along with the <a href="http://mod6.net/trb/regrinds/keccak_trb_20190112.tar.gz.mod6.sig">signature</a> for same. This part requires one 
+follow the `OFFLINE` build steps from the foundation website, so it will be necessary to download the dependencies from <a href="http://deedbot.org">deedbot</a> if you don't have a copy stored somewhere already. I put all the links 
+inside a bash script, intentionally leaving off the -sSL flags so I could observe their download progress.</p>
+
+<p><pre><blockquote>
+cd deps/
+
+cat &gt;eu.sh&lt;&lt;EOF
+curl http://deedbot.org/deed-430460-2.txt > rotor.tar.gz.asc
+curl http://deedbot.org/deed-430460-1.txt > rotor-db-configure-fix.patch.asc
+curl http://deedbot.org/deed-422651-1.txt > boost_1_52_0.tar.bz2.asc
+curl http://deedbot.org/deed-422651-2.txt > buildroot-2015.05.tar.gz.asc
+curl http://deedbot.org/deed-422651-3.txt > db-4.8.30.tar.gz.asc
+curl http://deedbot.org/deed-422651-4.txt > openssl-1.0.1g.tar.gz.asc
+curl http://deedbot.org/deed-427443-1.txt > binutils-2.24.tar.bz2.asc
+curl http://deedbot.org/deed-427443-2.txt > busybox-1.23.2.tar.bz2.asc
+curl http://deedbot.org/deed-427443-3.txt > expat-2.1.0.tar.gz.asc
+curl http://deedbot.org/deed-427443-4.txt > fakeroot_1.18.4.orig.tar.bz2.asc
+curl http://deedbot.org/deed-427443-5.txt > gcc-4.9.2.tar.bz2.asc
+curl http://deedbot.org/deed-427443-6.txt > gdb-7.8.2.tar.xz.asc
+curl http://deedbot.org/deed-427443-7.txt > gmp-6.0.0a.tar.xz.asc
+curl http://deedbot.org/deed-427443-8.txt > linux-3.18.14.tar.xz.asc
+curl http://deedbot.org/deed-427443-9.txt > m4-1.4.17.tar.xz.asc
+curl http://deedbot.org/deed-427443-10.txt> mpc-1.0.3.tar.gz.asc
+curl http://deedbot.org/deed-427443-11.txt> mpfr-3.1.2.tar.xz.asc
+curl http://deedbot.org/deed-427443-12.txt> musl-1.1.8.tar.gz.asc
+curl http://deedbot.org/deed-427443-13.txt> ncurses-5.9.tar.gz.asc
+curl http://deedbot.org/deed-427443-14.txt> pkgconf-0.8.9.tar.bz2.asc
+EOF
+
+chmod +x deps.sh
+./deps.sh
+</blockquote></pre></p>
+
+<p>After enjoying <i>un cafecito</i>, the dependencies were finished downloading, so I deleted the script and changed back to the bitcoin directory. A simple `make` completes the process. I encountered no hiccups, and roughly a half 
+hour or so later had a nice shiny bitcoind produced using vk.pl and the keccak patchset only.</p>
+
+<p><img src="media/img/bitcoind.png"></img></p>
+
+<p>In the interests of science, and to ensure repeatable results I went a step further and redid all the regrind steps in a fresh sandbox, and signed a copy of all the patches with my gpg key. Before performing a press I put mod6's 
+copy of the patches in a directory `a` and mine in a directory `b` and ran `diff -uNr a b` against them to ensure they matched, which they did. This build also went fine with no errors, and output a 4.7M to bin/. Now let's test 
+it:</p>
+
+
+<p><figure><img src="media/img/getinfo.png"></img><figcaption><b>Success! Node is happily pulling blocks.</b></figcaption></p>
+
+<p>In conclusion, this work represents an outstanding effort on the part of mod6 to ensure trb remains unmolested in the future. I have uploaded my copies of the resulting patches and the corresponding seals <a 
+href="http://btc.info.gf/library/bitcoin/trb/">here</a> for those that wish to compare them with their own during testing.</a></p>
+
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

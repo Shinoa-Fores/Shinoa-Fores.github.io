@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Building Unobtanium on Docker</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="building-unobtanium-on-docker.html">
+Building Unobtanium on Docker
+</a></h3>
+<!-- blog_timestamp: #201904172250.47# -->
+<div class="subtitle">April 17, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This docker recipe has so far proved a stable way to get repeatable results when building Unobtanium binaries for 64-bit Linux and Windows. I am mainly making this post to reference the steps I took, as the method is applicable 
+to most coins.</p>
+
+<p>Download my <a href="http://btc.info.gf/library/bitcoin/alts/uno/unobtanium-devenv.tar.gz">unobtanium-devenv</a> and untar it.</p>
+
+<p><blockquote>
+curl http://btc.info.gf/library/bitcoin/alts/uno/unobtanium-devenv.tar.gz | tar zxvf -</p>
+</blockquote>
+
+<p>Enter devenv and build the docker image</p>
+
+<p><blockquote>
+cd unobtanium-devenv/</p>
+
+docker-compose -f docker-compose.yml -f unobtanium/docker-compose.windows.yml build</p>
+</blockquote></p>
+
+<p>Go have a coffee and smoke while the container builds.</p>
+
+<p>When that build finishes, start the container.</p>
+
+<blockquote>
+<p>docker-compose -f docker-compose.yml -f unobtanium/docker-compose.windows.yml up -d</p>
+</blockquote>
+
+<p>Find your container id and connect (as root)</p>
+
+<blockquote>
+<p>docker container ls --all</p>
+<p>docker exec -u root -t -i &lt;container-id&gt; /bin/bash</p>
+</blockquote>
+
+<p>From the docker shell, go clone my Unobtanium repo.</p>
+
+<blockquote>
+<p>git clone https://github.com/Shinoa-Fores/Unobtanium.git && cd Unobtanium/depends/</p>
+</blockquote>
+
+<p>Let's do a Windows build, just for fun.</p>
+
+<blockquote>
+<p>make HOST=x86_64-w64-mingw32</p>
+</blockquote>
+
+<p>The process of compiling the dependncies takes about 2 hours. I usually also invoke `import colombian websluts` at this point. When I return to the terminal we are ready to build the UNO qt and cli .exe's</p>
+
+<blockquote>
+<p>cd ..</p>
+<p>./autogen.sh</p>
+<p>./configure --prefix="$PWD/depends/x86_64-w64-mingw32/"</p>
+<p>make</p>
+</blockquote>
+
+<p>Kill another hour drinking coffee, smoking, and looking at cats on internet.</p>
+
+<blockquote>
+<p>mkdir -p bin</p>
+<p>cp src/*.exe bin/</p>
+<p>cp src/qt/unobtanium-qt.exe bin/</p>
+</blockquote>
+
+<p>Enjoy your shiny new Windows wallet. Repeat the depends step and rebuild to produce binary for any arch you have a config for.</p>
+
+<p>The x86_64 Linux version lets you do nice things, like run custom .qss so I darkened the wallet. I will post this config to the blog shortly.</p>
+
+
+<center><iframe width="600" height="380" src="media/video/unobtanium.mp4" frameborder="0" allow="encrypted-media"></iframe></center>
+
+<p>Have fun, and feel free to complain about this build method on irc or telegram.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Cryptocurrency.html'>Cryptocurrency</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

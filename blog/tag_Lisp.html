@@ -1,0 +1,874 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "Lisp"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="nostr-keygen-in-common-lisp.html">
+Nostr keygen in common lisp
+</a></h3>
+<!-- blog_timestamp: #202504091843.11# -->
+<div class="subtitle">April 09, 2025 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>It's high time some good, working common lisp tools existed for nostr. As far as I can tell only <a href="">cl-nosso</a> exists, though it is mostly non-working and far from complete. Here is my attempt at it's grossly inadequate keygen function. This requires the `ironclad` crypto library, available in quicklisp.</p>
+
+<p><code><pre>
+(defun make-key-pair ()
+  "Creates a nostr keypair with 32-byte private and public keys in hex."
+  (multiple-value-bind (private-key public-key)
+      (ironclad:generate-key-pair :secp256k1)
+    (flet ((bytes-to-hex (bytes)
+             (ironclad:byte-array-to-hex-string bytes)))
+      (let* ((priv-struct (ironclad:destructure-private-key private-key))
+             (pub-struct (ironclad:destructure-public-key public-key))
+             (priv-bytes (getf priv-struct :x))
+             (pub-point (getf pub-struct :y))
+             (pub-x (subseq pub-point 1 33))
+             (priv-hex (bytes-to-hex priv-bytes))
+             (pub-hex (bytes-to-hex pub-x)))
+        (list
+         :/private-key priv-hex 
+         :/public-key pub-hex))))) 
+
+(progn
+  (let ((kp (make-key-pair)))
+    (format t "Private key: ~A (~D bytes)~%" 
+            (getf kp :/private-key) 
+            (/ (length (getf kp :/private-key)) 2))
+    (format t "Public key: ~A (~D bytes)~%" 
+            (getf kp :/public-key) 
+            (/ (length (getf kp :/public-key)) 2))
+    (force-output)))
+</pre></code></p>
+
+<p>Come find me on <a href="https://nostr.band/npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa">nostr</a> if you want to discuss or wish to complain about how this doesn't work for you. I'll probably just laugh at you for the latter, but come anyway!</p>    
+
+<p>Tags: <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Nostr.html'>Nostr</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="trivial-bash-shell-for-common-lisp.html">
+Trivial bash shell for common lisp
+</a></h3>
+<!-- blog_timestamp: #202412112015.48# -->
+<div class="subtitle">December 11, 2024 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I recently acquired a fresh laptop, and in the process of setting up sbcl I thought I best polish this little lisp function for my .sbclrc. I shall publish it here lest I forget it, and on the off chance another reader finds it useful.</p>
+
+<p><code><pre>
+(defun sh (cmd)
+  "Run a shell command and return standard output if successful."
+  (multiple-value-bind (stdout stderr exit)
+      (uiop:run-program
+       (format nil "~A" cmd)
+       :output :string
+       :error-output :string
+       :ignore-error-status t)
+    (if (zerop exit)
+        stdout
+        (format nil "Command failed with exit code ~A. Error: ~A" exit stderr))))
+</pre></code></p>
+
+<p>Happy holidays to all!</p>
+
+<p>Tags: <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="installing-slimv-using-esthlos-v.html">
+Installing slimv using esthlos-v
+</a></h3>
+<!-- blog_timestamp: #202112300723.06# -->
+<div class="subtitle">December 30, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Slimv stands for Superior Lisp Interaction Mode for Vim. It is a Vim plugin of 2009 vintage written by Tamas Kovacs, preserved in the form of a vpatch. This is for folx who already have vim,tmux, and sbcl installed and want a quick and reliable method for enabling a swank server in vim ala emacs.</p>
+
+<p>Populate your slimv tree, mine is available at <a href="http://btc.info.gf/devel/vim/plugins/slimv/">http://btc.info.gf/devel/vim/plugins/slimv/</a></p>
+
+<p><blockquote><pre>
+# tree slimv/
+slimv/
+├── patches
+│   └── slimv.genesis.vpatch
+├── seals
+│   └── slimv.genesis.vpatch.shinohai.sig
+└── wot
+    └── shinohai.asc
+</pre></blockquote></p>
+
+<p>Using <a href="/devel/lisp/esthlos-v/">esthlos-v</a> press slimv directly to the vim plugins directory:</p>
+
+<p><blockquote><pre>
+`v press slimv.genesis.vpatch ~/.vim/pack/plugins/start/`
+</pre></blockquote></p>
+
+<p>My sbcl binary is in a nonstandard location (because Gentoo) and I couldn't get the swank server to start from within vim. I remedied this with a function that starts swank in a tmux window using rlwrap:</p>
+
+<p><blockquote><pre>
+swank() {
+tmux ls | grep '>_' > /dev/null || (
+  tmux new-session -d -s '>_' -n '[swank]' rlwrap /usr/local/bin/sbcl --load \
+   ~/.vim/pack/plugins/start/slimv/slime/start-swank.lisp
+)
+exec tmux attach -t '>_'
+}
+</pre></blockquote></p>
+
+<p>Now when I open a `.lisp` file, vim presents me with a new buffer containing a REPL connected via swank:</p>
+
+<p><center><img src="media/img/swank.png"></img></center></p>
+
+<p><b>BUT WAIT ! THERE'S MOAR !!!</b></p>
+
+<p>Bundled with slimv is a tool called  <a href="">paredit</a> which will, amongst other things,match parenthesis for you as you code. To learn more about it's features read the documentation by entering `:help paredit`</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="a-simple-bip39-diceware-script-in-common-lisp.html">
+A simple bip39 diceware script in common lisp
+</a></h3>
+<!-- blog_timestamp: #202107071725.00# -->
+<div class="subtitle">July 07, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I'm currently bench testing a <a href="https://foundationdevices.com/">"Foundation devices" passport</a> hardware Bitcoin wallet, because why not? While the device will happily generate bip39 seeds for you I wanted to test load a bunch of seed phrases generated offline without throwing dice all afternoon and figured a simple lisp script would suffice.</p>
+
+<p>I started with <a href="https://archive.is/8es4V">this implementation</a> of diceware. The original author provided no asdf system file or anything, but we don't need that where <i>we're</i> going, so a couple of quick modifications get us where we want to be here. We only need an index of 2048 for our *words* array, so we change that in the script to make it compatible with the standard bip39 wordlist.</p>
+
+<p><pre><blockquote>
+(require 'ironclad)
+(defparameter *words* nil)
+(defparameter *prng* (ironclad:make-prng :fortuna))
+
+(defun load-words (&optional (wd-list #P "bip39-english.txt"))
+  "Load *words* from bip39-english.txt"
+  (with-open-file (s wd-list)
+    (do ((wd (read-line s nil) (read-line s nil))
+         ( i 0 (1+ i)))
+        ((not wd))
+      (setf (aref *words* i) wd))))
+
+(defun choose-one ()
+  "Randomly choose a single word from *words*."
+  (aref *words* (ironclad:strong-random (length *words*) *prng*)))
+
+(defun choose-password (n)
+  "Generate n random words for a pass phrase. Initialize *words* if needed"
+  (unless *words*
+    (setf *words* (make-array 2048))
+    (load-words))
+  (let (words)
+    (dotimes (i n)
+      (push (choose-one) words))
+    (reverse words)))
+</blockquote></pre></p>
+
+<p>Grab the standard bip39 English wordlist from the <a href="https://raw.githubusercontent.com/bitcoin/bips/master/bip-0039/english.txt">"Bitcoin Core" Shithub repo</a>, and save it in the same directory as the script naming it "bip39-english.txt".</p>
+
+<p>Load up the script in your lisp REPL (I used <a href="http://www.sbcl.org/">SBCL</a> here) and run `choose password` + the number of words you are using for your seed. I'm using 23 words in this example since most hardware wallets will calculate the final word for you.</p>
+<p><pre><blockquote>
+/usr/local/bin/sbcli --load diceware.lisp 
+REPL for SBCL version 0.1.0
+Press CTRL-D or type :q to exit
+
+[sbcl]> * (choose-password 23)
+("there" "image" "federal" "steak" "renew" "helmet" "attack" "medal" "seat"
+ "game" "return" "way" "shock" "hero" "wolf" "amount" "token" "pluck" "gentle"
+ "evoke" "burst" "siege" "ripple")
+
+</blockquote></pre></p>
+
+<p>The device happily accepted the phrases generated via manual entry, calculated the 24th "checksum" word perfectly, and freed up time for me to continue trying builds of the device firmware. More to come.</p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="benvulpes-base58-encoding-in-common-lisp.html">
+ben_vulpes base58 encoding in Common Lisp
+</a></h3>
+<!-- blog_timestamp: #202101241848.14# -->
+<div class="subtitle">January 24, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>As the anniversary of <a href="http://btc.info.gf/blog/trilema-announces-closure.html">the fall of TMSR</a> approaches the decay of the once-proud institution is evident in the rapidly decreasing number of websites of former Lords. cascadianhacker.com, formerly operated by ben_vulpes <a href="http://wot.deedbot.org/4F7907942CA8B89B01E25A762AFA1A9FD2D031DA.html">(WoT:ben_vulpes)</a> is sadly one of these castles specifically because the guy wrote the defacto introduction to vtronics <a href="https://archive.is/pRfAz">(archived)</a> and some interesting posts on common lisp.</p>
+
+<p>One forgotten item I found particularly useful was an implementation of base58 encoding in common lisp. Sadly I could find no archive of the original article but after a bit of digging I found a copy of the code contained within saved on an old hard drive. I'm quoting it below so I have a handy reference for future projects.</p>
+
+<p><blockquote><pre>
+(defparameter +b58-alphabet+ "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+
+(defun b58-encode (bytes)
+  (let ((string (make-string-output-stream))
+        (bignum (loop for i to (- (length bytes) 1) summing
+               (* (elt bytes i)
+                  (expt 256 i)))))
+
+   (loop while (> bignum 0) do
+        (multiple-value-bind (x r) (floor bignum (length +b58-alphabet+))
+          (write-char (elt +b58-alphabet+ r) string)
+          (setf bignum x)))
+
+   (loop for b across (reverse bytes) do
+        (if (= 0 b)
+            (write-char (elt +b58-alphabet+ 0) string)
+            (return)))
+
+   (reverse (get-output-stream-string string))))
+</pre></blockquote></p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_News.html'>News</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="botworks---ircbot-and-logbot-genesis.html">
+Botworks - ircbot and logbot genesis
+</a></h3>
+<!-- blog_timestamp: #202006211520.51# -->
+<div class="subtitle">June 21, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Alf has <a href="http://logs.nosuchlabs.com/log/asciilifeform/2020-05-22#1012802">reminded me several times</a> that it might be helpful to publish the sauce for my ircbot setup so this post is an attempt to do just that, and generally make it easier to install the bot components using V. My <a href="http://btc.info.gf/devel/lisp/botworks/">botworks tree</a> uses <a href="http://trinque.org/2016/08/10/ircbot-genesis/">trinque's lisp ircbot</a> and <a href="http://trinque.org/2016/08/11/logbot-genesis/">logbot</a> combo as the starting point.</p>
+
+<p>A lot of good patches are scattered about on former republican blogs, though it seems I could get none of them to play nice with <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a> so a regrind was in order. For ircbot these are:</p>
+
+<p>trinque's <a href="http://btc.info.gf/devel/lisp/botworks/ircbot/patches/ircbot-genesis-kv.vpatch">ircbot-genesis-kv.vpatch</a>.</p>
+
+<p>ben_vulpes' <a href="http://btc.info.gf/devel/lisp/botworks/ircbot/patches/ircbot-multiple-channels-kv.vpatch">ircbot-multiple-channels-kv.vpatch</a>.</p>
+
+<p>whaack's <a href="http://btc.info.gf/devel/lisp/botworks/ircbot/patches/ircbot-no-suicide-on-reconnect-kv.vpatch">ircbot-no-suicide-on-reconnect-kv.vpatch</a>.</p>
+
+<p>Assuming you already have SBCL and quicklisp, you can then use `V` to press ircbot and move the output to your local-projects directory:</p>
+
+<p><blockquote><pre>
+v press ircbot-no-suicide-on-reconnect-kv out
+
+mv out/ircbot ~/quicklisp/local-projects
+</pre></blockquote></p>
+
+<p>The process is repeated to add the logbot system. While testing the regrinds I came upon a curious problem where adding ben_vulpes "logbot-multiple-channels" patch caused an error when trying to start logbot. Simply pressing the <a href="http://btc.info.gf/devel/lisp/botworks/logbot/patches/logbot-genesis-kv.vpatch">logbot genesis</a> and running the bot is working, so I will continue to debug the issue and post results in a future botworks piece. The logbot requires that postgres be installed on your system, <a href="http://wot.deedbot.org/6326273b61a700af4cd95a7b8c6cab1924a64dec.html">whaack</a> has <a href="http://ztkfg.com/2019/12/setting-up-trinques-logbot-on-centos-6-with-sbcl-quicklisp-swank-and-postgres/">a good piece on how to do this on his blog</a>, if you aren't familiar with setting that part up.</p>
+
+
+<p><blockquote><pre>
+v press logbot-genesis-kv.vpatch
+
+mv out/logbot ~/quicklisp/local-projects
+</pre></blockquote></p>
+
+<p>With both of these components installed where ASDF can find them running the bot is as simple as firing up a REPL, adding your parameters and connecting to it according to the instructions in the "logbot/USAGE" file.</p>
+
+
+<p><b>TODO:</b></p>
+<p>Put together a better prefixed command system, the system I am currently using works but needs quite a bit of polish before being worthy of turning into a vpatch.</p>
+<p>Cobble together a www log reader for use with the logbot system.</p>
+
+<p><b>Links to useful lisp botworks resources:</b></p>
+
+<p>trinque's sources: <a href="http://trinque.org/src/">http://trinque.org/src/</a></p>
+
+<p>ben_vulpes' post on multiple channels: <a href="http://cascadianhacker.com/correction-multiple-channel-patches-for-irclogbot">http://cascadianhacker.com/correction-multiple-channel-patches-for-irclogbot</a></p>
+
+<p>spyked's botworks vpatches: <a href="http://lucian.mogosanu.ro/src/botworks/v/patches/">http://lucian.mogosanu.ro/src/botworks/v/patches/</a></p>
+
+<p>whaack's post on setting up trinque's logbot: <a href="http://ztkfg.com/2019/12/setting-up-trinques-logbot-on-centos-6-with-sbcl-quicklisp-swank-and-postgres/">http://ztkfg.com/2019/12/setting-up-trinques-logbot-on-centos-6-with-sbcl-quicklisp-swank-and-postgres/</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="notes-on-esthlos-v-and-some-restructuring-thereof.html">
+Notes on esthlos-v and some restructuring thereof
+</a></h3>
+<!-- blog_timestamp: #202001301035.13# -->
+<div class="subtitle">January 30, 2020 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This particular post will serve as a place to put my notes on esthlos-v, which I have been reading over in an attempt to polish it up for personal use. Now there are many fine implementations of "V" out there already, and I admit <a href="http://wot.deedbot.org/027A8D7C0FB8A16643720F40721705A8B71EADAF.html">mod6</a>'s "v.pl" has served me well over time, but this particular "V" is delightfully readable and the code is well commented.</p>
+
+<p>Way back in ancient Greece, the word "esthlos" meant that "something exists" or at least <i>is true</i>. Even though the author of esthlos-v vanished into internet space some time ago, and apparently abandoned work on the project, we'll retain the original name since it seems rather fitting for a tool used to magic software into existence. 
+</p>
+
+<p>I will expound upon the contents of esthlos-v in a later piece, though for now I am adding a single new vpatch: "esthlos-v_makefile-and-vdiff.vpatch" - this patch contains simple modifications to the original Makefile so it will build both "v.lisp" and "cl-keccak" as standalone binaries at the same time, and install them if the operator so desires. A modified version of <a href="http://wot.deedbot.org/BDDE12104FE81BE7F83B698F5356DE4752432A9E.html">phf's</a> original vdiff.sh that uses cl-keccak instead of sha512sum is included. This <a href="http://btc.info.gf/devel/lisp/esthlos-v/patches/esthlos-v_makefile-and-vdiff.vpatch">vpatch</a> and it's corresponding <a href="http://btc.info.gf/devel/lisp/esthlos-v/seals/esthlos-v_makefile-and-vdiff.vpatch.shinohai.sig">seal</a> can be found in the <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v mirror here</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_UNIX.html'>UNIX</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="essential-kit-items-building-sbcl-on-gentoo-with-musl.html">
+Essential kit items: Building SBCL on Gentoo with musl
+</a></h3>
+<!-- blog_timestamp: #201911081007.48# -->
+<div class="subtitle">November 08, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Steel Bank Common Lisp is another must-have tool in my kit, since I use it to run my hybrid irc/Telegram bot and many other daily use items. In my <a href="building-gcc-494-with-musl-on-gentoo.html">previous post</a> I documented how I managed to get gcc-4.9.4 massaged into shape, so this post will serve as a reference on how to do the same for SBCL so in the future I don't have to spend the day researching fixes and locating obscure patchsets.</p>
+
+<p>When building many things using musl, one will often run into "undefined reference to `memcpy@GLIBC_*'" type errors, since glibc uses versioned symbols and musl does not. SBCL is no different, but fortunately a little digging turned up a <a href="https://sourceforge.net/p/sbcl/mailman/message/36598627/">working patchset on the SBCL mailing list</a> which works beautifully, so I didn't have to spend the better part of a day cobbling one together as I did for gcc. I have preserved a copy of the patchset <a href="http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/">here</a> and will definitely do my best to maintain these into the future should any major changes occur.</p>
+
+<p>Much like Ada, SBCL requires itself or another ANSI common lisp to build. I decided to use CLISP (version 2.49.92) to perform this task, as it can be quickly built from sources using gcc only (and I didn't want to use a pre-built sbcl binary of unknown provenance). After getting clisp in place, building SBCL is mostly painless using the following steps:</p>
+
+<p>I downloaded the 1.5.7 sources from my site and verified the checksums:</p>
+
+<p><blockquote><pre>curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/sbcl-1.5.7-source.tar.bz2
+curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/Manifest.sha512</pre></blockquote></p>
+
+<p>Unpack the sources and enter the directory:</p>
+
+<p><blockquote><pre>tar xjf sbcl-1.5.7-source.tar.bz2 && cd sbcl-1.5.7</pre></blockquote></p>
+
+<p>Get the musl patchset and apply them:</p>
+
+<p><blockquote><pre>wget -q -r -nd -N --no-parent -R "index.html*" http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/
+for i in *.patch; do patch -p1 < $i; done</pre></blockquote></p>
+
+<p>Build using CLISP and install:</p>
+
+<p><blockquote><pre>./make.sh "clisp" --fancy
+./install.sh</pre></blockquote></p>
+
+<p>The above recipe has so far worked quite nicely, having been tested by running the above mentioned irc bot and a few other essential lisp programs. I will update this post if/when any bugs are found or if any changes are made.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Lisp.html'>Lisp</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

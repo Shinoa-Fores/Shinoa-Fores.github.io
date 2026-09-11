@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Gentoo chroot on android 10 device</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="gentoo-chroot-on-android-10-device.html">
+Gentoo chroot on android 10 device
+</a></h3>
+<!-- blog_timestamp: #202106062100.30# -->
+<div class="subtitle">June 06, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>
+I was in a pinch over the weekend and needed a quick gentoo env to test something but only had my stupid android 10 smartphone with me, so wat do? I'm documenting the following recipe that (so far) works for me and preserving the tarball here to my www for possible future needs.
+</p>
+
+<p>Grab the stage3 for armv7 using curl inside termux.</p>
+<p><pre><blockquote>
+`curl -sSL4 http://btc.info.gf/devel/gentoo/arm/android/stage3-arm64-20200704.tar.xz`
+</blockquote></pre></p>
+
+<p>Gotta fucking fix hardlinks cuz of some android kernel herpderpery so we use proot, also from termux.</p>
+<p><pre><blockquote>
+`proot --link2symlink tar -C $GENTOO/data -xf stage3-arm64-20200704.tar.xz`
+</blockquote></pre></p>
+
+<p>Now make a script that starts up the chroot inside termux and fire it off:</p>
+<p><pre><blockquote>
+`cat >chroot.sh << EOF
+#!/usr/bin/env bash
+set -eu
+set -o pipefail
+unset LD_PRELOAD
+export GENTOO=/data/data/com.termux/gentoo
+export EPREFIX=/data/gentoo64
+
+proot --link2symlink -r $GENTOO -0 -w / \
+    -b /dev -b /proc -b /sys \
+    $EPREFIX/bin/sh -c \
+    "HOME=$EPREFIX/root $EPREFIX/startprefix"
+EOF
+
+chmod +x chroot.sh
+
+sh chroot.sh
+</blockquote></pre></p>
+
+<p>Now from inside the chroot, fix your `/etc/resolv.conf` since this can't be copied from android system. Then source your profile and set ENV.</p>
+<p><pre><blockquote>
+source /etc/profile
+export PS1="(chroot) $PS1"
+</blockquote></pre></p>
+<p><center><img src="media/img/gentoodroid.jpg"></img></center></p>
+
+<p>Normally this is the step where one sets up portage, but resist the temptation to `emerge-webrsync` here. I'd simply crossdev the packages I needed on a much more capable machine and set up my `/etc/portage/make.conf` to emerge packages from a local binhost.</p>
+
+<p><b>CAVEATS</b></p>
+
+<p>This thing will bitch about `proc/` not being mounted on most devices. However, I'm able to see chroot processes inside htop in another termux session.</p>
+
+<p>Because of the extreme minimal size of the environment, user is expected to be capable of building their own env using crossdev as explained above</p>
+
+<p><b>UPDATE:</b>
+I forgot to mention that I mounted one of these Kingston 8GB microsd cards before unpacking the fs:</p>
+<p><center><img src="media/img/droidfs.jpg"></img></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Gentoo.html'>Gentoo</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

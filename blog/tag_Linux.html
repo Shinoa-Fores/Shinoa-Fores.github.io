@@ -1,0 +1,2152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "Linux"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="akris-desktop-available-in-pip.html">
+Akris desktop available in pip
+</a></h3>
+<!-- blog_timestamp: #202509302051.27# -->
+<div class="subtitle">September 30, 2025 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="https://btc.info.gf/blog/building-awts-akris-pestnet-client-on-gentoo.html">Akris Desktop</a> is now available in pip according to <a href="http://logs.bitdash.io/pest/2025-09-26#1034936">this message</a> by the author.</p>
+
+<p>Installation is therefore as easy as:</p>
+
+<p><pre><code>pip install akris-desktop --user
+</code></pre></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Encryption.html'>Encryption</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="nostr-keygen-in-common-lisp.html">
+Nostr keygen in common lisp
+</a></h3>
+<!-- blog_timestamp: #202504091843.11# -->
+<div class="subtitle">April 09, 2025 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>It's high time some good, working common lisp tools existed for nostr. As far as I can tell only <a href="">cl-nosso</a> exists, though it is mostly non-working and far from complete. Here is my attempt at it's grossly inadequate keygen function. This requires the `ironclad` crypto library, available in quicklisp.</p>
+
+<p><code><pre>
+(defun make-key-pair ()
+  "Creates a nostr keypair with 32-byte private and public keys in hex."
+  (multiple-value-bind (private-key public-key)
+      (ironclad:generate-key-pair :secp256k1)
+    (flet ((bytes-to-hex (bytes)
+             (ironclad:byte-array-to-hex-string bytes)))
+      (let* ((priv-struct (ironclad:destructure-private-key private-key))
+             (pub-struct (ironclad:destructure-public-key public-key))
+             (priv-bytes (getf priv-struct :x))
+             (pub-point (getf pub-struct :y))
+             (pub-x (subseq pub-point 1 33))
+             (priv-hex (bytes-to-hex priv-bytes))
+             (pub-hex (bytes-to-hex pub-x)))
+        (list
+         :/private-key priv-hex 
+         :/public-key pub-hex))))) 
+
+(progn
+  (let ((kp (make-key-pair)))
+    (format t "Private key: ~A (~D bytes)~%" 
+            (getf kp :/private-key) 
+            (/ (length (getf kp :/private-key)) 2))
+    (format t "Public key: ~A (~D bytes)~%" 
+            (getf kp :/public-key) 
+            (/ (length (getf kp :/public-key)) 2))
+    (force-output)))
+</pre></code></p>
+
+<p>Come find me on <a href="https://nostr.band/npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa">nostr</a> if you want to discuss or wish to complain about how this doesn't work for you. I'll probably just laugh at you for the latter, but come anyway!</p>    
+
+<p>Tags: <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Nostr.html'>Nostr</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="trivial-bash-shell-for-common-lisp.html">
+Trivial bash shell for common lisp
+</a></h3>
+<!-- blog_timestamp: #202412112015.48# -->
+<div class="subtitle">December 11, 2024 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I recently acquired a fresh laptop, and in the process of setting up sbcl I thought I best polish this little lisp function for my .sbclrc. I shall publish it here lest I forget it, and on the off chance another reader finds it useful.</p>
+
+<p><code><pre>
+(defun sh (cmd)
+  "Run a shell command and return standard output if successful."
+  (multiple-value-bind (stdout stderr exit)
+      (uiop:run-program
+       (format nil "~A" cmd)
+       :output :string
+       :error-output :string
+       :ignore-error-status t)
+    (if (zerop exit)
+        stdout
+        (format nil "Command failed with exit code ~A. Error: ~A" exit stderr))))
+</pre></code></p>
+
+<p>Happy holidays to all!</p>
+
+<p>Tags: <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="building-awts-akris-pestnet-client-on-gentoo.html">
+Building awt's akris pestnet client on Gentoo
+</a></h3>
+<!-- blog_timestamp: #202307282205.43# -->
+<div class="subtitle">July 28, 2023 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">awt</a> recently released a new station and client library dubbed "<a href="http://v.alethepedia.com/">akris</a>" for use with the <a href="http://pestnet.io/">pestnet protocol</a>. Detailed instructions for installing it using various methods are detailed on alethepedia, but here I am documenting how I built on Gentoo in a virtual environment using Python 3.11 and <a href="http://btc.info.gf/devel/lisp/esthlos-v/">esthlos-v</a>.</p>
+
+<p>I started by creating the python virtual environment in my /devel/ directory, making sure I specified my py interpreter since akris-desktop requires Python >= 3.11. Then we switch to the newly created directory and activate the venv.</p>
+
+<p><code><pre>
+python3.11 -m venv pest 
+cd pest/ && source bin/activate
+</pre></code></p>
+
+<p>Now we make a directory for akris and grab the vpatches and seals:</p>
+
+<p><code><pre>
+mkdir -p akris && cd $_
+mkdir -p patches/ seals/ wot/
+wget http://v.alethepedia.com/akris/akris-genesis-99999.vpatch -P patches/
+wget http://v.alethepedia.com/akris/akris-genesis-99999.vpatch.thimbronion.sig -P seals/
+wget http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.asc -O wot/thimbrion.asc
+</pre></code></p>
+
+<p>After obtaining the needed ingredients, we can now press using <a href="https://archive.ph/pRfAz">V</a>:</p>
+
+<p><code><pre>
+v press akris-genesis-99999.vpatch .
+</pre></code></p>
+
+<p>When the press completes successfully, we can install the akris station library to our venv using pip:</p>
+
+<p><code><pre>
+pip install -e .
+</pre></code></p>
+
+<p>Now we can move back to the root 'pest' directory and make a new directory to install the desktop components in:</p>
+
+<p><code><pre>
+cd ~/devel/pest
+mkdir -p gui && cd $_
+mkdir -p patches/ seals/ wot/
+</pre></code></p>
+
+<p>Grab the patches and seals much like we did above for the station library:</p>
+
+<p><code><pre>
+wget http://v.alethepedia.com/akris_desktop/akris-desktop-genesis-99999.vpatch -P patches/
+wget http://v.alethepedia.com/akris_desktop/akris-desktop-genesis-99999.vpatch.thimbronion.sig -P seals/
+wget http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.asc -O wot/thimbrion.asc
+</pre></code></p>
+
+<p>Press it, again using `V`:</p>
+
+<p><code><pre>
+v press akris-desktop-genesis-99999 .
+</pre></code></p>
+
+<p>akris-desktop requires tk, so you might need to install it from portage:</p>
+
+<p><code><pre>
+emerge -av dev-python/tk
+</pre></code></p>
+
+<p>Once that completes, you will have to manually install icons and imagery for the gui client, since `vdiff` <a href="http://logs.bitdash.io/pest/2023-07-27#1029017">does not handle binary files</a>:</p>
+
+<p><code><pre>
+cd akris-desktop/
+wget http://v.alethepedia.com/akris_desktop/images.tar.gz
+wget http://v.alethepedia.com/akris_desktop/images.tar.gz.thimbronion.sig
+</pre></code></p>
+
+<p>Verify the signatures before untarring, because you aren't a heathen:</p>
+
+<p><code><pre>
+gpg-1.4.10 --verify images.tar.gz.thimbronion.sig images.tar.gz
+
+gpg: Signature made Tue Jul 25 10:54:59 2023 EDT
+gpg:                using RSA key 0xB16136257FB8FBDD
+gpg: Good signature from "Thimbronion <thimbron@yandex.ru>" [unknown]
+Primary key fingerprint: 5751 2CE7 8CF0 8BB2 5FE2  77A4 B161 3625 7FB8 FBDD
+</pre></code></p>
+
+<p>Now we have verified sigs, decompress and clean up:</p>
+
+<p><code><pre>
+tar zxf images.tar.gz
+rm -f images.tar.gz images.tar.gz.thimbronion.sig
+</pre></code></p>
+
+<p>Then install akris-desktop using pip:</p>
+
+<p><code><pre>
+cd ..
+pip install -e .
+</pre></code></p>
+
+<p>Now we're almost done. Go back to the root pest directory:</p>
+
+<p><code><pre>
+cd ~/devel/pest
+</pre></code></p>
+
+<p>Create a little start script called "start-gui" for ease of use containing the following:</p>
+
+<p><code><pre>
+#!/usr/bin/env bash
+python gui/bin/main.py
+</pre></code></p>
+
+<p>Now you can easily start your pest station and client from the virtual environment by running `./start-gui`. If all goes well, you'll be greeted with a screen like this:</p>
+
+<p><center><img src="media/img/akrisdesktop.png"><img></center></p>
+
+<p>For more information, visit alethepedia: <a href="http://v.alethepedia.com/akris/">akris</a> and <a href="http://v.alethepedia.com/akris-desktop/">akris-desktop</a>.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="suckless-st-regrind.html">
+Suckless st regrind
+</a></h3>
+<!-- blog_timestamp: #202304191508.23# -->
+<div class="subtitle">April 19, 2023 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is just a redo of the <a href="http://btc.info.gf/blog/suckless-st-and-tabbed.html">original st vpatch</a> with a tweak that allows drawing of images directly to the terminal. Much like the patch listed in the <a href="https://git.suckless.org/st/file/FAQ.html#l177">st FAQ</a> this version does not cancel double-buffering, thereby doing away with the flickering that I observed when I first tried this. While not perfect, it does render images well with w3m for me, and by abusing the w3m image display doubles as a simple image viewer with a little bash-foo. Here's how you do that:</p>
+
+<p><blockquote><pre>
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo
+    echo "USAGE: timg <path-to-img-file>"
+    echo
+    exit 0;
+fi
+
+W3MIMGDISPLAY="/usr/local/bin/w3mimgdisplay"
+FILENAME=$1
+FONTH=14
+FONTW=8
+COLUMNS=`tput cols`
+LINES=`tput lines`
+
+read width height <<< `echo -e "5;$FILENAME" | $W3MIMGDISPLAY`
+
+max_width=$(($FONTW * $COLUMNS))
+max_height=$(($FONTH * $(($LINES - 2))))
+
+if test $width -gt $max_width; then
+height=$(($height * $max_width / $width))
+width=$max_width
+fi
+if test $height -gt $max_height; then
+width=$(($width * $max_height / $height))
+height=$max_height
+fi
+
+w3m_command="0;1;0;0;$width;$height;;;;;$FILENAME\n4;\n3;"
+
+tput cup $(($height/$FONTH)) 0
+echo -e $w3m_command|$W3MIMGDISPLAY
+</pre></blockquote></p>
+
+<p><a href="http://btc.info.gf/devel/suckless/st/">st vpatch and seals</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="adventures-in-pest-testnet---blatta-updates-and-bots.html">
+Adventures in pest testnet - Blatta updates and bots
+</a></h3>
+<!-- blog_timestamp: #202203120759.29# -->
+<div class="subtitle">March 12, 2022 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Thimbronion <a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">(WoT:thimbronion)</a> published <a href="http://thimbron.com/2022/03/9980-9978-presence-bug-fixes/">several vpatches for blatta</a> containing some bug fixes and client enhancements. I am currently running version 9978 and so far haven't found any bugs.</p>
+
+<p>Getting an irc bot working on pestnet has caused me a bit of issue up to this point - mainly because I hadn't time to sit down and consider the problem well. Various attempts to get my old reliable <a href="http://btc.info.gf/btcinfobot/">busybot</a> connected and responding to commands ended with the output not making it to the channel or user that requested it. I had almost decided <a href="http://logs.bitdash.io/pest/2022-03-11#1004465">making a bot using weechat</a> was the only temporary solution but then PeterL <a href="wot.deedbot.org/F595258CD9F1FDBDEFAE5093B4E2E0DCACB63D25.html">(WoT:PeterL)</a>, whilst trying to connect scoopbot, <a href="http://logs.bitdash.io/pest/2022-03-11#1004501">mentioned something about regex</a> which got me thinking about writing one for busybot. So I fired off a netcat listener, captured some input (thanks <a href="http://logs.bitdash.io/pest/2022-03-05#1004212">jonsykkel</a>!), and in the wee hours finally got the bot to behave. I feel confident with a few hours more of cleanup busybot will be back in action full time.</p>
+
+<p>The bot testing was performed using the blatta version above as the station. Once the aforementioned cleanup is done I plan to test the bot using jonsykkel's <a href="http://wot.deedbot.org/8956064EF7FA477D399DCD48A743EB3C1DF43CFD.html">(WoT:jonsykkel)</a> smalpest also.</p>
+
+<p>Current #pest logs <a href="http://logs.bitdash.io/pest/">HERE</a>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Pest.html'>Pest</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="adventures-in-pest-testnet---connecting-an-android-device.html">
+Adventures in pest testnet - connecting an Android device
+</a></h3>
+<!-- blog_timestamp: #202201271003.25# -->
+<div class="subtitle">January 27, 2022 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>A few months ago I published a piece documenting <a href="http://btc.info.gf/blog/gentoo-chroot-on-android-10-device.html">how to set up a gentoo chroot using termux</a>. Since that makes python2.7 available, why not try and connect it to pest testnet?</p>
+
+<p>I promptly set about installing <a href="http://thimbron.com/2021/12/blatta-9985-one-thread-only/">thimbronion: 's blatta</a> by uploading a tarball of it via the phone's sd card. I took the liberty of stripping it down a bit a renaming the main executable "parazit" for this test simply so I could readily distinguish the station on my local network. From within the pest directory I made a startup script with the following contents:</p>
+<p><pre><code>
+python2.7 parazit \
+--log-level debug \
+--udp-port=7778 \
+--address-table-path=config.py \
+--motd=motd
+</code></pre></p>
+
+<p>I then run the startup script inside a screen session. Once the station is running in the background I then connect via weechat.</p>
+
+<p><img src="media/img/parazit.png"></img></p>
+
+<p>You can also <a href="http://logs.bitdash.io/pest/2022-01-27#1003213">echo text</a> to your weechat fifo like so:</p>
+
+<p><pre><blockquote>
+echo 'irc.parazit.#pest *test message from cli' > ~/.weechat/weechat_fifo
+</blockquote></pre></p>
+
+<p>At the time of this post the pest station has been running for well over 24 hours with no noticeable affect on the battery or cpu usage. Future experiments may involve sticking this device in a purse and seeing how the station connects outside the local network.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Pest.html'>Pest</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="installing-slimv-using-esthlos-v.html">
+Installing slimv using esthlos-v
+</a></h3>
+<!-- blog_timestamp: #202112300723.06# -->
+<div class="subtitle">December 30, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Slimv stands for Superior Lisp Interaction Mode for Vim. It is a Vim plugin of 2009 vintage written by Tamas Kovacs, preserved in the form of a vpatch. This is for folx who already have vim,tmux, and sbcl installed and want a quick and reliable method for enabling a swank server in vim ala emacs.</p>
+
+<p>Populate your slimv tree, mine is available at <a href="http://btc.info.gf/devel/vim/plugins/slimv/">http://btc.info.gf/devel/vim/plugins/slimv/</a></p>
+
+<p><blockquote><pre>
+# tree slimv/
+slimv/
+├── patches
+│   └── slimv.genesis.vpatch
+├── seals
+│   └── slimv.genesis.vpatch.shinohai.sig
+└── wot
+    └── shinohai.asc
+</pre></blockquote></p>
+
+<p>Using <a href="/devel/lisp/esthlos-v/">esthlos-v</a> press slimv directly to the vim plugins directory:</p>
+
+<p><blockquote><pre>
+`v press slimv.genesis.vpatch ~/.vim/pack/plugins/start/`
+</pre></blockquote></p>
+
+<p>My sbcl binary is in a nonstandard location (because Gentoo) and I couldn't get the swank server to start from within vim. I remedied this with a function that starts swank in a tmux window using rlwrap:</p>
+
+<p><blockquote><pre>
+swank() {
+tmux ls | grep '>_' > /dev/null || (
+  tmux new-session -d -s '>_' -n '[swank]' rlwrap /usr/local/bin/sbcl --load \
+   ~/.vim/pack/plugins/start/slimv/slime/start-swank.lisp
+)
+exec tmux attach -t '>_'
+}
+</pre></blockquote></p>
+
+<p>Now when I open a `.lisp` file, vim presents me with a new buffer containing a REPL connected via swank:</p>
+
+<p><center><img src="media/img/swank.png"></img></center></p>
+
+<p><b>BUT WAIT ! THERE'S MOAR !!!</b></p>
+
+<p>Bundled with slimv is a tool called  <a href="">paredit</a> which will, amongst other things,match parenthesis for you as you code. To learn more about it's features read the documentation by entering `:help paredit`</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="source-deed-for-gnupg-1410.html">
+Source deed for gnupg-1.4.10
+</a></h3>
+<!-- blog_timestamp: #202112251742.59# -->
+<div class="subtitle">December 25, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is a mirror of <a href="http://wot.deedbot.org/6160E1CAC8A3C52966FD76998A736F0E2FB7B452.html">Mircea Popescu's</a> deedbot deed of gnupg-1.4.10. I had someone ask me where this was located recently, and also saw it referenced in the <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-12-18#1069356">irc logs</a> so figured it might be useful to post it up along with my method of extracting it:</p>
+
+<p><blockquote><pre>
+curl -Os4SL http://btc.info.gf/gpg/deeds/deed-378272-1.txt && \
+cat deed-378272-1.txt | awk '/future./{flag=1;next}/BEGIN PGP SIGNATURE/{flag=0}flag'|base64 -d >gpg-1.4.10.tar.gz && \
+tar zxvf gpg-1.4.10.tar.gz
+</pre></blockquote></p>
+
+<p>The sources from this method are what yours truly uses for his static gpg build with musl, but these sources should build in the traditional way for less experienced users.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Cryptography.html'>Cryptography</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="viewing-pest-testnet-logs-using-tmux-and-weechat.html">
+Viewing Pest testnet logs using tmux and weechat
+</a></h3>
+<!-- blog_timestamp: #202112240834.55# -->
+<div class="subtitle">December 24, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>
+This is a simple method of viewing your channel logs in weechat. It can be adapted to also display your znc logs as well. I find this method a much easier way of reviewing channel logs than fiddling with logbot configs, and requires limited resources if one is running pest on a headless machine.
+</p>
+
+<p><pre><blockquote>
+/alias add log /eval /exec -bg tmux new-window -n '[logs]' \
+sh -c "less +G $(echo ~/.weechat/logs/${buffer.full_name}.weechatlog | tr '[:upper:]' '[:lower:]')"
+</blockquote></pre></p>
+
+<p>
+Now you can view the weechat logs for any chan by running `/log` in the current buffer. This will open the log in a new tmux window like so, and you can also scroll to your heart's content:
+</p>
+
+<p><img src="media/img/tmuxlog.png"></img></p>
+
+<p>
+I am also pleased to report that jonsykkel's <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-12-15#1069243">smalpest in C builds flawlessly</a>, but sadly does not play nicely with <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-12-14#1069227">blatta instances</a>, so it remains lab use only for now.
+</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Pest.html'>Pest</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="lab-notes-pest-and-alcuin-part-two.html">
+Lab notes: Pest and Alcuin part two
+</a></h3>
+<!-- blog_timestamp: #202111071452.49# -->
+<div class="subtitle">November 07, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Since the <a href="lab-notes-pest-and-alcuin-part-one.html">last installment</a> there has been updates made to Alcuin, including a <a href="http://thimbron.com/2021/11/new-alcuin-release-and-rename-to-blatta/">rename to Blatta</a> along with a genesis.vpatch for the same, and more recently <a href="http://thimbron.com/2021/11/blatta-9992-better-feedback-and-user-input-edge-case-handling/">some bugfixes</a> which I successfully applied and will be testing in the coming week.</p>
+
+<p>So far in testing I have been able to:</p>
+
+<p><ul>
+  <li>Set up a testnet on localhost.</li>
+  <li>Peer with Blatta's creator remotely and pass messages.</li>
+  <li>Connect an ircbot using it's own station.<sup><a href="#fn1" id="ref1">1</a></sup></li>
+</ul></p>
+
+<p>Interest seems to be brewing in the project, so I hope to grow my WoT for this item and look forward to posting more about this item as work progresses.</p>
+
+
+
+<p class="readmore"><a href="./lab-notes-pest-and-alcuin-part-two.html">Read more...</a></p>
+<h3><a class="ablack" href="lab-notes-pest-and-alcuin-part-one.html">
+Lab notes: Pest and Alcuin part one
+</a></h3>
+<!-- blog_timestamp: #202110192042.27# -->
+<div class="subtitle">October 19, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Pest is, as <a href="http://www.loper-os.org/pub/pest/pest_draft.html">defined in the draft spec:</a></p>
+
+<p><blockquote>
+a peer-to-peer network protocol intended for IRC-style chat. It is designed for decentralization of control, resistance to natural and artificial interference, and fits-in-head mechanical simplicity -- in that order.
+</blockquote></p>
+
+<p>The <a href="http://btc.info.gf/blog/trilema-announces-closure.html">fall of TMSR</a> and the subsequent <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-08-03#1050267">fleanode collapse</a> has evidently provided the catalyst to get the ball rolling on a replacement communications system that doesn't leave the user at the mercy of SJW's or fiat government stooges and other central points of failure. Discussion on the pest spec has been under way in <a href="http://logs.nosuchlabs.com/log/">dulapnet irc</a> ever since <a href="http://wot.deedbot.org/17215D118B7239507FAFED98B98228A001ABFFC7.html">asciilifeform</a> first published the draft spec in September of this year, and yours truly has just now had time to carve out a bit of time to review the spec, chatlogs, and <a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">thimbronion</a>'s implementation of the pest spec in Python, known as <a href="http://thimbron.com/2021/10/alcuin-9994/">Alcuin</a>.</p>
+
+<p><a href="">Weechat</a> is my preferred irc client, and a few days ago in the logs thimbronion reported that <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-16#1061456">weechat and some other clients</a> would not send custom commands to the server. After looking into this a bit, I discovered weechat <i>will</i> send nonstandard commands to a connected server when <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-18#1061534">prefixed with the `/quote` command</a>. Even further digging into client behavior revealed that this behavior can be modified by simply changing a setting weechat has <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-19#1061551">turned off by default</a>:</p>
+
+<p><blockquote>
+/set irc.network.send_unknown_commands on
+</blockquote></p>
+
+<p>After setting the above the Alcuin server seemed to process commands exactly as it should, though much work remains to implement the entire spec (as stated in the author's README file). After setting up Python 2.7 on a remote machine and <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-10-18#1061523">obtaining the script to generate keys from thimbronion</a>, I was able to set up two pest stations and interact between them.</p>
+
+<p>To help make it easier to test and experiment with Alcuin, I have produced a temporary <a href="http://btc.info.gf/devel/irc/alcuin/">genesis vpatch and sig</a> based on thimbronion's <a href="http://share.alethepedia.com/alcuin/alcuin-9994.tar.gz">version 9994 tarball</a> and containing the missing key generation script mentioned previously. I will make every effort to keep this updated as the project progresses.</p>
+
+<p><i>To be continued .....</i></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="suckless-st-and-tabbed.html">
+Suckless st and tabbed
+</a></h3>
+<!-- blog_timestamp: #202107152246.24# -->
+<div class="subtitle">July 15, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>In my quest to vpatch more things that I use regularly, I finally made a section on this site for my collection of <a href="http://suckless.org">suckless tools</a>. While urxvt served me well for some time, it grows more and more into a bloated mess every update for so simple an item as a virtual terminal. st + tabbed combined have far fewer lines of code, is all in C, and with a few tweaks mimics all the good functionalities I need.</p>
+
+
+<p>The st vpatch is vanilla st with the <a href="http://st.suckless.org/patches/scrollback">scrollback patches</a> and <a href="http://st.suckless.org/patches/externalpipe">externalpipe patch</a> applied so I get a clean genesis starting point, and tabbed is <a href="https://tools.suckless.org/tabbed/">the one found at suckless.org</a> but modified slightly to allow allow renaming of open tabs (more on that below).</p>
+
+<p>Both items are pressed in the usual way using your preferred implementation of <a href="https://archive.is/pRfAz">V</a>. The `config.h.def` file can be adjusted further to operator preferences before building with `make`.</p>
+
+<p>After the items are installed to your path, a couple of bash functions can be added to one's aliases to ease tabbed terminal startup and renaming of tabs:</p>
+<p><blockquote><pre>
+function term() {
+xid="$(tabbed -c -d -s -r 2 st -w x)"
+st -w "$xid" bash &
+}
+function set-title() {
+  if [[ -z "$ORIG" ]]; then
+    ORIG=$PS1
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1=${ORIG}${TITLE}
+}
+
+</pre></blockquote></p>
+
+<p>Now I have an easy way to open a tabbed terminal and quickly rename tabs to organize work. For me, it looks something like this:</p>
+<p><center><img src="media/img/suckless1.png"></img></center></p>
+
+<p>These items can now be found here:</p>
+<p><a href="http://btc.info.gf/devel/suckless/st/">st vpatch and seals</a></p>
+<p><a href="http://btc.info.gf/devel/suckless/tabbed/">tabbed vpatch and seals</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="a-simple-bip39-diceware-script-in-common-lisp.html">
+A simple bip39 diceware script in common lisp
+</a></h3>
+<!-- blog_timestamp: #202107071725.00# -->
+<div class="subtitle">July 07, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>I'm currently bench testing a <a href="https://foundationdevices.com/">"Foundation devices" passport</a> hardware Bitcoin wallet, because why not? While the device will happily generate bip39 seeds for you I wanted to test load a bunch of seed phrases generated offline without throwing dice all afternoon and figured a simple lisp script would suffice.</p>
+
+<p>I started with <a href="https://archive.is/8es4V">this implementation</a> of diceware. The original author provided no asdf system file or anything, but we don't need that where <i>we're</i> going, so a couple of quick modifications get us where we want to be here. We only need an index of 2048 for our *words* array, so we change that in the script to make it compatible with the standard bip39 wordlist.</p>
+
+<p><pre><blockquote>
+(require 'ironclad)
+(defparameter *words* nil)
+(defparameter *prng* (ironclad:make-prng :fortuna))
+
+(defun load-words (&optional (wd-list #P "bip39-english.txt"))
+  "Load *words* from bip39-english.txt"
+  (with-open-file (s wd-list)
+    (do ((wd (read-line s nil) (read-line s nil))
+         ( i 0 (1+ i)))
+        ((not wd))
+      (setf (aref *words* i) wd))))
+
+(defun choose-one ()
+  "Randomly choose a single word from *words*."
+  (aref *words* (ironclad:strong-random (length *words*) *prng*)))
+
+(defun choose-password (n)
+  "Generate n random words for a pass phrase. Initialize *words* if needed"
+  (unless *words*
+    (setf *words* (make-array 2048))
+    (load-words))
+  (let (words)
+    (dotimes (i n)
+      (push (choose-one) words))
+    (reverse words)))
+</blockquote></pre></p>
+
+<p>Grab the standard bip39 English wordlist from the <a href="https://raw.githubusercontent.com/bitcoin/bips/master/bip-0039/english.txt">"Bitcoin Core" Shithub repo</a>, and save it in the same directory as the script naming it "bip39-english.txt".</p>
+
+<p>Load up the script in your lisp REPL (I used <a href="http://www.sbcl.org/">SBCL</a> here) and run `choose password` + the number of words you are using for your seed. I'm using 23 words in this example since most hardware wallets will calculate the final word for you.</p>
+<p><pre><blockquote>
+/usr/local/bin/sbcli --load diceware.lisp 
+REPL for SBCL version 0.1.0
+Press CTRL-D or type :q to exit
+
+[sbcl]> * (choose-password 23)
+("there" "image" "federal" "steak" "renew" "helmet" "attack" "medal" "seat"
+ "game" "return" "way" "shock" "hero" "wolf" "amount" "token" "pluck" "gentle"
+ "evoke" "burst" "siege" "ripple")
+
+</blockquote></pre></p>
+
+<p>The device happily accepted the phrases generated via manual entry, calculated the 24th "checksum" word perfectly, and freed up time for me to continue trying builds of the device firmware. More to come.</p>
+
+<p>Tags: <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="gentoo-chroot-on-android-10-device.html">
+Gentoo chroot on android 10 device
+</a></h3>
+<!-- blog_timestamp: #202106062100.30# -->
+<div class="subtitle">June 06, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>
+I was in a pinch over the weekend and needed a quick gentoo env to test something but only had my stupid android 10 smartphone with me, so wat do? I'm documenting the following recipe that (so far) works for me and preserving the tarball here to my www for possible future needs.
+</p>
+
+<p>Grab the stage3 for armv7 using curl inside termux.</p>
+<p><pre><blockquote>
+`curl -sSL4 http://btc.info.gf/devel/gentoo/arm/android/stage3-arm64-20200704.tar.xz`
+</blockquote></pre></p>
+
+<p>Gotta fucking fix hardlinks cuz of some android kernel herpderpery so we use proot, also from termux.</p>
+<p><pre><blockquote>
+`proot --link2symlink tar -C $GENTOO/data -xf stage3-arm64-20200704.tar.xz`
+</blockquote></pre></p>
+
+<p>Now make a script that starts up the chroot inside termux and fire it off:</p>
+<p><pre><blockquote>
+`cat >chroot.sh << EOF
+#!/usr/bin/env bash
+set -eu
+set -o pipefail
+unset LD_PRELOAD
+export GENTOO=/data/data/com.termux/gentoo
+export EPREFIX=/data/gentoo64
+
+proot --link2symlink -r $GENTOO -0 -w / \
+    -b /dev -b /proc -b /sys \
+    $EPREFIX/bin/sh -c \
+    "HOME=$EPREFIX/root $EPREFIX/startprefix"
+EOF
+
+chmod +x chroot.sh
+
+sh chroot.sh
+</blockquote></pre></p>
+
+<p>Now from inside the chroot, fix your `/etc/resolv.conf` since this can't be copied from android system. Then source your profile and set ENV.</p>
+<p><pre><blockquote>
+source /etc/profile
+export PS1="(chroot) $PS1"
+</blockquote></pre></p>
+<p><center><img src="media/img/gentoodroid.jpg"></img></center></p>
+
+<p>Normally this is the step where one sets up portage, but resist the temptation to `emerge-webrsync` here. I'd simply crossdev the packages I needed on a much more capable machine and set up my `/etc/portage/make.conf` to emerge packages from a local binhost.</p>
+
+<p><b>CAVEATS</b></p>
+
+<p>This thing will bitch about `proc/` not being mounted on most devices. However, I'm able to see chroot processes inside htop in another termux session.</p>
+
+<p>Because of the extreme minimal size of the environment, user is expected to be capable of building their own env using crossdev as explained above</p>
+
+<p><b>UPDATE:</b>
+I forgot to mention that I mounted one of these Kingston 8GB microsd cards before unpacking the fs:</p>
+<p><center><img src="media/img/droidfs.jpg"></img></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Gentoo.html'>Gentoo</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="warez-addition-calc-sim.html">
+warez addition 'calc' sim
+</a></h3>
+<!-- blog_timestamp: #202105160023.17# -->
+<div class="subtitle">May 16, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>After recovering from my initial shock of finding something useful on "Hacker" "News", I immediately set about cloning this lightweight calculator sim for future hacks.</p>
+
+<p>Now available in my warez section, you can try this handy tool here: <a href="http://btc.info.gf/devel/warez/calc/simulator.html">[CALC]</a>.</p>
+
+<p>That is all.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Math.html'>Math</a>, <a href='tag_Python.html'>Python</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="spring-projects-i-gentoo-distfiles-mirror.html">
+Spring projects I: Gentoo distfiles mirror.
+</a></h3>
+<!-- blog_timestamp: #202102031809.23# -->
+<div class="subtitle">February 03, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>One of the more useful items I had not gotten around to mirroring is <a href="http://www.loper-os.org/?p=3682">asciilifeform's historic Gentoo distfiles</a> which is, as far as I can tell, possibly one of the <i>only</i> places on the internet to get these. These will now live here: <a href="http://btc.info.gf/devel/gentoo/distfiles/">http://btc.info.gf/devel/gentoo/distfiles/</a>.</p>
+
+<p>The Gentoo section of this www has suffered from a bit of neglect over the past year, and this is something I hope to remedy by this Summer. Possible upgrades will include a collection of guides for various boards, mirrors of historic .iso's (which also are getting harder to locate) and addition of various musl patches I have scattered about from past experiments.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Gentoo.html'>Gentoo</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="essential-kit-items-building-sbcl-on-gentoo-with-musl.html">
+Essential kit items: Building SBCL on Gentoo with musl
+</a></h3>
+<!-- blog_timestamp: #201911081007.48# -->
+<div class="subtitle">November 08, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Steel Bank Common Lisp is another must-have tool in my kit, since I use it to run my hybrid irc/Telegram bot and many other daily use items. In my <a href="building-gcc-494-with-musl-on-gentoo.html">previous post</a> I documented how I managed to get gcc-4.9.4 massaged into shape, so this post will serve as a reference on how to do the same for SBCL so in the future I don't have to spend the day researching fixes and locating obscure patchsets.</p>
+
+<p>When building many things using musl, one will often run into "undefined reference to `memcpy@GLIBC_*'" type errors, since glibc uses versioned symbols and musl does not. SBCL is no different, but fortunately a little digging turned up a <a href="https://sourceforge.net/p/sbcl/mailman/message/36598627/">working patchset on the SBCL mailing list</a> which works beautifully, so I didn't have to spend the better part of a day cobbling one together as I did for gcc. I have preserved a copy of the patchset <a href="http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/">here</a> and will definitely do my best to maintain these into the future should any major changes occur.</p>
+
+<p>Much like Ada, SBCL requires itself or another ANSI common lisp to build. I decided to use CLISP (version 2.49.92) to perform this task, as it can be quickly built from sources using gcc only (and I didn't want to use a pre-built sbcl binary of unknown provenance). After getting clisp in place, building SBCL is mostly painless using the following steps:</p>
+
+<p>I downloaded the 1.5.7 sources from my site and verified the checksums:</p>
+
+<p><blockquote><pre>curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/sbcl-1.5.7-source.tar.bz2
+curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/Manifest.sha512</pre></blockquote></p>
+
+<p>Unpack the sources and enter the directory:</p>
+
+<p><blockquote><pre>tar xjf sbcl-1.5.7-source.tar.bz2 && cd sbcl-1.5.7</pre></blockquote></p>
+
+<p>Get the musl patchset and apply them:</p>
+
+<p><blockquote><pre>wget -q -r -nd -N --no-parent -R "index.html*" http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/
+for i in *.patch; do patch -p1 < $i; done</pre></blockquote></p>
+
+<p>Build using CLISP and install:</p>
+
+<p><blockquote><pre>./make.sh "clisp" --fancy
+./install.sh</pre></blockquote></p>
+
+<p>The above recipe has so far worked quite nicely, having been tested by running the above mentioned irc bot and a few other essential lisp programs. I will update this post if/when any bugs are found or if any changes are made.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Lisp.html'>Lisp</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="building-gcc-494-with-musl-on-gentoo.html">
+Building gcc 4.9.4 with musl on Gentoo
+</a></h3>
+<!-- blog_timestamp: #201911051713.24# -->
+<div class="subtitle">November 05, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Lately I have been experimenting a lot more with musl as a replacement for the continually shitty glibc. While musl was a standard part of <a href="cuntoo-a-linux-that-sucks-less.html">cuntoo</a>, it appears that particular project is mostly abandoned by it's author and I want to be more responsible for my own toolkit anyway. So starting with the most recent vanilla musl gentoo stage3, I decided getting my preferred compiler working would be first order of business. I tried the portage route with a simple `emerge -av =sys-devel/gcc-4.9.4-r1` which sang along happily for a while until hitting "configure: error: cannot run C compiled programs." and a few other errors.</p>
+
+<p>After spending some time researching the errors and trying various fixes, I managed to produce a patch that will allow me to manually perform the ebuild steps and get a working gcc for musl. I used the following steps:</p>
+
+<p>Download the sources:<p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild fetch</p>
+
+<p>Configure:</p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild configure</p>
+
+<p>Go to the source work directory (located at /var/tmp/portage/sys-devel/gcc-4.9.4-r1/work/gcc-4.9.4) and download <a href="http://btc.info.gf/devel/gentoo/distfiles/sys-devel/gcc/4.9.4/patches/gcc-4.9.4-musl.patch">this patch</a> <a href="http://btc.info.gf/devel/gentoo/distfiles/sys-devel/gcc/4.9.4/patches/gcc-4.9.4-musl.patch.asc">(sig)</a> and verify, then patch:</p>
+
+<p>patch -p1 < gcc-4.9.4-musl.patch</p>
+
+<p>After patching, complete the manual ebuild steps:</p>
+
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild compile</p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild install</p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild merge</p>
+
+<p>Enjoy your shiny new compiler.</p>
+<p><blockquote><pre>(chroot) shinohai ~ # gcc-config -l
+ [1] x86_64-gentoo-linux-musl-4.9.4 *
+ [2] x86_64-gentoo-linux-musl-8.3.0</pre></blockquote></p>
+
+<p>Next order of business will be trying a fellow named <a href="http://archive.is/oLixg">ave1's Ada build for musl</a> and making a <b>POST</b><sup><a href="#fn1" id="ref1">1</a></sup> on the results, in addition to publishing the steps I used to get SBCL working in this environment as well.</p>
+
+<p class="readmore"><a href="./building-gcc-494-with-musl-on-gentoo.html">Read more...</a></p>
+<h3><a class="ablack" href="zerodium-offering-increased-rewards-for-unix-0day-exploits.html">
+Zerodium offering increased rewards for UNIX 0day exploits
+</a></h3>
+<!-- blog_timestamp: #201806292257.32# -->
+<div class="subtitle">June 29, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Zerodium, a company that brokers exploits to governments and "law enforcement" is now offering rewards of up to one half million USD for zero days in UNIX operating systems. The company's website states that payments can be processed in Bitcoin 
+and other "cryptocurrencies".</p>
+
+<blockquote>
+ZERODIUM evaluates and verifies all submitted research within one week or less. Payments are made in one or multiple installments by wire transfer or using crypto-currencies e.g. Bitcoin. 
+</blockquote>
+
+<p>Zerodium only accepts submissions encrypted with their <a href="http://phuctor.nosuchlabs.com/gpgkey/14C763D4BA02C67DC0584846A1BF8227605EA7B61533E6D7DEDFF624CA248FC2">GPG KEY</a> and claims to take one's privacy "very seriously", though they 
+require a researchers personal information that they promise not to share with anyone, ever.</p>
+
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Bitcoin.html'>Bitcoin</a>, <a href='tag_Insecurity.html'>Insecurity</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="defeating-adblock-detectors-popularmechanicscom.html">
+Defeating adblock detectors: popularmechanics.com
+</a></h3>
+<!-- blog_timestamp: #201806232149.31# -->
+<div class="subtitle">June 23, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>While viewing websites in a graphical web browser, occasionally I find a site that hates when one uses adblock plus and prevents viewing unless it is turned off or the user pays for an "ad-free" pass. <i>popularmechanics.com</i> is one such 
+website, and the nag screen remained despite the fact I was also running NoScript. What do?</p> 
+
+<p>As it turns out, the solution was baby simple. PopularMechanics uses a 3rd-party site to detect users running adblock, so all I had to do was add the following to <code>/etc/hosts</code>:</p>
+
+<blockquote>
+127.0.0.1 	hearstapps.com
+</blockquote>
+
+<p>I was then able to smugly continue my research without sharing the page with hundreds of crappy ads, or being forced to pay for a pass on a website that I visit at most twice a year.</p>
+
+<p><i>Feliz Sabado, mis amigos.</i></p>
+
+<p>Tags: <a href='tag_Linux.html'>Linux</a>, <a href='tag_Webshit.html'>Webshit</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

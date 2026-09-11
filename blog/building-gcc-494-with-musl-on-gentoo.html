@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Building gcc 4.9.4 with musl on Gentoo</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="building-gcc-494-with-musl-on-gentoo.html">
+Building gcc 4.9.4 with musl on Gentoo
+</a></h3>
+<!-- blog_timestamp: #201911051713.24# -->
+<div class="subtitle">November 05, 2019 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Lately I have been experimenting a lot more with musl as a replacement for the continually shitty glibc. While musl was a standard part of <a href="cuntoo-a-linux-that-sucks-less.html">cuntoo</a>, it appears that particular project is mostly abandoned by it's author and I want to be more responsible for my own toolkit anyway. So starting with the most recent vanilla musl gentoo stage3, I decided getting my preferred compiler working would be first order of business. I tried the portage route with a simple `emerge -av =sys-devel/gcc-4.9.4-r1` which sang along happily for a while until hitting "configure: error: cannot run C compiled programs." and a few other errors.</p>
+
+<p>After spending some time researching the errors and trying various fixes, I managed to produce a patch that will allow me to manually perform the ebuild steps and get a working gcc for musl. I used the following steps:</p>
+
+<p>Download the sources:<p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild fetch</p>
+
+<p>Configure:</p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild configure</p>
+
+<p>Go to the source work directory (located at /var/tmp/portage/sys-devel/gcc-4.9.4-r1/work/gcc-4.9.4) and download <a href="http://btc.info.gf/devel/gentoo/distfiles/sys-devel/gcc/4.9.4/patches/gcc-4.9.4-musl.patch">this patch</a> <a href="http://btc.info.gf/devel/gentoo/distfiles/sys-devel/gcc/4.9.4/patches/gcc-4.9.4-musl.patch.asc">(sig)</a> and verify, then patch:</p>
+
+<p>patch -p1 < gcc-4.9.4-musl.patch</p>
+
+<p>After patching, complete the manual ebuild steps:</p>
+
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild compile</p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild install</p>
+<p>ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild merge</p>
+
+<p>Enjoy your shiny new compiler.</p>
+<p><blockquote><pre>(chroot) shinohai ~ # gcc-config -l
+ [1] x86_64-gentoo-linux-musl-4.9.4 *
+ [2] x86_64-gentoo-linux-musl-8.3.0</pre></blockquote></p>
+
+<p>Next order of business will be trying a fellow named <a href="http://archive.is/oLixg">ave1's Ada build for musl</a> and making a <b>POST</b><sup><a href="#fn1" id="ref1">1</a></sup> on the results, in addition to publishing the steps I used to get SBCL working in this environment as well.</p>
+
+<hr></hr>
+
+<sup id="fn1">1. As this post was being written, TMSR's Caesar and vassals decided to <a href="http://archive.is/Hat2E">bikeshed the meaning of posts vs. articles</a> today. I guess there was no one on the list to berate all day, so words had to suffice. It's a lulzy read, and naturally every inch of that particular cock was swallowed without hesitation.<a href="#ref1" title="Jump back to footnote 1 in the text.">↩</a></sup>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

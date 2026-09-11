@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo &mdash; Posts tagged "Pest"</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="adventures-in-pest-testnet---blatta-updates-and-bots.html">
+Adventures in pest testnet - Blatta updates and bots
+</a></h3>
+<!-- blog_timestamp: #202203120759.29# -->
+<div class="subtitle">March 12, 2022 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>Thimbronion <a href="http://wot.deedbot.org/57512CE78CF08BB25FE277A4B16136257FB8FBDD.html">(WoT:thimbronion)</a> published <a href="http://thimbron.com/2022/03/9980-9978-presence-bug-fixes/">several vpatches for blatta</a> containing some bug fixes and client enhancements. I am currently running version 9978 and so far haven't found any bugs.</p>
+
+<p>Getting an irc bot working on pestnet has caused me a bit of issue up to this point - mainly because I hadn't time to sit down and consider the problem well. Various attempts to get my old reliable <a href="http://btc.info.gf/btcinfobot/">busybot</a> connected and responding to commands ended with the output not making it to the channel or user that requested it. I had almost decided <a href="http://logs.bitdash.io/pest/2022-03-11#1004465">making a bot using weechat</a> was the only temporary solution but then PeterL <a href="wot.deedbot.org/F595258CD9F1FDBDEFAE5093B4E2E0DCACB63D25.html">(WoT:PeterL)</a>, whilst trying to connect scoopbot, <a href="http://logs.bitdash.io/pest/2022-03-11#1004501">mentioned something about regex</a> which got me thinking about writing one for busybot. So I fired off a netcat listener, captured some input (thanks <a href="http://logs.bitdash.io/pest/2022-03-05#1004212">jonsykkel</a>!), and in the wee hours finally got the bot to behave. I feel confident with a few hours more of cleanup busybot will be back in action full time.</p>
+
+<p>The bot testing was performed using the blatta version above as the station. Once the aforementioned cleanup is done I plan to test the bot using jonsykkel's <a href="http://wot.deedbot.org/8956064EF7FA477D399DCD48A743EB3C1DF43CFD.html">(WoT:jonsykkel)</a> smalpest also.</p>
+
+<p>Current #pest logs <a href="http://logs.bitdash.io/pest/">HERE</a>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Pest.html'>Pest</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="adventures-in-pest-testnet---connecting-an-android-device.html">
+Adventures in pest testnet - connecting an Android device
+</a></h3>
+<!-- blog_timestamp: #202201271003.25# -->
+<div class="subtitle">January 27, 2022 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>A few months ago I published a piece documenting <a href="http://btc.info.gf/blog/gentoo-chroot-on-android-10-device.html">how to set up a gentoo chroot using termux</a>. Since that makes python2.7 available, why not try and connect it to pest testnet?</p>
+
+<p>I promptly set about installing <a href="http://thimbron.com/2021/12/blatta-9985-one-thread-only/">thimbronion: 's blatta</a> by uploading a tarball of it via the phone's sd card. I took the liberty of stripping it down a bit a renaming the main executable "parazit" for this test simply so I could readily distinguish the station on my local network. From within the pest directory I made a startup script with the following contents:</p>
+<p><pre><code>
+python2.7 parazit \
+--log-level debug \
+--udp-port=7778 \
+--address-table-path=config.py \
+--motd=motd
+</code></pre></p>
+
+<p>I then run the startup script inside a screen session. Once the station is running in the background I then connect via weechat.</p>
+
+<p><img src="media/img/parazit.png"></img></p>
+
+<p>You can also <a href="http://logs.bitdash.io/pest/2022-01-27#1003213">echo text</a> to your weechat fifo like so:</p>
+
+<p><pre><blockquote>
+echo 'irc.parazit.#pest *test message from cli' > ~/.weechat/weechat_fifo
+</blockquote></pre></p>
+
+<p>At the time of this post the pest station has been running for well over 24 hours with no noticeable affect on the battery or cpu usage. Future experiments may involve sticking this device in a purse and seeing how the station connects outside the local network.</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Pest.html'>Pest</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="viewing-pest-testnet-logs-using-tmux-and-weechat.html">
+Viewing Pest testnet logs using tmux and weechat
+</a></h3>
+<!-- blog_timestamp: #202112240834.55# -->
+<div class="subtitle">December 24, 2021 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>
+This is a simple method of viewing your channel logs in weechat. It can be adapted to also display your znc logs as well. I find this method a much easier way of reviewing channel logs than fiddling with logbot configs, and requires limited resources if one is running pest on a headless machine.
+</p>
+
+<p><pre><blockquote>
+/alias add log /eval /exec -bg tmux new-window -n '[logs]' \
+sh -c "less +G $(echo ~/.weechat/logs/${buffer.full_name}.weechatlog | tr '[:upper:]' '[:lower:]')"
+</blockquote></pre></p>
+
+<p>
+Now you can view the weechat logs for any chan by running `/log` in the current buffer. This will open the log in a new tmux window like so, and you can also scroll to your heart's content:
+</p>
+
+<p><img src="media/img/tmuxlog.png"></img></p>
+
+<p>
+I am also pleased to report that jonsykkel's <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-12-15#1069243">smalpest in C builds flawlessly</a>, but sadly does not play nicely with <a href="http://logs.nosuchlabs.com/log/asciilifeform/2021-12-14#1069227">blatta instances</a>, so it remains lab use only for now.
+</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Pest.html'>Pest</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

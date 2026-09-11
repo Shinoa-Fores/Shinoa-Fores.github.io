@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Suckless st regrind</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="suckless-st-regrind.html">
+Suckless st regrind
+</a></h3>
+<!-- blog_timestamp: #202304191508.23# -->
+<div class="subtitle">April 19, 2023 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>This is just a redo of the <a href="http://btc.info.gf/blog/suckless-st-and-tabbed.html">original st vpatch</a> with a tweak that allows drawing of images directly to the terminal. Much like the patch listed in the <a href="https://git.suckless.org/st/file/FAQ.html#l177">st FAQ</a> this version does not cancel double-buffering, thereby doing away with the flickering that I observed when I first tried this. While not perfect, it does render images well with w3m for me, and by abusing the w3m image display doubles as a simple image viewer with a little bash-foo. Here's how you do that:</p>
+
+<p><blockquote><pre>
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo
+    echo "USAGE: timg <path-to-img-file>"
+    echo
+    exit 0;
+fi
+
+W3MIMGDISPLAY="/usr/local/bin/w3mimgdisplay"
+FILENAME=$1
+FONTH=14
+FONTW=8
+COLUMNS=`tput cols`
+LINES=`tput lines`
+
+read width height <<< `echo -e "5;$FILENAME" | $W3MIMGDISPLAY`
+
+max_width=$(($FONTW * $COLUMNS))
+max_height=$(($FONTH * $(($LINES - 2))))
+
+if test $width -gt $max_width; then
+height=$(($height * $max_width / $width))
+width=$max_width
+fi
+if test $height -gt $max_height; then
+width=$(($width * $max_height / $height))
+height=$max_height
+fi
+
+w3m_command="0;1;0;0;$width;$height;;;;;$FILENAME\n4;\n3;"
+
+tput cup $(($height/$FONTH)) 0
+echo -e $w3m_command|$W3MIMGDISPLAY
+</pre></blockquote></p>
+
+<p><a href="http://btc.info.gf/devel/suckless/st/">st vpatch and seals</a></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Tools.html'>Tools</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

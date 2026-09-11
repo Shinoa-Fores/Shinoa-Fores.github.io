@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>Eliminating malicious TLDs with regex</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<!-- entry begin -->
+<h3><a class="ablack" href="eliminating-malicious-tlds-with-regex.html">
+Eliminating malicious TLDs with regex
+</a></h3>
+<!-- blog_timestamp: #201809071314.39# -->
+<div class="subtitle">September 07, 2018 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>A discussion on Telegram this morning led to this post, I decided to preserve this handy list of regular expressions for filtering out mostly dumb and malicious TLD's. I am personally using an EdgeRouter Lite with dnsmasq for this purpose, so 
+your mileage may vary - feel free to modify and make these better. Suggestions for changes may be sent to my email listed on the contact page, as usual non-encrypted content will be ignored.</p>
+
+<blockquote><pre>
+^https?://([A-Za-z0-9.-]*\.)?.gq/ 
+^https?://([A-Za-z0-9.-]*\.)?.cf/ 
+^https?://([A-Za-z0-9.-]*\.)?.men/ 
+^https?://([A-Za-z0-9.-]*\.)?.loan/ 
+^https?://([A-Za-z0-9.-]*\.)?.ml/
+^https?://([A-Za-z0-9.-]*\.)?.top/
+^https?://([A-Za-z0-9.-]*\.)?.work/
+^https?://([A-Za-z0-9.-]*\.)?.click/
+^https?://([A-Za-z0-9.-]*\.)?.tk/
+^https?://([A-Za-z0-9.-]*\.)?.country/
+^https?://([A-Za-z0-9.-]*\.)?.pw/
+^https?://([A-Za-z0-9.-]*\.)?.party/
+^https?://([A-Za-z0-9.-]*\.)?.trade/ 
+^https?://([A-Za-z0-9.-]*\.)?.review/ 
+^https?://([A-Za-z0-9.-]*\.)?.club/ 
+^https?://([A-Za-z0-9.-]*\.)?.bid/
+</pre></blockquote>
+
+<p>YARA compatible regular expressions for detecting base64 encoded variable-case http:// and https:// URI prefixes:</p>
+
+<blockquote><pre>
+HTTP:// ([\x2b\x2f-\x39A-Za-z][\x2b\x2f-\x39A-Za-z][\x31\x35\x39BFJNRVZdhlptx]
+[Io][Vd][FH][R][Qw][O]i\x38v[\x2b\x2f-\x39A-Za-z]|[\x2b\x2f-\x39A-Za-z]
+[\x30\x32EGUWkm][h][\x30U][Vd][FH][A]\x36Ly[\x2b\x2f\x38-\x39]|[Sa][FH][R][\x30U]
+[Uc][D]ovL[\x2b\x2f-\x39w-z])
+
+HTTPS:// ([\x2b\x2f-\x39A-Za-z][\x2b\x2f-\x39A-Za-z][\x31\x35\x39BFJNRVZdhlptx]
+[Io][Vd][FH][R][Qw][Uc][z]ovL[\x2b\x2f-\x39w-z]|[\x2b\x2f-\x39A-Za-z]
+[\x30\x32EGUWkm][h][\x30U][Vd][FH][B][Tz][O]i\x38v[\x2b\x2f-\x39A-Za-z]|[Sa][FH][R][\x30U]
+[Uc][FH][M]\x36Ly[\x2b\x2f\x38-\x39])
+</pre></blockquote>
+
+<p>Tags: <a href='tag_Insecurity.html'>Insecurity</a>, <a href='tag_Webshit.html'>Webshit</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<!-- entry end -->
+<p><script src='https://nocomment.fiatjaf.com/embed.js' id='nocomment' data-owner='data-owner=npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa'></script></p>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>
