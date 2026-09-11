@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<link rel="stylesheet" href="css/blog.css" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to this page..." href="rss/feed.rss" />
+<title>btcinfo</title>
+</head><body>
+<script src=../hook.js></script>
+<div id="divbodyholder">
+<div class="headerholder"><div class="header">
+<div id="title">
+<h1 class="nomargin"><a class="ablack" href="http://btc.info.gf/blog/index.html">btcinfo</a>&nbsp;&nbsp;<img src=media/img/avatar.png align=right></img></h1>
+<div id="description">Hic inserere motto</div>
+</div></div></div>
+<div id="divbody"><div class="content">
+<h3><a class="ablack" href="happy-festivus.html">
+Happy Festivus
+</a></h3>
+<!-- blog_timestamp: #202512231100.00# -->
+<div class="subtitle">December 23, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+
+<p>No Festivus celebration is complete without a viewing of the classic 1997 Seinfeld episode "The Strike". This particular episode being quite difficult to find online in streaming format, it shall be preserved to the holiday warez library here for future celebrations.</p>
+
+<p>Feel free to air your grievances below in the comments section</p>
+
+<p><center><video width="600" height="380" controls src="media/video/thestrike.mp4" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Holidays.html'>Holidays</a>, <a href='tag_Warez.html'>Warez</a></p>
+<!-- text end -->
+<h3><a class="ablack" href="classic-80s-halloween-commercials.html">
+Classic 80s Halloween Commercials
+</a></h3>
+<!-- blog_timestamp: #202510311919.57# -->
+<div class="subtitle">October 31, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+
+<p>A collection of Classic 80s Halloween Commercials. Happy Halloween!</p>
+
+<p><center><video width="600" height="380" controls src="media/video/classichalloween80.webm" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Holidays.html'>Holidays</a>, <a href='tag_Warez.html'>Warez</a></p>
+
+<!-- text end -->
+<h3><a class="ablack" href="samsung-gt-i5510m.html">
+Samsung GT-I5510M
+</a></h3>
+<!-- blog_timestamp: #202510191110.59# -->
+<div class="subtitle">October 19, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+
+<p><img src="media/img/SAMSUNG2.jpg"></img></p>
+
+<p>Just look at this beauty! This was the dawn of smartphone technology, a touchscreen phone that <i>also</i> had a slide out keyboard!</p>
+
+<p>I recall one evening well nigh on a decade and a half ago when I used one of these running Windows mobile to finish a presentation I had due the next morning - my laptop suddenly died whilst composing some final touches, but the little phone saved the day! This particular example came to me via a <a href="https://btc.info.gf/wot/pgp/EC4C5CE6F0EEEF87.asc">reader and supporter in Canada</a> who sent the phone AND a spare battery, so I felt compelled to give this forgotten little device a purpose.</p>
+
+<p>Some specs I like: A Qualcomm MSM7227 Snapdragon S1 CPU with a whopping <i>600 MHz!</i> An astounding 240 x 400 pixel screen but it's TFT so yer good. Ancient camera tech exists on these, and even webcam ip works to a degree. Besides WiFi and Bluetooth capabilities, the device also has a Stereo FM radio (RDS), which uses the <i>honest-to-god-wired-headphone-jack</i> as an aerial.</p>
+
+<p>The device arrived to me in very good condition, the former owner having performed a factory reset before shipping which was helpful. I immediately set out to root the device and dumped the rom and entire .apk library. Most are non-working as google services long ago stopped supporting android 2.x devices. No worries, since I plan to just cross compile needed linux applications and run them directly. After dumping the above to a safe place, I proceeded to just yeet ZergRush at it and after a reboot I plugged the device to my lappy. The adb shell then happily let me `su`.</p>
+
+<p><pre><code>
+# adb devices -l
+* daemon not running; starting now at tcp:5037
+* daemon started successfully
+
+List of devices attached
+I55102053da97          device usb:1-1 transport_id:1
+
+# adb shell
+$ su
+# whoami
+# 
+</code></pre></p>
+
+<p>Now one can set up their base of operations. Make a little bootstrap file that contains the following to `/data/local/tmp/bin/bootstrap` :</p>
+
+<p><pre><code>
+export HOME=/data/local/tmp
+hostname -F etc/hostname
+bin/bash
+</code></pre></p>
+
+<p>Now running `bin/bootstrap` from your $HOME will give one a bash shell, so little things like terminal escapes work better.</p>
+
+<p>But what's better than that? Running Gentoo on it by shoving a root fs on an sd card and mounting via chroot. This enables me to also mount the same rootfs locally, use `qemu-arm-static` to chroot to it, and build packages far more quickly than at the paltry 600 MHz the phone has to offer. I can then run a temporary binhost and `emerge` the binary package directly to phone. Instructions on how to do this for the samsung and pogoplug to follow (since the same recipe works well for both machines).</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Mobile.html'>Mobile</a></p>
+
+
+<!-- text end -->
+<h3><a class="ablack" href="one-week-1920.html">
+One week (1920)
+</a></h3>
+<!-- blog_timestamp: #202510061945.38# -->
+<div class="subtitle">October 06, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+
+<p>"One Week" is a 1920 silent comedy short starring Buster Keaton as a newlywed who, with his bride, assembles a prefabricated house sabotaged by jealous rivals, resulting in a whirlwind of absurd structural mishaps and escalating destruction. The film culminates in a storm-ravaged finale where the house, now adrift on a rotating platform, nearly dooms the couple before a heroic save.</p>
+
+<p><center><video width="600" height="380" controls src="media/video/oneweek.mp4" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Movies.html'>Movies</a>, <a href='tag_Warez.html'>Warez</a></p>
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="rammstein---amerika-official-video.html">
+Rammstein - Amerika (Official Video)
+</a></h3>
+<!-- blog_timestamp: #202510061619.00# -->
+<div class="subtitle">October 06, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+
+<p><center><video width="600" height="380" controls src="media/video/amerika.webm" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Music.html'>Music</a></p>
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="wot-historical.html">
+web of trust historical
+</a></h3>
+<!-- blog_timestamp: #202510031158.44# -->
+<div class="subtitle">October 03, 2025 &mdash; 
+Shinoa Fores (shinohai)
+</div>
+<!-- text begin -->
+<p>This is a placeholder page for historical web of trust data. Most data here reflects deedbot.org ratings as captured in <a href="https://archive.is/4Q58E">this archive</a>. My current keyring is as follows:</p>
+
+<p><img src="../wot/wot.png"></img></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_PGP.html'>PGP</a>, <a href='tag_WOT.html'>WOT</a></p>
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="akris-desktop-available-in-pip.html">
+Akris desktop available in pip
+</a></h3>
+<!-- blog_timestamp: #202509302051.27# -->
+<div class="subtitle">September 30, 2025 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p><a href="https://btc.info.gf/blog/building-awts-akris-pestnet-client-on-gentoo.html">Akris Desktop</a> is now available in pip according to <a href="http://logs.bitdash.io/pest/2025-09-26#1034936">this message</a> by the author.</p>
+
+<p>Installation is therefore as easy as:</p>
+
+<p><pre><code>pip install akris-desktop --user
+</code></pre></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Encryption.html'>Encryption</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<h3><a class="ablack" href="vivaldi-storm.html">
+Vivaldi: Storm
+</a></h3>
+<!-- blog_timestamp: #202509301444.20# -->
+<div class="subtitle">September 30, 2025 &mdash; 
+shinohai
+</div>
+<!-- text begin -->
+
+<p>"Storm" from A. Vivaldi, performed by the Carisma Guitar Duo.</p>
+
+<p><center><video width="600" height="380" controls src="media/video/vivaldi_storm.webm" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Music.html'>Music</a>, <a href='tag_Warez.html'>Warez</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+<div id="all_posts"><a href="all_posts.html">View more posts</a> &mdash; <a href="all_tags.html">All tags</a> &mdash; <a href="rss/feed.rss">Subscribe</a></div>
+</div>
+<div id="footer"> <a href="http://btc.info.gf">Shinoa Fores (shinohai)</a> &mdash; <a href="mailto:btcinfo&#64;sdf&#46;org">btcinfo&#64;sdf&#46;org</a> <br/>
+<p><center><a href=https://mempool.space/address/1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6>BTC: 1MyfLJS8ZKw5zS6cjdiEVM69i8ZwCaDVM6</a></center</p>
+<p><center><a href=monero:4forescxmcCakSHg2xffCDJdt8ppSt3m1L5muRG3JbhAMnCnRfvQmb9wimoJWnuc42buvMkugEejZqve1EN5bPKUSEiBTT>XMR: shinohai@btc.info.gf</a></center</p>
+<p><center><i>This page was generated using bash, sed, and awk</i></center></p>
+<p><center><img src=media/img/gentoo.gif>&nbsp;<img src=media/img/vim.gif></img>&nbsp;&nbsp;<a href=rss/feed.rss><img src=media/img/rss.png></img></a></center></p>
+</div></div>
+</body></html>

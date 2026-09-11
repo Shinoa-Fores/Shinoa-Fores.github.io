@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>btcinfo</title><link>http://btc.info.gf/blog/index.html</link><description></description><atom:link href="http://feedcleaner.nick.pro/sanitize?url=http%3A%2F%2Fbtc.info.gf%2Fblog%2Frss%2Ffeed.rss&amp;format=rss" rel="self"></atom:link><lastBuildDate>Thu, 21 Nov 2019 13:58:53 -0000</lastBuildDate><item><title>Mircea Popescu, or how to spread 500 words of liquishit and say nothing</title><link>http://btc.info.gf/blog/mircea-popescu-or-how-to-spread-500-words-of-liquishit-and-say-nothing.html</link><description>&lt;p&gt;About a week ago, I was merrily working on some bot things when &lt;a href="http://archive.is/QLkQ3"&gt;this Qntra piece&lt;/a&gt; came through my rss feed. I couldn't resist the temptation to lampoon and/or stir the pot and decided to leave a single-sentence comment and wait for the fireworks:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;
+&lt;a href="http://archive.is/QLkQ3#selection-227.0-251.82"&gt;shinohai says:
+November 14, 2019 at 8:49 pm
+They'll see the light and switch to writing farticles on mp-turdpress any day now.&lt;/a&gt;&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;A few days later, good 'ol botty gives me another rss ping containing the expected reply:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;
+&lt;a href="http://archive.is/QLkQ3#selection-279.0-315.268"&gt;Mircea Popescu says:
+November 16, 2019 at 9:40 am
+No, shitface, they won't do that. What they'll do instead is join the chorus of cripple fucks 
+whining about how nobody can accuse them of not being just like me.
+You didn't invent that, you know. You're just some shitface-come-lately 
+to the longest ongoing party in the history of the world, 
+it was happening in cesspools before they started building sewage pipes.
+Now get the fuck lost in your sulkhole for another few years, 
+then come back like maybe nobody remembers you're not on your own power worth the cost of a decent burial. 
+Who knows, maybe that time the world will be more amenable to shitfaces ? "You never know", right ?&lt;/a&gt;&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src="http://btc.info.gf/blog/rss/media/img/bingo.gif" /&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Well, I don't take orders from the &lt;a href="http://btc.info.gf/blog/rome-continues-to-burn-as-snsa-liquidation-announced.html"&gt;capricious Caesar&lt;/a&gt; anymore, and don't have a sulkhole - I have a &lt;i&gt;lulzhole&lt;/i&gt;, and let me tell you TMSR provides &lt;i&gt;plenty&lt;/i&gt; of fodder for that lately. So let's have some &lt;i&gt;more&lt;/i&gt; fun with this. Botty has an experimental search function, so I dumped &amp;quot;Mircea Popescu&amp;quot; + all the words related to shit into the hopper. The first result? Why it's a reddit post, where it appears a year earlier some of the other TMSR cult members tried to spread the gospel, with the same predictable results I got from my &amp;quot;reddit experiment&amp;quot;.&lt;/p&gt;
+&lt;p&gt;This gem gave me the idea for the title of this post:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;&lt;a href="http://archive.is/NkVcG#selection-647.0-647.88"&gt;oh nu, mircea popescu sau cum sa asterni o diaree de 500 de cuvinte si sa nu zici nimic.&lt;/a&gt;&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;It gets lulzier:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;&lt;a href="http://archive.is/EdVHH#selection-655.0-677.383"&gt;No. Some of us did, around the late 2000's, but he ended with the nickname the irrelevant worm.
+
+One can tell so many lies that something is rotten in ... Denmark.
+
+He thought that having a blog to swing his dick around would make him someone. 
+That didn't work because he had a shitty view of life, people and everything. 
+Then he moved to harassing other fellow romanian bloggers, 
+random, then bribing to say nice things about them or some shit. 
+He would blatantly lie, make up shit about people or places that his been to or things he might have done, 
+then harass people or bloggers who would call him as a liar and a poser.&lt;/a&gt;&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Ouch!&lt;/p&gt;
+&lt;p&gt;Pasting the text from the &lt;a href="http://archive.is/QLkQ3#selection-279.0-315.268"&gt;above comment&lt;/a&gt; and running `wc -w comment.txt` on it revealed a word count of 113, so it could have been worse - the recent drama with poor &lt;a href="http://www.loper-os.org/"&gt;asciilifeform&lt;/a&gt; produced a word diarrhea with a count numbering in the thousands which can be found in a search of &lt;a href="http://logs.nosuchlabs.com/log/trilema"&gt;the logs&lt;/a&gt;.
+
+&lt;/p&gt;&lt;p&gt;That's all for now folks, please excuse me, I have a &lt;a href="http://btc.info.gf/blog/tag_Lulz.html"&gt;lulzhole&lt;/a&gt; to go get lost in.&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_News.html"&gt;News&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_TMSR.html"&gt;TMSR&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Lulz.html"&gt;Lulz&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Thu, 21 Nov 2019 13:58:53 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fmircea-popescu-or-how-to-spread-500-words-of-liquishit-and-say-nothing.html</guid></item><item><title>Essential kit items: Building SBCL on Gentoo with musl</title><link>http://btc.info.gf/blog/essential-kit-items-building-sbcl-on-gentoo-with-musl.html</link><description>&lt;p&gt;Steel Bank Common Lisp is another must-have tool in my kit, since I use it to run my hybrid irc/Telegram bot and many other daily use items. In my &lt;a href="http://btc.info.gf/blog/rss/building-gcc-494-with-musl-on-gentoo.html"&gt;previous post&lt;/a&gt; I documented how I managed to get gcc-4.9.4 massaged into shape, so this post will serve as a reference on how to do the same for SBCL so in the future I don't have to spend the day researching fixes and locating obscure patchsets.&lt;/p&gt;
+&lt;p&gt;When building many things using musl, one will often run into "undefined reference to `memcpy@GLIBC_*'" type errors, since glibc uses versioned symbols and musl does not. SBCL is no different, but fortunately a little digging turned up a &lt;a href="https://sourceforge.net/p/sbcl/mailman/message/36598627/"&gt;working patchset on the SBCL mailing list&lt;/a&gt; which works beautifully, so I didn't have to spend the better part of a day cobbling one together as I did for gcc. I have preserved a copy of the patchset &lt;a href="http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/"&gt;here&lt;/a&gt; and will definitely do my best to maintain these into the future should any major changes occur.&lt;/p&gt;
+&lt;p&gt;Much like Ada, SBCL requires itself or another ANSI common lisp to build. I decided to use CLISP (version 2.49.92) to perform this task, as it can be quickly built from sources using gcc only (and I didn't want to use a pre-built sbcl binary of unknown provenance). After getting clisp in place, building SBCL is mostly painless using the following steps:&lt;/p&gt;
+&lt;p&gt;I downloaded the 1.5.7 sources from my site and verified the checksums:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/sbcl-1.5.7-source.tar.bz2
+curl -O http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/1.5.7/Manifest.sha512&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Unpack the sources and enter the directory:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;tar xjf sbcl-1.5.7-source.tar.bz2 &amp;&amp; cd sbcl-1.5.7&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Get the musl patchset and apply them:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;wget -q -r -nd -N --no-parent -R "index.html*" http://btc.info.gf/devel/gentoo/distfiles/dev-lisp/sbcl/patches/
+for i in *.patch; do patch -p1 &lt; $i; done&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Build using CLISP and install:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;./make.sh "clisp" --fancy
+./install.sh&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;The above recipe has so far worked quite nicely, having been tested by running the above mentioned irc bot and a few other essential lisp programs. I will update this post if/when any bugs are found or if any changes are made.&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_News.html"&gt;News&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Linux.html"&gt;Linux&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Lisp.html"&gt;Lisp&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Fri, 08 Nov 2019 15:07:48 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fessential-kit-items-building-sbcl-on-gentoo-with-musl.html</guid></item><item><title>Building gcc 4.9.4 with musl on Gentoo</title><link>http://btc.info.gf/blog/building-gcc-494-with-musl-on-gentoo.html</link><description>&lt;p&gt;Lately I have been experimenting a lot more with musl as a replacement for the continually shitty glibc. While musl was a standard part of &lt;a href="http://btc.info.gf/blog/rss/cuntoo-a-linux-that-sucks-less.html"&gt;cuntoo&lt;/a&gt;, it appears that particular project is mostly abandoned by it's author and I want to be more responsible for my own toolkit anyway. So starting with the most recent vanilla musl gentoo stage3, I decided getting my preferred compiler working would be first order of business. I tried the portage route with a simple `emerge -av =sys-devel/gcc-4.9.4-r1` which sang along happily for a while until hitting "configure: error: cannot run C compiled programs." and a few other errors.&lt;/p&gt;
+&lt;p&gt;After spending some time researching the errors and trying various fixes, I managed to produce a patch that will allow me to manually perform the ebuild steps and get a working gcc for musl. I used the following steps:&lt;/p&gt;
+&lt;p&gt;Download the sources:&lt;/p&gt;&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild fetch&lt;/p&gt;
+&lt;p&gt;Configure:&lt;/p&gt;
+&lt;p&gt;ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild configure&lt;/p&gt;
+&lt;p&gt;Go to the source work directory (located at /var/tmp/portage/sys-devel/gcc-4.9.4-r1/work/gcc-4.9.4) and download &lt;a href="http://btc.info.gf/devel/gentoo/distfiles/sys-devel/gcc/4.9.4/patches/gcc-4.9.4-musl.patch"&gt;this patch&lt;/a&gt; &lt;a href="http://btc.info.gf/devel/gentoo/distfiles/sys-devel/gcc/4.9.4/patches/gcc-4.9.4-musl.patch.asc"&gt;(sig)&lt;/a&gt; and verify, then patch:&lt;/p&gt;
+&lt;p&gt;patch -p1 &lt; gcc-4.9.4-musl.patch&lt;/p&gt;
+&lt;p&gt;After patching, complete the manual ebuild steps:&lt;/p&gt;
+&lt;p&gt;ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild compile&lt;/p&gt;
+&lt;p&gt;ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild install&lt;/p&gt;
+&lt;p&gt;ebuild /var/db/repos/gentoo/sys-devel/gcc/gcc-4.9.4-r1.ebuild merge&lt;/p&gt;
+&lt;p&gt;Enjoy your shiny new compiler.&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;(chroot) shinohai ~ # gcc-config -l
+ [1] x86_64-gentoo-linux-musl-4.9.4 *
+ [2] x86_64-gentoo-linux-musl-8.3.0&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Next order of business will be trying a fellow named &lt;a href="http://archive.is/oLixg"&gt;ave1's Ada build for musl&lt;/a&gt; and making a &lt;b&gt;POST&lt;/b&gt;&lt;sup&gt;&lt;a href="http://btc.info.gf/blog/rss/feed.rss#fn1" id="ref1"&gt;1&lt;/a&gt;&lt;/sup&gt; on the results, in addition to publishing the steps I used to get SBCL working in this environment as well.&lt;/p&gt;
+&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Tue, 05 Nov 2019 22:13:24 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fbuilding-gcc-494-with-musl-on-gentoo.html</guid></item><item><title>Rome continues to burn as S.NSA liquidation announced</title><link>http://btc.info.gf/blog/rome-continues-to-burn-as-snsa-liquidation-announced.html</link><description>&lt;p&gt;Mircea Popescu continues the war against his own allies, this time &lt;a href="http://archive.is/TvhDM"&gt;announcing the liquidation of MPEX stalwart S.NSA&lt;/a&gt;. The linked article contains many lulzworthy gems, my favorite being:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;
+As a factual matter, for the interval quoted, which is to say the past six years, Stanislav Datskovskiy has produced exactly nothing.
+&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;One can easily verify that this is nonsense, thanks to asciilifeform we have the only known fully auditable TRNG in existence, FUCKGOATS, &lt;a href="http://www.loper-os.org/?p=1913"&gt;an excellent Arithmetic library, FFA&lt;/a&gt; (which hopefully will replace OpenSSL in &lt;a href="http://thebitcoin.foundation/"&gt;therealbitcoin&lt;/a&gt; at some juncture.) and too many other treasures to list in this post. You don't have to take my word for it however, simply visit loper-os.org and read the cornucopia of goodies within - It's quite easy to spend an entire afternoon reading one post after the next.&lt;/p&gt;
+&lt;p&gt;I for one am happy asciilifeform has finally uncoupled himself from the capricious Caesar and look forward to see what other &lt;a href="http://logs.nosuchlabs.com/log/asciilifeform/2019-11-03#1001176"&gt;indestructible tanks&lt;/a&gt; roll out of the loper workshop in the future. As part of my own personal renaissance, I hope I can put some of these excellent tools to use should The Bitcoin Foundation survive this brouhaha.&lt;sup&gt;&lt;a href="http://btc.info.gf/blog/rss/feed.rss#fn1" id="ref1"&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;More will be published on the continuing saga of TMSR as events unfold. Stay tuned folks!&lt;/p&gt;
+&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Mon, 04 Nov 2019 14:49:57 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Frome-continues-to-burn-as-snsa-liquidation-announced.html</guid></item><item><title>Shinohai's Saturday Shitcoin Selections 5</title><link>http://btc.info.gf/blog/shinohais-saturday-shitcoin-collection-5.html</link><description>&lt;p&gt;&lt;b&gt;From around teh interwebz:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;A LBGTBBQ rights cucks the clucks and sends Chick-fil-A packing in Reading, England. Their crimes include not selling chicken on Sunday and a notable absence of filthy faggot fry-cooks in their kitchens.&amp;nbsp;&lt;a href="http://archive.is/LTAwY"&gt;(archived)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;Pizarro ISP continues to wrap up operations, after a sparrow fart and a match &lt;a href="http://btc.info.gf/blog/rss/persistent-packeting-problems-plague-pizarro.html"&gt;brought operations to a screeching halt&lt;/a&gt; earlier this month. Management responded to the incident by simply null routing Pizarro ipspace and showing affected users pretty charts, hoping no one would notice their incompetence under fire. Electronic keys were revoked in a desperate move to keep the gringo monies in their cache, but apparently it's ok to sue now, this one time. A smattering of mp-turdpress tmsr blogs have resumed operations, though Eulora homepage minigame.biz &lt;a href="http://archive.is/Fhmsg"&gt;was still down at the time of writing&lt;/a&gt;, leaving fans of auctionbot spam in #eulora irc to find a new log source.&lt;/p&gt;
+&lt;p&gt;A backdoored version of the Tor browser was used to &lt;a href="http://archive.is/KGHZn"&gt;steal Bitcoin from darknet market users&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_News.html"&gt;News&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Bitcoin.html"&gt;Bitcoin&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Cryptocurrency.html"&gt;Cryptocurrency&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_TMSR.html"&gt;TMSR&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Lulz.html"&gt;Lulz&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Sat, 19 Oct 2019 21:36:20 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fshinohais-saturday-shitcoin-collection-5.html</guid></item><item><title>Persistent Packeting Problems Plague Pizarro</title><link>http://btc.info.gf/blog/persistent-packeting-problems-plague-pizarro.html</link><description>&lt;p&gt;An &lt;a href="http://archive.is/Eo8Nk"&gt;apparent DDoS attack on Pizarro ISP&lt;/a&gt; has left the TMSR without a portion of it's infrastructure. Affected services include &lt;a href="http://qntra.net"&gt;Qntra&lt;/a&gt;, &lt;a href="http://nosuchlabs.com"&gt;nosuchlabs&lt;/a&gt;, Eulora, and several blogs and logbots. The solution will likely be an amalgamation of &lt;a href="http://archive.is/KkCj2"&gt;more pythonshit&lt;/a&gt; and berating Republican vassals, so that services &lt;a href="http://archive.is/LSolM"&gt;aren't brought down by a bash script&lt;/a&gt; while learning the finer points of systems administration ever again.&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_News.html"&gt;News&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Insecurity.html"&gt;Insecurity&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Lulz.html"&gt;Lulz&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_TMSR.html"&gt;TMSR&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Sun, 06 Oct 2019 21:39:05 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fpersistent-packeting-problems-plague-pizarro.html</guid></item><item><title>Yet another Zcash bug</title><link>http://btc.info.gf/blog/yet-another-zcash-bug.html</link><description>&lt;p&gt;&lt;a href="http://btcinfo.sdf.org/blog/zcash-on-coinbase-a-twitter-comedy-in-two-acts-.html"&gt;Zcash&lt;/a&gt; is urging it's userbase to immediately upgrade their wallets and node software to apply an "important security fix". 
+A bulletin issued by the developers released no details, but stated:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;
+"Version 2.0.7-3 of Zcashd includes an important security fix in response to an issue that was reported to us on Friday September 13th 2019 by Florian Tramèr, Dan Boneh, and Kenneth G. Paterson.
+
+Users should upgrade their nodes to this version immediately and discontinue use of older versions.
+
+Please note that the issue does not put funds at risk of theft or counterfeiting. More details of the issue will be released in coordination with the reporters of the issue at a future date."
+&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;This latest undisclosed issue is the second reported flaw in Zcash this year alone, the first being a bug that was found that allowed one to &lt;a href="http://archive.is/eoG8U"&gt;print unlimited monies&lt;/a&gt; which the 
+developers kept secret for 8 months.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;UPDATE:&lt;/b&gt; The bug was disclosed by KMD developer Duke Leto, who stated:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;
+“A bug has existed for all shielded addresses since the inception of Zcash and Zcash Protocol. It is present in all Zcash source code forks. It is possible to find the IP address of full nodes who own a shielded address (zaddr). That is, Alice giving Bob a zaddr to be paid, could actually allow Bob to discover Alice’s IP address. This is drastically against the design of Zcash Protocol.”
+&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_&amp;lt;a href="&gt;&lt;/a&gt;&lt;a href="http://btc.info.gf/blog/rss/tag_News.html"&gt;News&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_&amp;lt;a href="&gt;&lt;/a&gt;&lt;a href="http://btc.info.gf/blog/rss/tag_Cryptocurrency.html"&gt;Cryptocurrency&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_&amp;lt;a href="&gt;&lt;/a&gt;&lt;a href="http://btc.info.gf/blog/rss/tag_Insecurity.html"&gt;Insecurity&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_&amp;lt;a href="&gt;&lt;/a&gt;&lt;a href="http://btc.info.gf/blog/rss/tag_Lulz.html"&gt;Lulz&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Tue, 01 Oct 2019 15:32:28 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fyet-another-zcash-bug.html</guid></item><item><title>soopy452000, an indictment</title><link>http://btc.info.gf/blog/soopy452000-an-indictment.html</link><description>&lt;p&gt;Sometime around the &lt;a href="http://btc.info.gf/blog/lead-dick-leaves-unobtanium-project.html"&gt;exit of Bryce Weiner&lt;/a&gt;, the &lt;a href="http://unobtanium.uno"&gt;Unobtanium project&lt;/a&gt; acquired a new "developer" who goes by the 
+moniker of soopy452000. Let's examine a few alarm bells on why you shouldn't let this guy anywhere near you coin, or anything to do with mission-critical code for that matter, and put this conversationbed.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Love 'em and leave 'em.&lt;/b&gt; Señor soopy has a reputation of inserting himself into cryptocoin communities, making questionable code changes, and absconding with funds. Good 'ol Bitcointalk registers a complaint from a user 
+who testifies he sold 3 billion Beecoin for LTC, left the community hanging, and moved on to Navcoin. &lt;a href="http://archive.is/Z3sPp"&gt;(archived)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;pre&gt;&lt;blockquote&gt;
+&lt;a href="http://archive.is/Z3sPp#selection-2495.0-2503.123"&gt;&lt;b&gt;anotherlateminer:&lt;/b&gt;&lt;/a&gt;
+"Read 2 pages from here: https://bitcointalk.org/index.php?topic=601247.msg8923728#msg8923728
+BEEs have been sold in order to be used for development and there are still no signs 
+of any development. LTC are just gone."
+&lt;/blockquote&gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Telegram chats have provided a few gems as well:&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;A kind stranger comes to the main channel to warn what UNO might be getting into. &lt;a href="http://archive.is/dVt8u#selection-3377.1-3377.198"&gt;(archived)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src="http://btc.info.gf/blog/rss/media/img/soopy1.png" /&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;It didn't take long for teh lulz to manifest:&lt;/p&gt;&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;center&gt;&lt;img src="http://btc.info.gf/blog/rss/media/img/soopy2.png" /&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Readers of this blog already know about the war on cryptography from various "nation-states", and why you should be very careful of what tools you use when working with these items. Soopy exhibits very amateur behavior when 
+dealing with such, from generating keys using keybase.io&lt;sup&gt;&lt;a href="http://btc.info.gf/blog/rss/feed.rss#fn1" id="ref1"&gt;1&lt;/a&gt;&lt;/sup&gt; &lt;a href="http://archive.is/9OBUB"&gt;(archived)&lt;/a&gt;, to posting unusable signed walls of text to Telegram chats that can't be 
+verified.&lt;/p&gt;
+&lt;p&gt;Yes, this has predictable results, and clowns in this camp will likely come up with the same tired excuses to explain it. &lt;a href="http://archive.is/JQcxf#selection-2329.1-2329.392"&gt;(archived)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src="http://btc.info.gf/blog/rss/media/img/soopy3.png" /&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;Socialisms, like zooko.usg "dev subsidies" have no place in cryptocurrency. But that doesn't stop picadors trained in &lt;a href="http://archive.is/pKLep"&gt;the Democratic Socialist Republic of Sri Lanka&lt;/a&gt; from trying to print 
+unlimited money, and hoping no one notices, as was the case with 42coin:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;
+"What is remarkable in the history of 42, is that until the spring of 2014 the coin supply was really capped at 42, but on March 17, 2014, the GitHub user sherlockcoin (aka soopy452000) made it unlimited. He was working under KGW 
+implementation and no one noticed this "small change"." &lt;a href="http://archive.is/Q2HH7#selection-637.0-637.283"&gt;(archived)&lt;/a&gt;
+&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;So there you have it folks, and the above-stated reasons are just a few examples of why I won't be trusting any code pushed by this moron to the "official" &lt;a href="https://github.com/unobtanium-official/Unobtanium"&gt;Github&lt;/a&gt;&lt;sup&gt;&lt;a href="http://btc.info.gf/blog/rss/feed.rss#fn2" id="ref2"&gt;2&lt;/a&gt;&lt;/sup&gt;, and neither should you. But, &lt;i&gt;Caveat Emptor&lt;/i&gt;, do your own research, and decide for yourself.&lt;/p&gt;
+&lt;hr /&gt;</desciption><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Wed, 14 Aug 2019 19:32:36 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fsoopy452000-an-indictment.html</guid></item><item><title>A patch for db4.8 on gcc8+</title><link>http://btc.info.gf/blog/a-patch-for-db48-on-gcc8.html</link><description>&lt;p&gt;The march of "progress" sometimes brings about a lot of headaches, especially when I am forced to work on heathen systems such as Debian and Ubuntu. This became readily apparent while installing bitcoind (core) to a server 
+equipped with gcc-9.1.0 this past week. While building the dependencies, db-4.8.30.NC promptly shat out this error:&lt;/p&gt;
+&lt;p&gt;&lt;pre&gt;&lt;blockquote&gt;
+definition of 'int __atomic_compare_exchange(db_atomic_t*, atomic_value_t, atomic_value_t)'
+ ambiguates built-in declaration
+ 'bool __atomic_compare_exchange(long unsigned int, volatile void*, void*, void*, int, int)'
+ static inline int __atomic_compare_exchange
+&lt;/blockquote&gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;p&gt;A relatively simple patch allowed me continue building error-free. I have included in the /library/ &lt;a href="http://btc.info.gf/library/bitcoin/dependencies/patches/dbatomic.patch"&gt;here&lt;/a&gt; for future reference. Place it in 
+the root of the db-4.8.30.NC folder and apply manually as you would any other patch.&lt;/p&gt;
+&lt;p&gt;While impossible to completely rid the world of such fuckery, I consider this just another tool in the box to make things slightly less painful&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_Bitcoin.html"&gt;Bitcoin&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_UNIX.html"&gt;UNIX&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Webshit.html"&gt;Webshit&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Sat, 10 Aug 2019 04:07:47 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fa-patch-for-db48-on-gcc8.html</guid></item><item><title>btcbase logs fail again</title><link>http://btc.info.gf/blog/btcbase-logs-fail-again.html</link><description>&lt;p&gt;The btcbase irc log for the tmsr in #trilema has apparently &lt;a href="http://archive.is/VN7L0#selection-6085.0-6093.32"&gt;left the building&lt;/a&gt; &lt;a href="http://btc.info.gf/blog/tmsr-logs-domain-btcbase-down-for-3-days-and-counting.html"&gt;once more&lt;/a&gt;, leaving the crumbling republic with no real-time documentation of it's proceedings. Caesar Augustus hinges hopes on forum 
+member lobbes &lt;a href="http://archive.is/VN7L0#selection-6539.0-6553.34"&gt;finishing a logbot&lt;/a&gt;, hopefully one that doesn't put the `$` symbol in front of words every third line like it's author. Until then, it appear the channel 
+will enter &lt;a href="http://archive.is/VN7L0#selection-6667.0-6675.331"&gt;radio silence&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;UPDATE:&lt;/b&gt; &lt;a href="http://archive.is/mXP6u"&gt;A Trilema post was made on subject&lt;/a&gt;, with the following at the tail of the logs:&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;&lt;pre&gt;
+    Aug 02 08:28:52 * feedbot has quit (Write error: Connection reset by peer)
+    Aug 02 08:34:50 * mircea_popescu removes channel operator status from deedbot
+    Aug 02 08:34:54 * mircea_popescu removes voice from whaack
+    Aug 02 08:34:58 * mircea_popescu removes voice from trinque
+    Aug 02 08:35:01 * mircea_popescu removes voice from spyked
+    Aug 02 08:35:08 * mircea_popescu removes channel operator status from scriba
+    Aug 02 08:35:13 * mircea_popescu removes voice from scriba
+    Aug 02 08:35:17 * mircea_popescu removes voice from phf
+    Aug 02 08:35:20 * mircea_popescu removes voice from mod6
+    Aug 02 08:35:23 * mircea_popescu removes voice from Mocky
+    Aug 02 08:35:26 * mircea_popescu removes voice from lobbes
+    Aug 02 08:35:30 * mircea_popescu removes voice from jurov
+    Aug 02 08:35:33 * mircea_popescu removes voice from dorion
+    Aug 02 08:35:37 * mircea_popescu removes voice from diana_coman
+    Aug 02 08:35:41 * mircea_popescu removes voice from danielpbarron
+    Aug 02 08:35:44 * mircea_popescu removes voice from bvt
+    Aug 02 08:35:48 * mircea_popescu removes voice from BingoBoingo
+    Aug 02 08:35:51 * mircea_popescu removes voice from billymg
+    Aug 02 08:35:55 * mircea_popescu removes voice from ave1
+    Aug 02 08:35:59 * mircea_popescu removes voice from auctionbot
+    Aug 02 08:36:03 * mircea_popescu removes voice from asciilifeform
+    Aug 02 08:36:09 * mircea_popescu removes voice from mircea_popescu
+    Aug 02 08:36:14 * mircea_popescu removes channel operator status from mircea_popescu
+&lt;/pre&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Tags: &lt;a href="http://btc.info.gf/blog/rss/tag_News.html"&gt;News&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Bitcoin.html"&gt;Bitcoin&lt;/a&gt;, &lt;a href="http://btc.info.gf/blog/rss/tag_Lulz.html"&gt;Lulz&lt;/a&gt;&lt;/p&gt;
+&lt;!-- text end --&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shinohai</dc:creator><pubDate>Fri, 02 Aug 2019 20:33:36 -0000</pubDate><guid>http://feedsanitizer.appspot.com/id/http%3A%2F%2Fbtc.info.gf%2Fblog%2F.%2Fbtcbase-logs-fail-again.html</guid></item></channel></rss>
+
+
+

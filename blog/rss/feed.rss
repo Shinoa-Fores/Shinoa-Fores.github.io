@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel><title>btcinfo</title><link>http://btc.info.gf/blog/index.html</link>
+<description>Hic inserere motto</description><language>en</language>
+<lastBuildDate>Tue, 23 Dec 2025 11:05:05 -0500</lastBuildDate>
+<pubDate>Tue, 23 Dec 2025 11:05:05 -0500</pubDate>
+<atom:link href="http://btc.info.gf/blog/rss/feed.rss" rel="self" type="application/rss+xml" />
+<item><title>
+Happy Festivus
+</title><description><![CDATA[
+
+<p>No Festivus celebration is complete without a viewing of the classic 1997 Seinfeld episode "The Strike". This particular episode being quite difficult to find online in streaming format, it shall be preserved to the holiday warez library here for future celebrations.</p>
+
+<p>Feel free to air your grievances below in the comments section</p>
+
+<p><center><video width="600" height="380" controls src="media/video/thestrike.mp4" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Holidays.html'>Holidays</a>, <a href='tag_Warez.html'>Warez</a></p>
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/happy-festivus.html</link>
+<guid>http://btc.info.gf/blog/./happy-festivus.html</guid>
+<dc:creator>Shinoa Fores (shinohai)</dc:creator>
+<pubDate>Tue, 23 Dec 2025 11:00:00 -0500</pubDate></item>
+<item><title>
+Classic 80s Halloween Commercials
+</title><description><![CDATA[
+
+<p>A collection of Classic 80s Halloween Commercials. Happy Halloween!</p>
+
+<p><center><video width="600" height="380" controls src="media/video/classichalloween80.webm" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Holidays.html'>Holidays</a>, <a href='tag_Warez.html'>Warez</a></p>
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/classic-80s-halloween-commercials.html</link>
+<guid>http://btc.info.gf/blog/./classic-80s-halloween-commercials.html</guid>
+<dc:creator>Shinoa Fores (shinohai)</dc:creator>
+<pubDate>Fri, 31 Oct 2025 19:19:57 -0400</pubDate></item>
+<item><title>
+Samsung GT-I5510M
+</title><description><![CDATA[
+
+<p><img src="media/img/SAMSUNG2.jpg"></img></p>
+
+<p>Just look at this beauty! This was the dawn of smartphone technology, a touchscreen phone that <i>also</i> had a slide out keyboard!</p>
+
+<p>I recall one evening well nigh on a decade and a half ago when I used one of these running Windows mobile to finish a presentation I had due the next morning - my laptop suddenly died whilst composing some final touches, but the little phone saved the day! This particular example came to me via a <a href="https://btc.info.gf/wot/pgp/EC4C5CE6F0EEEF87.asc">reader and supporter in Canada</a> who sent the phone AND a spare battery, so I felt compelled to give this forgotten little device a purpose.</p>
+
+<p>Some specs I like: A Qualcomm MSM7227 Snapdragon S1 CPU with a whopping <i>600 MHz!</i> An astounding 240 x 400 pixel screen but it's TFT so yer good. Ancient camera tech exists on these, and even webcam ip works to a degree. Besides WiFi and Bluetooth capabilities, the device also has a Stereo FM radio (RDS), which uses the <i>honest-to-god-wired-headphone-jack</i> as an aerial.</p>
+
+<p>The device arrived to me in very good condition, the former owner having performed a factory reset before shipping which was helpful. I immediately set out to root the device and dumped the rom and entire .apk library. Most are non-working as google services long ago stopped supporting android 2.x devices. No worries, since I plan to just cross compile needed linux applications and run them directly. After dumping the above to a safe place, I proceeded to just yeet ZergRush at it and after a reboot I plugged the device to my lappy. The adb shell then happily let me `su`.</p>
+
+<p><pre><code>
+# adb devices -l
+* daemon not running; starting now at tcp:5037
+* daemon started successfully
+
+List of devices attached
+I55102053da97          device usb:1-1 transport_id:1
+
+# adb shell
+$ su
+# whoami
+# 
+</code></pre></p>
+
+<p>Now one can set up their base of operations. Make a little bootstrap file that contains the following to `/data/local/tmp/bin/bootstrap` :</p>
+
+<p><pre><code>
+export HOME=/data/local/tmp
+hostname -F etc/hostname
+bin/bash
+</code></pre></p>
+
+<p>Now running `bin/bootstrap` from your $HOME will give one a bash shell, so little things like terminal escapes work better.</p>
+
+<p>But what's better than that? Running Gentoo on it by shoving a root fs on an sd card and mounting via chroot. This enables me to also mount the same rootfs locally, use `qemu-arm-static` to chroot to it, and build packages far more quickly than at the paltry 600 MHz the phone has to offer. I can then run a temporary binhost and `emerge` the binary package directly to phone. Instructions on how to do this for the samsung and pogoplug to follow (since the same recipe works well for both machines).</p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_UNIX.html'>UNIX</a>, <a href='tag_Mobile.html'>Mobile</a></p>
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/samsung-gt-i5510m.html</link>
+<guid>http://btc.info.gf/blog/./samsung-gt-i5510m.html</guid>
+<dc:creator>Shinoa Fores (shinohai)</dc:creator>
+<pubDate>Sun, 19 Oct 2025 11:10:59 -0400</pubDate></item>
+<item><title>
+One week (1920)
+</title><description><![CDATA[
+
+<p>"One Week" is a 1920 silent comedy short starring Buster Keaton as a newlywed who, with his bride, assembles a prefabricated house sabotaged by jealous rivals, resulting in a whirlwind of absurd structural mishaps and escalating destruction. The film culminates in a storm-ravaged finale where the house, now adrift on a rotating platform, nearly dooms the couple before a heroic save.</p>
+
+<p><center><video width="600" height="380" controls src="media/video/oneweek.mp4" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Movies.html'>Movies</a>, <a href='tag_Warez.html'>Warez</a></p>
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/one-week-1920.html</link>
+<guid>http://btc.info.gf/blog/./one-week-1920.html</guid>
+<dc:creator>Shinoa Fores (shinohai)</dc:creator>
+<pubDate>Mon, 06 Oct 2025 19:45:38 -0400</pubDate></item>
+<item><title>
+Rammstein - Amerika (Official Video)
+</title><description><![CDATA[
+
+<p><center><video width="600" height="380" controls src="media/video/amerika.webm" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Music.html'>Music</a></p>
+
+
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/rammstein---amerika-official-video.html</link>
+<guid>http://btc.info.gf/blog/./rammstein---amerika-official-video.html</guid>
+<dc:creator>Shinoa Fores (shinohai)</dc:creator>
+<pubDate>Mon, 06 Oct 2025 16:19:00 -0400</pubDate></item>
+<item><title>
+web of trust historical
+</title><description><![CDATA[
+<p>This is a placeholder page for historical web of trust data. Most data here reflects deedbot.org ratings as captured in <a href="https://archive.is/4Q58E">this archive</a>. My current keyring is as follows:</p>
+
+<p><img src="../wot/wot.png"></img></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_PGP.html'>PGP</a>, <a href='tag_WOT.html'>WOT</a></p>
+
+
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/wot-historical.html</link>
+<guid>http://btc.info.gf/blog/./wot-historical.html</guid>
+<dc:creator>Shinoa Fores (shinohai)</dc:creator>
+<pubDate>Fri, 03 Oct 2025 11:58:44 -0400</pubDate></item>
+<item><title>
+Akris desktop available in pip
+</title><description><![CDATA[
+
+<p><a href="https://btc.info.gf/blog/building-awts-akris-pestnet-client-on-gentoo.html">Akris Desktop</a> is now available in pip according to <a href="http://logs.bitdash.io/pest/2025-09-26#1034936">this message</a> by the author.</p>
+
+<p>Installation is therefore as easy as:</p>
+
+<p><pre><code>pip install akris-desktop --user
+</code></pre></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Encryption.html'>Encryption</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/akris-desktop-available-in-pip.html</link>
+<guid>http://btc.info.gf/blog/./akris-desktop-available-in-pip.html</guid>
+<dc:creator>shinohai</dc:creator>
+<pubDate>Tue, 30 Sep 2025 20:51:27 -0400</pubDate></item>
+<item><title>
+Vivaldi: Storm
+</title><description><![CDATA[
+
+<p>"Storm" from A. Vivaldi, performed by the Carisma Guitar Duo.</p>
+
+<p><center><video width="600" height="380" controls src="media/video/vivaldi_storm.webm" frameborder="0" allow="encrypted-media"></video></center></p>
+
+<p>Tags: <a href='tag_News.html'>News</a>, <a href='tag_Music.html'>Music</a>, <a href='tag_Warez.html'>Warez</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/vivaldi-storm.html</link>
+<guid>http://btc.info.gf/blog/./vivaldi-storm.html</guid>
+<dc:creator>shinohai</dc:creator>
+<pubDate>Tue, 30 Sep 2025 14:44:20 -0400</pubDate></item>
+<item><title>
+RIP Bushcat
+</title><description><![CDATA[
+
+<p><img src="media/img/bushcat.jpg"></img></p>    
+
+<p>Tags: <a href='tag_Life.html'>Life</a>, <a href='tag_Friends.html'>Friends</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/rip-bushcat.html</link>
+<guid>http://btc.info.gf/blog/./rip-bushcat.html</guid>
+<dc:creator>shinohai</dc:creator>
+<pubDate>Sun, 29 Jun 2025 18:43:11 -0400</pubDate></item>
+<item><title>
+Nostr keygen in common lisp
+</title><description><![CDATA[
+
+<p>It's high time some good, working common lisp tools existed for nostr. As far as I can tell only <a href="">cl-nosso</a> exists, though it is mostly non-working and far from complete. Here is my attempt at it's grossly inadequate keygen function. This requires the `ironclad` crypto library, available in quicklisp.</p>
+
+<p><code><pre>
+(defun make-key-pair ()
+  "Creates a nostr keypair with 32-byte private and public keys in hex."
+  (multiple-value-bind (private-key public-key)
+      (ironclad:generate-key-pair :secp256k1)
+    (flet ((bytes-to-hex (bytes)
+             (ironclad:byte-array-to-hex-string bytes)))
+      (let* ((priv-struct (ironclad:destructure-private-key private-key))
+             (pub-struct (ironclad:destructure-public-key public-key))
+             (priv-bytes (getf priv-struct :x))
+             (pub-point (getf pub-struct :y))
+             (pub-x (subseq pub-point 1 33))
+             (priv-hex (bytes-to-hex priv-bytes))
+             (pub-hex (bytes-to-hex pub-x)))
+        (list
+         :/private-key priv-hex 
+         :/public-key pub-hex))))) 
+
+(progn
+  (let ((kp (make-key-pair)))
+    (format t "Private key: ~A (~D bytes)~%" 
+            (getf kp :/private-key) 
+            (/ (length (getf kp :/private-key)) 2))
+    (format t "Public key: ~A (~D bytes)~%" 
+            (getf kp :/public-key) 
+            (/ (length (getf kp :/public-key)) 2))
+    (force-output)))
+</pre></code></p>
+
+<p>Come find me on <a href="https://nostr.band/npub1f0restzwusrck2k62dq2ueelrrfmdfnyk8uhart8n8nqwn94cwwsppm0sa">nostr</a> if you want to discuss or wish to complain about how this doesn't work for you. I'll probably just laugh at you for the latter, but come anyway!</p>    
+
+<p>Tags: <a href='tag_Lisp.html'>Lisp</a>, <a href='tag_Linux.html'>Linux</a>, <a href='tag_Nostr.html'>Nostr</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- text end -->
+]]></description><link>http://btc.info.gf/blog/nostr-keygen-in-common-lisp.html</link>
+<guid>http://btc.info.gf/blog/./nostr-keygen-in-common-lisp.html</guid>
+<dc:creator>shinohai</dc:creator>
+<pubDate>Wed, 09 Apr 2025 18:43:11 -0400</pubDate></item>
+</channel></rss>
