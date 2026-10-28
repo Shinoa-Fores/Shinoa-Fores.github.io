@@ -5,9 +5,57 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <!-- or the shorter HTML5-style (also valid in XHTML): -->
   <!-- <meta charset="utf-8" /> -->
-  <body bgcolor="#000000" link="#FFFFFF" vlink="#800080" alink="#FFFFFF">
-  <font face="courier" color="#FE0221">
-<script src="hook.js"></script>  
+
+<style type="text/css">
+  #construction-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+    text-align: center;
+    pointer-events: none; /* remove this line if you want the overlay to block clicks */
+  }
+
+  #construction-overlay .construction-text {
+    color: #808;
+    font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 20px #f00, 0 0 40px #f00;
+    animation: under-construction-flash 0.8s steps(1) 5 forwards;
+  }
+
+  #construction-overlay p {
+    margin-top: 1.2em;
+    font-family: courier, monospace;
+    font-size: 1.3rem;
+    font-weight: normal;
+    color: #00ff00;
+    pointer-events: auto; /* makes the link clickable even if the overlay has pointer-events: none */
+  }
+
+  #construction-overlay a {
+    color: #0ff;
+    text-decoration: underline;
+  }
+
+  @keyframes under-construction-flash {
+    0%, 49% { opacity: 1; }
+    50%, 99% { opacity: 0; }
+    100%     { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div id="construction-overlay">
+  <div class="construction-text">HACKED BY TURIZ!!!!</div>
+  <p>Click <a href="notice.html">HERE</a> for more info.</p>
+</div>
 <pre>
    _____   __    __        __        ___       
  _|  |  |_|  |--|  |_.----|__.-----.'  _.-----.
